@@ -1,4 +1,3 @@
-
 # Vue.js App Template with PrimeVue and Tailwind CSS
 
 This is a quick-start template for building Vue.js applications with [PrimeVue](https://www.primefaces.org/primevue/) and [Tailwind CSS](https://tailwindcss.com/). The template is designed to help you set up a new project quickly with a pre-configured environment, including a basic example of how to use PrimeVue components and Tailwind for styling.
@@ -10,8 +9,9 @@ This is a quick-start template for building Vue.js applications with [PrimeVue](
 To get started, clone the repository:
 
 ```sh
-git clone https://github.com/your-username/your-repo-name.git
-cd your-repo-name
+git clone https://github.com/tony-huaulme/VueJsPrimeVueTailwind.git
+cd VueJsPrimeVueTailwind
+
 ```
 
 ### 2. Install Dependencies
