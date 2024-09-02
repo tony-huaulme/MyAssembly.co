@@ -30,7 +30,7 @@ Start the development server using the following command:
 npm run dev
 ```
 
-The app should now be running at `http://localhost:3000` (or another port if 3000 is already in use).
+The app should now be running at `http://localhost:5173` ( VueJs default port ).
 
 ### 4. Build for Production
 
