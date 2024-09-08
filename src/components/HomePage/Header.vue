@@ -20,7 +20,8 @@
                 </a>
             </template>
             <template #end>
-                <Button ><p style="font-weight: bold; margin-right: 1ch; margin: 0;">Get Started</p><p style="margin: 0" class="lg:block hidden"> — it's free</p></Button>
+                <GetStartedButton><p class="m-0 ">Start Building</p></GetStartedButton>
+                <!-- <Button ><p style="font-weight: bold; margin-right: 1ch; margin: 0;">Get Started</p><p style="margin: 0" class="lg:block hidden"> — it's free</p></Button> -->
             </template>
         </Menubar>
     </div>
@@ -31,7 +32,7 @@ import { ref } from "vue";
 import Menubar from "primevue/menubar";
 import Badge from "primevue/badge";
 import Button from "primevue/button";
-
+import GetStartedButton from "./GetStartedButton.vue";
 
 const items = ref([
     {
@@ -95,9 +96,5 @@ const items = ref([
     border-radius: 0;
     background-color: var(--surface);
     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
-}
-
-.p-button {
-    padding: 0.5rem 1rem;
 }
 </style>

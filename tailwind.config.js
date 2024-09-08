@@ -6,7 +6,10 @@ export default {
     "./src/**/*.{vue,js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      width: { 'fill': '-webkit-fill-available', },
+      height: { 'fill': '-webkit-fill-available', }
+    },
   },
   plugins: []
 }

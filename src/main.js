@@ -1,5 +1,6 @@
 import './assets/main.css';
 import './assets/tailwind.css';
+import "primeflex/primeflex.css";
 // import { createApp } from 'vue';
 // import App from './App.vue';
 import router from './router/router';
@@ -12,7 +13,7 @@ import { createApp } from 'vue';
 import PrimeVue from 'primevue/config';
 // import Aura from '@primevue/themes/aura';
 // import Nora from '@primevue/themes/aura';
-import Lara from '@primevue/themes/aura';
+import Aura from '@primevue/themes/aura';
 
 import App from './App.vue';
 import Button from 'primevue/button';
@@ -26,7 +27,7 @@ const pinia = createPinia();
 // Use PrimeVue with Theme Preset
 app.use(PrimeVue, {
     theme: {
-        preset: Lara,
+        preset: Aura,
         options: {
             cssLayer: {
                 name: 'primevue',
