@@ -1,14 +1,12 @@
 <template>
-  <div>
-    <button @click="moveCamByOne">MOVE CAM</button>
-    <p>Loading Time: {{ loadTime }} ms</p>
-    <p v-if="loading != '0' && loading != '100'">{{ loading + '% loaded'}}</p>
-    <div ref="threeContainer"></div>
-  </div>
+
+  <!-- <p>Loading Time: {{ loadTime }} ms</p> -->
+  <!-- <p v-if="loading != '0' && loading != '100'">{{ loading + '% loaded'}}</p> -->
+  <div ref="threeContainer" class="w-full h-screen"></div>
 </template>
 
-<script setup>
-import { ref, onMounted, defineExpose } from 'vue';
+<!-- <script setup>
+import { ref, onMounted } from 'vue';
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 
@@ -40,11 +38,13 @@ const initThreeJS = () => {
   animate();
 };
 
+const fileName = "MyAssemblyDemo"//MyAssemblyDemo`, Garage, demo, MyAssemblyDemoBIGscale 
+
 // Load a GLB model using GLTFLoader
 const loadGLBModel = (startTime) => {
   const loader = new GLTFLoader();
   loader.load(
-    'https://myassembly.co/src/assets/glbModel/demo.glb', // Replace with your GLB file path
+    `https://myassembly.co/src/assets/glbModel/${fileName}.glb`, // Replace with your GLB file path
     (gltf) => {
       model.value = gltf.scene;
       scene.add(toRaw(model.value));//ToRaw Usage
@@ -63,7 +63,7 @@ const loadGLBModel = (startTime) => {
 
 
 const moveCamByOne = () => {
-  camera.position.z ++
+  camera.position.z += 100
 }
 
 function handleControl(arg) {
@@ -93,15 +93,33 @@ onMounted(() => {
 });
 
 
+</script> -->
+
+<script setup>
+import { onMounted, ref } from 'vue';
+import { useThreeJs } from '@/composables/useThreeJs'; // Import the composable
+
+const threeContainer = ref(null);
+const { initThreeJs } = useThreeJs();
+
+const props = defineProps({
+  modelUrl: {
+    type: String,
+    required: true,
+  },
+});
+
+
+onMounted(() => {
+  if (threeContainer.value) {
+    initThreeJs(threeContainer.value, props.modelUrl); // Pass container and model URL
+  }
+});
 </script>
 
-<style scoped>
-button {
-  margin: 10px;
-}
-
-#threeContainer {
-  width: 100%;
-  height: 100%;
+<style>
+.three-container {
+  position: relative;
 }
 </style>
+
