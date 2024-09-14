@@ -5,7 +5,7 @@ import SignUp from '@/views/SignUp.vue'
 import Dashboard from '@/views/Dashboard.vue'
 import ProjectsTable from '../components/Dashboard/ProjectsTable.vue'
 import Statistics from '../components/Dashboard/Statistics.vue'
-import Viewer from '../views/Viewer.vue'
+import Model from '../views/Model.vue'
 
 const routes = [
   { path: '/', component: HomePage, name: 'Home' },
@@ -26,9 +26,9 @@ const routes = [
     ]
   },
   {
-    path: '/viewer',
-    name: 'Viewer',
-    component: Viewer
+    path: '/model',
+    name: 'Model',
+    component: Model
   }
 //   { path: '/bars', component: Bars, name: 'Bars' },
 //   { path: '/references', component: References, name: 'Références' },

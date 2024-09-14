@@ -119,13 +119,13 @@ onMounted(() => {
     emailInputElement.focus();
     // Initialize the Google sign-in button
     window.google.accounts.id.initialize({
-    client_id: '93244253552-q2qn4t6vjerpf6mj1qgfduf69agfulas.apps.googleusercontent.com',
-    callback: handleCredentialResponse,
+        client_id: '93244253552-q2qn4t6vjerpf6mj1qgfduf69agfulas.apps.googleusercontent.com',
+        callback: handleCredentialResponse,
     });
 
     window.google.accounts.id.renderButton(
-    document.querySelector('.g_id_signin'),
-    { theme: 'outline', size: 'large' } // Custom button options
+        document.querySelector('.g_id_signin'),
+        { theme: 'outline', size: 'large' } // Custom button options
     );
 });
 </script>

@@ -163,8 +163,8 @@ const deleteProject = (project) => {
 
 const openProject = (project) => {
 
-    // Navigate to the viewer page with the query param
-    router.push({ name: 'Viewer', query: { from: 'dashboard', modelName: 'demo' } });
+    // Navigate to the Model page with the query param
+    router.push({ name: 'Model', query: { from: 'dashboard', modelName: 'demo' } });
 };
 
 // Initialize Filters

@@ -1,4 +1,5 @@
 <template>
+
   <div ref="threeContainer" class="w-3/4 h-screen"></div>
 
   <!-- Loading Waiter -->
@@ -10,23 +11,30 @@
   </div>
 
 </template>
+
 <script setup>
 import { onMounted, ref } from 'vue';
 import { useThreeJs } from '@/composables/useThreeJs'; // Import the composable
 
 
 const threeContainer = ref(null);
-const loadingProgress = ref(false);
+const loadingProgress = ref(0);
 const viewerReady = ref(false);
 const { initThreeJs } = useThreeJs();
+
 
 const props = defineProps({
   modelUrl: {
     type: String,
     required: true,
   },
+  loadedModel: {
+    type: Object,
+    required: false,
+  },
 });
 
+const emit = defineEmits(['model-loaded']);
 
 onMounted(() => {
   if (threeContainer.value) runBuildProcess()
@@ -36,13 +44,15 @@ function runBuildProcess() {
 
   initThreeJs(threeContainer.value, props.modelUrl, loadingProgress)
     .then(({ model, camera, renderer, orbitControls, canvas }) => {
-
+      
       // Clean model reveal
       canvas.style.opacity = 1;
-
+      
       // loadingState 100%
       viewerReady.value = true;
-
+      console.log('viewerReady.value:',viewerReady.value);
+      // Pass the model to the parent component
+      emit('model-loaded', model)
 
     })
     .catch(error => {
@@ -50,6 +60,14 @@ function runBuildProcess() {
     });
 }
 
+
+function handleControl(control) {
+  console.log('control', control);
+}
+
+defineExpose({
+  handleControl,
+});
 
 </script>
 
