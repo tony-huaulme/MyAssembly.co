@@ -24,7 +24,7 @@ const buildingPanels = ref(false);
 const route = useRoute();
 
 // get model name in url params
-const modelUrl = computed(() => `https://myassembly.co/src/assets/glbModel/${route.query.modelName}.glb`);;
+const modelUrl = computed(() => `https://myassembly.co/src/assets/models/${route.query.modelName}.glb`);;
 const cameFromDashboard = computed(() => route.query.from === 'dashboard'); 
 
 
