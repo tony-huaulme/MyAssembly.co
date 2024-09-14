@@ -54,6 +54,10 @@
             <!-- Action Buttons Column -->
             <Column header="Actions" bodyClass="p-text-center">
                 <template #body="slotProps">
+           
+                    <Button icon="pi pi-eye" class="p-button-rounded p-button-secondary mr-2"
+                        @click="openProject(slotProps.data)" />
+                    
                     <Button icon="pi pi-pencil" class="p-button-rounded p-button-warning mr-2"
                         @click="editProject(slotProps.data)" />
                     <Button icon="pi pi-share-alt" class="p-button-rounded p-button-info mr-2"
@@ -75,8 +79,11 @@ import Select from 'primevue/select';
 import Tag from 'primevue/tag';
 
 import { ref, onMounted } from 'vue';
+import { useRouter } from 'vue-router';
+
 import { FilterMatchMode, FilterOperator } from '@primevue/core/api'; // Correct import for PrimeVue API filters
 
+const router = useRouter();
 
 // Project data
 const projects = ref([]);
@@ -134,7 +141,7 @@ onMounted(() => {
     { id: 45, nomClient: "Organisation Psi", nomProjet: "Planification de Projet", nomFichierImporte: "psi_project_plan.pdf", statut: "SHARED" },
     { id: 46, nomClient: "Agence Omega", nomProjet: "Stratégie de Marque", nomFichierImporte: "brand_strategy_omega.doc", statut: "NOT-SHARED" }
 ]
-    }, 677);
+    }, 333);
 });
 // Filters and options
 const filters = ref();
@@ -154,6 +161,11 @@ const deleteProject = (project) => {
     console.log("Deleting project:", project);
 };
 
+const openProject = (project) => {
+
+    // Navigate to the viewer page with the query param
+    router.push({ name: 'Viewer', query: { from: 'dashboard', modelName: 'demo' } });
+};
 
 // Initialize Filters
 const initFilters = () => {
