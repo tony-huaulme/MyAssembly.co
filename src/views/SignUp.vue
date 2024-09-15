@@ -104,8 +104,9 @@ function handleCredentialResponse(response) {
   const userInfo = parseJwt(idToken);
 
   // Store userInfo in Pinia store
-  userStore.setUserInfo(userInfo);
-  storeUserInfo(userInfo);
+  //userStore.setUserInfo(userInfo);
+  //storeUserInfo(userInfo);
+ console.log(userInfo);
 
   // Redirect the user to the /dashboard route
   router.push('/demo');
