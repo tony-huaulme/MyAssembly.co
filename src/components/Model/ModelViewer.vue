@@ -1,7 +1,4 @@
 <template>
-
-  <div ref="threeContainer" class="w-3/4 h-screen"></div>
-
   <!-- Loading Waiter -->
   <div v-if="!viewerReady" class="absolute top-50 left-50">
     <div class="spinner-container">
@@ -32,17 +29,21 @@ const props = defineProps({
     type: Object,
     required: false,
   },
+  modelContainer: {
+    type: Object,
+    required: true,
+  },
 });
 
 const emit = defineEmits(['model-loaded']);
 
 onMounted(() => {
-  if (threeContainer.value) runBuildProcess()
+  if (props.modelContainer) runBuildProcess()
 });
 
 function runBuildProcess() {
 
-  initThreeJs(threeContainer.value, props.modelUrl, loadingProgress)
+  initThreeJs(props.modelContainer, props.modelUrl, loadingProgress)
     .then(({ model, camera, renderer, orbitControls, canvas }) => {
       
       // Clean model reveal

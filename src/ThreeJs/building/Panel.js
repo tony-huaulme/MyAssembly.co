@@ -1,3 +1,6 @@
+import { setElementsOpacity } from './ModelAnimation.js';
+
+
 export class Panel {
     constructor(name) {
       this.name = name;
@@ -18,16 +21,11 @@ export class Panel {
     }
   
     hide(opacity=0.12) {
-      this.setOpacity(opacity);
-      this.visible = false;
-
+      setElementsOpacity(this.elements, opacity);
     }
   
     show(opacity=1) {
-
-      this.setOpacity(opacity);
-      this.visible = true;
-
+      setElementsOpacity(this.elements, opacity);
     }
 
     setOpacity(opacity) {

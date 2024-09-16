@@ -2,6 +2,7 @@ import { onUnmounted } from 'vue';
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
+import { TG } from '../ThreeJs/building/ModelAnimation';
 
 export function useThreeJs() {
   let scene, camera, renderer, labelRenderer, orbitControls, animationFrameId, model;
@@ -24,6 +25,7 @@ export function useThreeJs() {
       renderer.setPixelRatio(window.devicePixelRatio);
       renderer.setSize(container.offsetWidth, container.offsetHeight);
       renderer.domElement.style.opacity = 0;
+      console.log('renderer.domElement:', container);
       container.appendChild(renderer.domElement);
 
       // OrbitControls
@@ -71,6 +73,9 @@ export function useThreeJs() {
             // Animate the scene
             const animate = () => {
               animationFrameId = requestAnimationFrame(animate);
+              
+              TG.update();
+
               renderer.render(scene, camera);
               orbitControls.update();
             };
@@ -86,6 +91,8 @@ export function useThreeJs() {
               window.removeEventListener('resize', onResize);
               console.log('removeChild renderer.domElement');
               container.removeChild(renderer.domElement);
+              console.log('canceling all animations');
+              TG.removeAll();
             });
             loadingProgress.value = 100;
             let canvas = renderer.domElement;

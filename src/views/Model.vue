@@ -2,7 +2,9 @@
   <FullScreenToggle />
   <div class="h-screen w-screen flex">
     <ModelControl @control-model="handleControl" :buildingPanels="buildingPanels"/>
-    <ModelViewer ref="modelViewerRef" :modelUrl="modelUrl" @model-loaded="setBuilding"/>
+    <div ref="modelContainer" class="w-3/4 h-screen">
+      <ModelViewer v-if="modelContainer" ref="modelViewerRef" :modelUrl="modelUrl" @model-loaded="setBuilding" :modelContainer="modelContainer"/>
+    </div>
   </div>
 </template>
 
@@ -18,13 +20,14 @@ import ModelControl from '../components/Model/ModelControl.vue';
 import { Building } from '../ThreeJs/building/Building.js';
 // Get the query params from the current route
 const modelViewerRef = ref(null);
+const modelContainer = ref(null);
 const ModelBuilding = ref(null);
 const buildingPanels = ref(false);
 // Handling route params
 const route = useRoute();
 
-// get model name in url params
-const modelUrl = computed(() => `https://myassembly.co/src/assets/models/${route.query.modelName}.glb`);;
+// get model name in url params 
+const modelUrl = computed(() => `https://www.myassembly.co/src/assets/models/${route.query.modelName}.glb`);;
 const cameFromDashboard = computed(() => route.query.from === 'dashboard'); 
 
 
