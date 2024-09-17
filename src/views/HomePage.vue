@@ -9,7 +9,7 @@
             class="h-screen" 
             style="width: 75vw !important; position: fixed;right: 0; top: 0px !important;"
         >
-            <ModelViewer v-if="modelContainer" modelUrl="https://www.myassembly.co/src/assets/models/MyAssemblyDemo.glb" :modelContainer="modelContainer"/>
+            <ModelViewer v-if="modelContainer" modelUrl="https://www.myassembly.co/src/assets/models/DemoModel.glb" :modelContainer="modelContainer"/>
         </div>
 
         <!-- Section 1: More than just 3D visualization -->

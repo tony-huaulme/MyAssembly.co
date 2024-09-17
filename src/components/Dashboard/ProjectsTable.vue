@@ -164,7 +164,7 @@ const deleteProject = (project) => {
 const openProject = (project) => {
 
     // Navigate to the Model page with the query param
-    router.push({ name: 'Model', query: { from: 'dashboard', modelName: 'demo' } });
+    router.push({ name: 'Model', query: { from: 'dashboard', modelName: 'DemoModel' } });
 };
 
 // Initialize Filters
