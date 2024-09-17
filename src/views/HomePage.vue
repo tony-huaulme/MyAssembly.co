@@ -1,43 +1,37 @@
 <template>
 
 
-    <div class="container">
+    <div class="container position-relative">
 
         <Header></Header>
-
+        <div 
+            ref="modelContainer" 
+            class="h-screen" 
+            style="width: 75vw !important; position: fixed;right: 0; top: 0px !important;"
+        >
+            <ModelViewer v-if="modelContainer" modelUrl="https://www.myassembly.co/src/assets/models/MyAssemblyDemo.glb" :modelContainer="modelContainer"/>
+        </div>
 
         <!-- Section 1: More than just 3D visualization -->
         <SideSection side="left">
             <template #title>
-                <span>More than just 3D visualization</span>
+                <span>More than a<br>3D visualization</span>
             </template>
             <template #description>
                 <span>With our innovative 3D modeling platform, architects, builders, and clients can explore and interact with building structures in a whole new way — with assembly instructions, detailed parts identification, and interactive, critical checkpoints — all in a single 3D view.</span>
             </template>
             <GetStartedButton />
             <template #rightcolumn>
-                <div ref="modelContainer" class="h-screen" style="width: 75vw !important; position: absolute; right: 0;">
-                    <ModelViewer v-if="modelContainer" modelUrl="https://www.myassembly.co/src/assets/models/MyAssemblyDemo.glb" :modelContainer="modelContainer"/>
-                </div>
+
             </template>
         </SideSection>
 
-        <!-- Section 2: A solution that goes beyond blueprints -->
-        <HeroSection>
-            <template #title>
-                <span>A solution that goes beyond blueprints</span>
-            </template>
-            <template #description>
-                <span>We provide the interactive experience — you focus on the project. From element identification and detailed animations to assembly videos and pop-up instructions, we generate the technical insights that guide builder every step of the way.</span>
-            </template>
-            <GetStartedButton />
-        </HeroSection>
 
-        <AccordionAndContent :tabs="accordionTabs"/>
+
 
 
         <!-- Section 3: A platform designed for builders -->
-        <SideSection side="right">
+        <SideSection side="left">
             <template #title>
                 <span>A platform designed for builders</span>
             </template>
@@ -46,6 +40,8 @@
             </template>
             <GetStartedButton />
         </SideSection>
+    </div>
+    <div class="container">
 
         <h1 class="text-5xl sm:text-6xl lg:text-5xl font-bold leading-tight">Manage your projects</h1>
 
@@ -67,17 +63,20 @@
             <GetStartedButton />
         </SideSection>
 
-        <!-- Section 6: Access from anywhere -->
-        <!-- <SideSection side="left">
+        <h1 class="text-5xl sm:text-6xl lg:text-6xl font-bold leading-tight text-center">3 Free Steps</h1>
+
+        <!-- Section 2: A solution that goes beyond blueprints -->
+        <HeroSection>
             <template #title>
-                <span>Access from anywhere</span>
+                <span>A solution that goes beyond blueprints</span>
             </template>
             <template #description>
-                <span>With accessibility at the core, the 3D model can be viewed from any device using a simple QR code — giving you assembly instructions and critical points straight on your smartphone.</span>
+                <span>
+                    You focus on the project — we provide interactive 3D insights, from element identification to assembly videos and pop-up instructions.
+                </span>
             </template>
             <GetStartedButton />
-        </SideSection> -->
-        <h1 class="text-5xl sm:text-6xl lg:text-6xl font-bold leading-tight text-center">3 Free Steps</h1>
+        </HeroSection>
 
         <Stepper />
     </div>
@@ -85,6 +84,7 @@
     <div class="container">
         <Footer />
     </div>
+
 
     <ScrollTop />
 </template>
