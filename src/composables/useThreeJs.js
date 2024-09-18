@@ -7,7 +7,10 @@ import { TG } from '../ThreeJs/building/ModelAnimation';
 export function useThreeJs() {
   let scene, camera, renderer, labelRenderer, orbitControls, animationFrameId, model;
 
-  const initThreeJs = (container, modelUrl, loadingProgress, tweenGroup) => {
+  const initThreeJs = (container, modelUrl, loadingProgress, controle) => {
+
+    console.log("controle", controle);
+
     return new Promise((resolve, reject) => {
       const base = { x: 0, y: 5, z: 18 };
 
@@ -29,10 +32,10 @@ export function useThreeJs() {
       container.appendChild(renderer.domElement);
 
       // OrbitControls
-      orbitControls = new OrbitControls(camera, renderer.domElement);
-      orbitControls.enableDamping = true;
-      orbitControls.dampingFactor = 0.25;
-      orbitControls.enableZoom = true;
+        orbitControls = new OrbitControls(camera, renderer.domElement);
+        orbitControls.enableDamping = true;
+        orbitControls.dampingFactor = 0.25;
+        orbitControls.enableZoom = true;
 
       // Lights
       const ambientLight = new THREE.AmbientLight(0xffffff, 1);
@@ -40,6 +43,13 @@ export function useThreeJs() {
 
       const dirLight = new THREE.DirectionalLight(0xffffff, 3);
       dirLight.position.set(10, 10, 10);
+      dirLight.castShadow = true;
+      dirLight.shadow.camera.top = 4;
+      dirLight.shadow.camera.bottom = -4;
+      dirLight.shadow.camera.left = -4;
+      dirLight.shadow.camera.right = 4;
+      dirLight.shadow.camera.near = 0.1;
+      dirLight.shadow.camera.far = 40;
       scene.add(dirLight);
 
       // Load the model using GLTFLoader

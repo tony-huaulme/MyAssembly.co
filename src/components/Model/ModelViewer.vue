@@ -14,7 +14,6 @@ import { onMounted, ref } from 'vue';
 import { useThreeJs } from '@/composables/useThreeJs'; // Import the composable
 
 
-const threeContainer = ref(null);
 const loadingProgress = ref(0);
 const viewerReady = ref(false);
 const { initThreeJs } = useThreeJs();
@@ -33,9 +32,14 @@ const props = defineProps({
     type: Object,
     required: true,
   },
+  controle :{
+    type: Boolean,
+    default: true,
+    required: false,
+  }
 });
 
-const emit = defineEmits(['model-loaded']);
+const emit = defineEmits(['model-loaded', 'camera-loaded']);
 
 onMounted(() => {
   if (props.modelContainer) runBuildProcess()
@@ -43,7 +47,7 @@ onMounted(() => {
 
 function runBuildProcess() {
 
-  initThreeJs(props.modelContainer, props.modelUrl, loadingProgress)
+  initThreeJs(props.modelContainer, props.modelUrl, loadingProgress, props.controle)
     .then(({ model, camera, renderer, orbitControls, canvas }) => {
       
       // Clean model reveal
@@ -54,6 +58,7 @@ function runBuildProcess() {
       console.log('viewerReady.value:',viewerReady.value);
       // Pass the model to the parent component
       emit('model-loaded', model)
+      emit('camera-loaded', camera)
 
     })
     .catch(error => {

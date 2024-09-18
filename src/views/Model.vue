@@ -26,7 +26,7 @@ const buildingPanels = ref(false);
 // Handling route params
 const route = useRoute();
 
-// get model name in url params 
+// get model name in url params  https://www.myassembly.co/src/assets/models/DemoModel.glb 
 const modelUrl = computed(() => `https://www.myassembly.co/src/assets/models/${route.query.modelName}.glb`);;
 const cameFromDashboard = computed(() => route.query.from === 'dashboard'); 
 
@@ -47,7 +47,7 @@ function setBuilding(model) {
   // B.value = new Building(model);
   ModelBuilding.value = new Building(model);
   let panels = ModelBuilding.value.getPanels();
-  buildingPanels.value =  Object.keys( panels );
+  buildingPanels.value = Object.keys( panels );
 }
 
 </script>

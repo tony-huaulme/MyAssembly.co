@@ -1,15 +1,23 @@
 <template>
 
-
     <div class="container position-relative">
-
+        <!-- <h2 style="position: fixed; left: 0; background-color: aliceblue; color: black;">{{ res }}</h2> -->
         <Header></Header>
         <div 
             ref="modelContainer" 
-            class="h-screen" 
+            class="h-screen"
+            id="HomePageModelContainer" 
             style="width: 75vw !important; position: fixed;right: 0; top: 0px !important;"
         >
-            <ModelViewer v-if="modelContainer" modelUrl="https://www.myassembly.co/src/assets/models/DemoModel.glb" :modelContainer="modelContainer"/>
+            <ModelViewer 
+                v-if="modelContainer"  
+                ref="modelViewerRef" 
+                modelUrl="https://www.myassembly.co/src/assets/models/DemoModel.glb" 
+                :controle="false"
+                :modelContainer="modelContainer"
+                @model-loaded="ModelBuilding = $event"    
+                @camera-loaded="ModelCamera = $event"
+            />
         </div>
 
         <!-- Section 1: More than just 3D visualization -->
@@ -26,14 +34,10 @@
             </template>
         </SideSection>
 
-
-
-
-
         <!-- Section 3: A platform designed for builders -->
         <SideSection side="left">
             <template #title>
-                <span>A platform designed for builders</span>
+                <span>Designed for builders</span>
             </template>
             <template #description>
                 <span>Our powerful toolset is designed to scale with your project. Whether you’re working on a single-family home or a large-scale commercial structure, our 3D models adapt, offering flexibility and real-time updates.</span>
@@ -44,8 +48,9 @@
     <div class="container">
 
         <h1 class="text-5xl sm:text-6xl lg:text-5xl font-bold leading-tight">Manage your projects</h1>
-
-        <img src="../assets/dashboard_picture.png" class="max-w-full">
+        <Panel>
+            <img src="../assets/dashboard_picture.png" class="max-w-full">
+        </Panel>
 
         <!-- Section 5: Seamless Interactions -->
         <SideSection side="right">
@@ -92,53 +97,111 @@
 <script setup>
 import Header from "../components/HomePage/Header.vue";
 import HeroSection from "../components/HomePage/HeroSection.vue";
-import AccordionAndContent from "../components/HomePage/AccordionAndContent.vue";
 import SideSection from "../components/HomePage/SideSection.vue";
 import Stepper from "../components/HomePage/Stepper.vue";
 import ScrollTop from "primevue/scrolltop";
 import ModelViewer from "../components/Model/ModelViewer.vue";
 import Footer from "../components/HomePage/Footer.vue";
+import GetStartedButton from "../components/HomePage/GetStartedButton.vue";
 
-import { ref } from "vue";
+import Panel from "primevue/panel";
 
+import { Building } from '../ThreeJs/building/Building.js';
+import { OpeningAnimation, 
+         setModelRotation, setModelPosition, setCameraPosition
+} from '../ThreeJs/building/ModelAnimation.js';
 
-import Timeline from 'primevue/timeline';
-import Card from 'primevue/card';
-import Button from 'primevue/button';
-import Panel from 'primevue/panel';
+import { useHomePageAnimation } from '../composables/useHomePageAnimation.js';
 
+import { ref, watch, onMounted, onUnmounted } from "vue";
 
+const modelViewerRef = ref(null);
 const modelContainer = ref(null);
-const accordionTabs = ref([
-    {
-        title: 'Identification of elements',
-        content: 'Clearly label and view structural components in a 3D space, helping users easily identify and navigate through different parts of the structure.',
-        value: '0'
-    },
-    {
-        title: 'Assembly instructions',
-        content: 'Step-by-step guidance through interactive assembly sequences, providing detailed instructions at every stage of the building process.',
-        value: '1'
-    },
-    {
-        title: 'Critical point alerts',
-        content: 'Get pop-up notifications for important verifications and key assembly moments to ensure safety and accuracy throughout the assembly process.',
-        value: '2'
-    },
-    {
-        title: 'Video & Animation',
-        content: 'Detailed videos and animations for more complex assembly tasks, allowing for a visual understanding of difficult or intricate steps.',
-        value: '3'
-    }
-]
-);
+const ModelBuilding = ref(null);
+const ModelCamera = ref(null);
 
-const events = ref([
-    { status: 'Ordered', date: '15/10/2020 10:30', icon: 'pi pi-shopping-cart', color: '#9C27B0', image: 'game-controller.jpg' },
-    { status: 'Processing', date: '15/10/2020 14:00', icon: 'pi pi-cog', color: '#673AB7' },
-    { status: 'Shipped', date: '15/10/2020 16:15', icon: 'pi pi-shopping-cart', color: '#FF9800' },
-    { status: 'Delivered', date: '16/10/2020 10:00', icon: 'pi pi-check', color: '#607D8B' }
-]);
+const scrollPositionStep = ref(0);
+const stepSetter = ref(null);
+
+const res = ref('Hello World');
+
+const cameraPosition = ref({ x: 0, y: 0, z: 0 });
+
+watch(ModelCamera, (camera) => {
+    if( camera ) {
+        cameraPosition.value = camera.position;
+
+        OpeningAnimation(camera, ModelBuilding.value, { "x": -10.349590810671197, "y": 1.1734950219156364, "z": 5.603326770502212 }  , 1500);
+        const { setStep } = useHomePageAnimation(ModelCamera.value, ModelBuilding.value, 1200);
+        stepSetter.value = setStep;
+
+        window.addEventListener('scroll', handleScroll);
+
+        function setCameraSettings(camera){
+
+        }
+
+
+    }
+});
+
+
+watch(cameraPosition, (newPos) => {
+  if (ModelCamera.value) {
+    ModelCamera.value.position.set(newPos.x, newPos.y, newPos.z);
+  }
+});
+
+
+
+function getSettings() {
+
+    res.value = { ModelCamera: ModelCamera.value.position};
+
+}
+
+window.addEventListener('mousemove',getSettings);
+
+const handleUserControl = (arg) => {
+
+    if(arg.controleName === 'showOnlyPanelByName') {
+        ModelBuilding.value.showOnlyPanelByName(arg.arg);
+    }
+
+};
+
+
+
+  // Define a debounce function
+  function debounce(func, wait) {
+      let timeout;
+      return function(...args) {
+          clearTimeout(timeout);
+          timeout = setTimeout(() => func.apply(this, args), wait);
+      };
+  }
+
+
+  // Debounced scroll handler
+  const handleScroll = debounce(() => {
+
+    let viewportHeight = window.innerHeight;
+
+    let currentScrollStep = scrollPositionStep.value;
+    scrollPositionStep.value = Math.floor((window.scrollY + (0.6 * viewportHeight)) / viewportHeight);
+
+    if( scrollPositionStep.value !== currentScrollStep ) {
+        stepSetter.value(scrollPositionStep.value);
+    }
+
+  }, 50);
+
+  onUnmounted(() => {
+      // Remove the scroll event listener
+      window.removeEventListener('scroll', handleScroll);
+      
+  });
+
 </script>
 
 <style>
@@ -147,5 +210,9 @@ const events = ref([
     max-width: 1580px;
     margin-left: auto;
     margin-right: auto;
+}
+
+#HomePageModelContainer {
+    transition: opacity 0.5s;
 }
 </style>
