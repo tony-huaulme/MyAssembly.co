@@ -40,9 +40,45 @@
                 <span>Designed for builders</span>
             </template>
             <template #description>
-                <span>Our powerful toolset is designed to scale with your project. Whether you’re working on a single-family home or a large-scale commercial structure, our 3D models adapt, offering flexibility and real-time updates.</span>
+                
+
+
+                <div class="flex flex-column">
+
+                    <span>Our powerful toolset is designed to scale with your project. Whether you’re working on a single-family home or a large-scale commercial structure, our 3D models adapt, offering flexibility and real-time updates.</span>
+                    
+                    <div class="flex flex-column mt-5 card w-fit from-gray-800">
+                        
+                        <p class="m-0 text-base">
+                            Ground floor walls:
+                        </p>
+                        <div class="flex flex-row items-baseline mb-3">
+                            <Button @click="BuildingAssembly.showOnlyPanelByName('G-W1*');" outlined class="panelButton font-semibold ">G-W1</Button>
+                            <Button @click="BuildingAssembly.showOnlyPanelByName('G-W2*');" outlined class="panelButton font-semibold ">G-W2</Button>
+                            <Button @click="BuildingAssembly.showOnlyPanelByName('G-W3*');" outlined class="panelButton font-semibold ">G-W3</Button>
+                        </div>
+
+                        First floor walls:
+                        <div class="flex flex-row items-baseline mb-3">
+                            <Button @click="BuildingAssembly.showOnlyPanelByName('1F-W1*');" outlined class="panelButton font-semibold">1F-W1</Button>
+                            <Button @click="BuildingAssembly.showOnlyPanelByName('1F-W2*');" outlined class="panelButton font-semibold">1F-W2</Button>
+                            <Button @click="BuildingAssembly.showOnlyPanelByName('1F-W3*');" outlined class="panelButton font-semibold">1F-W3</Button>    
+                        </div>
+
+                        Roof:
+                        <div class="flex flex-row items-baseline mb-3">
+                            <Button @click="BuildingAssembly.showOnlyPanelByName('R1*');" outlined class="panelButton font-semibold">R1</Button>
+                            <Button @click="BuildingAssembly.showOnlyPanelByName('R2*');" outlined class="panelButton font-semibold">R2</Button>
+                            <Button @click="BuildingAssembly.showOnlyPanelByName('R3*');" outlined class="panelButton font-semibold">R3</Button>    
+                        </div>
+                    </div>
+                    
+                </div>
+                
             </template>
-            <GetStartedButton />
+            <GetStartedButton>
+                <p class="m-0 ">Start Building</p>
+            </GetStartedButton>
         </SideSection>
     </div>
     <div class="container">
@@ -95,82 +131,79 @@
 </template>
 
 <script setup>
-import Header from "../components/HomePage/Header.vue";
-import HeroSection from "../components/HomePage/HeroSection.vue";
-import SideSection from "../components/HomePage/SideSection.vue";
-import Stepper from "../components/HomePage/Stepper.vue";
-import ScrollTop from "primevue/scrolltop";
-import ModelViewer from "../components/Model/ModelViewer.vue";
-import Footer from "../components/HomePage/Footer.vue";
-import GetStartedButton from "../components/HomePage/GetStartedButton.vue";
+    import Header from "../components/HomePage/Header.vue";
+    import HeroSection from "../components/HomePage/HeroSection.vue";
+    import SideSection from "../components/HomePage/SideSection.vue";
+    import Stepper from "../components/HomePage/Stepper.vue";
+    import ScrollTop from "primevue/scrolltop";
+    import ModelViewer from "../components/Model/ModelViewer.vue";
+    import Footer from "../components/HomePage/Footer.vue";
+    import GetStartedButton from "../components/HomePage/GetStartedButton.vue";
 
-import Panel from "primevue/panel";
 
-import { Building } from '../ThreeJs/building/Building.js';
-import { OpeningAnimation, 
-         setModelRotation, setModelPosition, setCameraPosition
-} from '../ThreeJs/building/ModelAnimation.js';
+    import Panel from "primevue/panel";
 
-import { useHomePageAnimation } from '../composables/useHomePageAnimation.js';
+    import { Building } from '../ThreeJs/building/Building.js';
+    import { OpeningAnimation } from '../ThreeJs/building/ModelAnimation.js';
 
-import { ref, watch, onMounted, onUnmounted } from "vue";
+    import { useHomePageAnimation } from '../composables/useHomePageAnimation.js';
 
-const modelViewerRef = ref(null);
-const modelContainer = ref(null);
-const ModelBuilding = ref(null);
-const ModelCamera = ref(null);
+    import { ref, watch, onMounted, onUnmounted } from "vue";
 
-const scrollPositionStep = ref(0);
-const stepSetter = ref(null);
+    const modelViewerRef = ref(null);
+    const modelContainer = ref(null);
+    const ModelBuilding = ref(null);
+    const ModelCamera = ref(null);
 
-const res = ref('Hello World');
+    const scrollPositionStep = ref(0);
+    const stepSetter = ref(null);
 
-const cameraPosition = ref({ x: 0, y: 0, z: 0 });
+    const BuildingAssembly = ref(null);
 
-watch(ModelCamera, (camera) => {
-    if( camera ) {
-        cameraPosition.value = camera.position;
+    const res = ref('Hello World');
 
-        OpeningAnimation(camera, ModelBuilding.value, { "x": -10.349590810671197, "y": 1.1734950219156364, "z": 5.603326770502212 }  , 1500);
-        const { setStep } = useHomePageAnimation(ModelCamera.value, ModelBuilding.value, 1200);
-        stepSetter.value = setStep;
+    const cameraPosition = ref({ x: 0, y: 0, z: 0 });
 
-        window.addEventListener('scroll', handleScroll);
+    watch(ModelCamera, (camera) => {
+        if( camera ) {
+            cameraPosition.value = camera.position;
 
-        function setCameraSettings(camera){
+            OpeningAnimation(camera, ModelBuilding.value, { "x": -10.349590810671197, "y": 1.1734950219156364, "z": 5.603326770502212 }  , 1500);
+            const { setStep } = useHomePageAnimation(ModelCamera.value, ModelBuilding.value, BuildingAssembly.value,1200);
+            stepSetter.value = setStep;
 
+            window.addEventListener('scroll', handleScroll);
         }
+    });
 
 
+    watch(cameraPosition, (newPos) => {
+    if (ModelCamera.value) {
+        ModelCamera.value.position.set(newPos.x, newPos.y, newPos.z);
     }
-});
+    });
 
 
-watch(cameraPosition, (newPos) => {
-  if (ModelCamera.value) {
-    ModelCamera.value.position.set(newPos.x, newPos.y, newPos.z);
-  }
-});
+    watch(ModelBuilding, (building) => {
+        if( building ) {
+            BuildingAssembly.value = new Building(building);
+        }
+    });
 
-
-
-function getSettings() {
-
-    res.value = { ModelCamera: ModelCamera.value.position};
-
-}
-
-window.addEventListener('mousemove',getSettings);
-
-const handleUserControl = (arg) => {
-
-    if(arg.controleName === 'showOnlyPanelByName') {
-        ModelBuilding.value.showOnlyPanelByName(arg.arg);
+    function getSettings() {
+        res.value = { ModelCamera: ModelCamera.value.position};
     }
 
-};
+    window.addEventListener('mousemove',getSettings);
 
+    const handleControl = (arg) => {
 
+        if(arg.controleName === 'showOnlyPanelByName') {
+            BuildingAssembly.value.showOnlyPanelByName(arg.arg);
+            return;
+        }
+        modelViewerRef.value.handleControl(arg);
+    };
 
   // Define a debounce function
   function debounce(func, wait) {
@@ -205,14 +238,24 @@ const handleUserControl = (arg) => {
 </script>
 
 <style>
-.container {
-    width: 90%;
-    max-width: 1580px;
-    margin-left: auto;
-    margin-right: auto;
-}
+    .container {
+        width: 90%;
+        max-width: 1580px;
+        margin-left: auto;
+        margin-right: auto;
+    }
 
-#HomePageModelContainer {
-    transition: opacity 0.5s;
-}
+    #HomePageModelContainer {
+        transition: opacity 0.5s;
+    }
+    .panelButton {
+        border-radius: 0 !important;
+        width: 100px;
+        background-color: var(--p-content-background);
+    }
+
+    .card {
+        border: 1px solid var(--p-content-border-color);
+        background-color: var(--p-card-background-color);
+    }
 </style>

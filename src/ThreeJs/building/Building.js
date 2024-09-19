@@ -1,5 +1,7 @@
 import { Panel } from './Panel.js';
 import { isPanelName, isPanelPart } from '../utils.js';
+import * as THREE from 'three';
+
 
 export class Building {
 
@@ -45,24 +47,14 @@ export class Building {
         
         if (child.isMesh) {
 
-            // console.log("setting transparency on child", child.name);
-
-            // const metalMaterial = new THREE.MeshStandardMaterial({
-            //     color: 0xebebeb, // Grayish color
-            //     transparent: true,
-            //     opacity: 1
-            // });
+            const metalMaterial = new THREE.MeshStandardMaterial({
+                color: 0xAEB3B8, // steel gray
+                transparent: true,
+                opacity: 1
+            });
         
-            // child.material = metalMaterial;
+            child.material = metalMaterial;
 
-            child.material.transparent = true; // Ensure transparency support
-            child.material.opacity = 1; // Set initial opacity to 1
-            // child.userData.originalPosition = child.position.clone();
-            child.material = child.material.clone();
-  
-
-            // const direction = new THREE.Vector3().copy(child.position).normalize();
-            // child.userData.explodedPosition = child.position.clone().add(direction.multiplyScalar(4));
         }
     }
 
@@ -78,6 +70,12 @@ export class Building {
     hideAllPanels() {
         for (const panelName in this.panels) {
             this.panels[panelName].hide();
+        }
+    }
+
+    showAllPanels() {
+        for (const panelName in this.panels) {
+            this.panels[panelName].show();
         }
     }
    

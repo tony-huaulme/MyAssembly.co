@@ -5,11 +5,10 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import { TG } from '../ThreeJs/building/ModelAnimation';
 
 export function useThreeJs() {
-  let scene, camera, renderer, labelRenderer, orbitControls, animationFrameId, model;
+  let scene, camera, renderer, labelRenderer, orbitControls, animationFrameId, model, cameraLight;
 
   const initThreeJs = (container, modelUrl, loadingProgress, controle) => {
 
-    console.log("controle", controle);
 
     return new Promise((resolve, reject) => {
       const base = { x: 0, y: 5, z: 18 };
@@ -32,25 +31,56 @@ export function useThreeJs() {
       container.appendChild(renderer.domElement);
 
       // OrbitControls
-        orbitControls = new OrbitControls(camera, renderer.domElement);
-        orbitControls.enableDamping = true;
-        orbitControls.dampingFactor = 0.25;
-        orbitControls.enableZoom = true;
+      orbitControls = new OrbitControls(camera, renderer.domElement);
+      orbitControls.enableDamping = true;
+      orbitControls.dampingFactor = 0.25;
+      orbitControls.enableZoom = true;
 
-      // Lights
-      const ambientLight = new THREE.AmbientLight(0xffffff, 1);
-      scene.add(ambientLight);
 
-      const dirLight = new THREE.DirectionalLight(0xffffff, 3);
-      dirLight.position.set(10, 10, 10);
-      dirLight.castShadow = true;
-      dirLight.shadow.camera.top = 4;
-      dirLight.shadow.camera.bottom = -4;
-      dirLight.shadow.camera.left = -4;
-      dirLight.shadow.camera.right = 4;
-      dirLight.shadow.camera.near = 0.1;
-      dirLight.shadow.camera.far = 40;
-      scene.add(dirLight);
+
+
+
+    // Directional light (acts like sunlight)
+    const directionalLight = new THREE.DirectionalLight(0xAEB3B8, 3); // White light
+    directionalLight.position.set(10, 10, 10); // Position it in front of the model
+    directionalLight.castShadow = true; // Enable shadows if needed
+
+    // Optional: Add a second directional light to simulate bounced light or another light source
+    const directionalLight2 = new THREE.DirectionalLight(0xAEB3B8, 7); 
+    directionalLight2.position.set(-10, -10, 10); // Position opposite for balance
+    camera.add(directionalLight2); // Attach light to camera
+
+
+    camera.add(directionalLight); // Attach light to camera
+    scene.add(camera); // Add the camera to the scene as an object
+
+
+      // // light with shaddow
+      // const light = new THREE.DirectionalLight(0xffffff, 5);
+      // light.position.set(0, 20, 10);
+      // light.castShadow = true;
+      // light.shadow.camera.top = 10;
+      // light.shadow.camera.bottom = -10;
+      // light.shadow.camera.left = -10;
+      // light.shadow.camera.right = 10;
+      // light.shadow.camera.near = 0.1;
+      // light.shadow.camera.far = 100;
+      // scene.add(light);
+      
+    
+      // // Lights
+      // const ambientLight = new THREE.AmbientLight(0xffffff, 5);
+      // scene.add(ambientLight); // Add ambient light permanently
+
+      // const pointLight = new THREE.PointLight(0xffffff, 6, 0, 10);
+      // scene.add(pointLight); // Add point light permanently
+
+
+      // // Attach light to camera
+      // camera.add(pointLight); 
+      // scene.add(camera); // Add the camera to the scene as an object
+     
+
 
       // Load the model using GLTFLoader
       if (modelUrl) {
