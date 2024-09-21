@@ -6,8 +6,10 @@
         <div ref="modelContainer" class="h-screen" id="HomePageModelContainer"
             style="width: 75vw !important; position: fixed;right: 0; top: 0px !important;">
             <ModelViewer v-if="modelContainer" ref="modelViewerRef"
-                modelUrl="https://www.myassembly.co/src/assets/models/DemoModel.glb" :controle="false"
-                :modelContainer="modelContainer" @model-loaded="ModelBuilding = $event"
+                modelUrl="https://www.myassembly.co/src/assets/models/DemoModel.glb" 
+                :controle="false"
+                :modelContainer="modelContainer" 
+                @model-loaded="ModelBuilding = $event"
                 @camera-loaded="ModelCamera = $event" />
         </div>
 

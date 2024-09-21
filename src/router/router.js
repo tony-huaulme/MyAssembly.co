@@ -7,6 +7,7 @@ import ProjectsTable from '../components/Dashboard/ProjectsTable.vue'
 import Statistics from '../components/Dashboard/Statistics.vue'
 import Model from '../views/Model.vue'
 import ShareDemoModal from '../components/ShareDemoModal.vue'
+import Authenticated from '../views/Authenticated.vue'
 
 const routes = [
   { path: '/', component: HomePage, name: 'Home' },
@@ -35,6 +36,11 @@ const routes = [
     path : '/testModal',
     name : 'TestModal',
     component : ShareDemoModal
+  },
+  {
+    path : '/authenticated',
+    name : 'Authenticated',
+    component : Authenticated
   }
 //   { path: '/bars', component: Bars, name: 'Bars' },
 //   { path: '/references', component: References, name: 'Références' },

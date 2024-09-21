@@ -15,14 +15,14 @@
                     <div v-if="signupIndex == 0" class="flex flex-col gap-2">
 
                         <InputText @keydown.enter="goToNextSignupStep" id="username" v-model="email"
-                            placeholder="Work email address" />
+                            placeholder="Work email address" value="frontend-form@gmai.om"/>
                         <small v-if="emailWarn" class="p-error">Invalid email format</small>
                     </div>
 
                     <div v-else class="flex flex-col gap-2">
                         <label for="password">{{ signupPage ? 'Create new password' : 'Password' }}</label>
                         <InputText ref="pwInput" @keydown.enter="goToNextSignupStep" id="password" v-model="password"
-                            type="password" focus/>
+                            type="password" :class="wrongPw ? 'blink-border' : ''"/>
                     </div>
 
 
@@ -61,21 +61,22 @@
 import InputText from 'primevue/inputtext';
 import Button from 'primevue/button';
 import Divider from 'primevue/divider';
-import { ref, watch, nextTick } from 'vue';
+import { ref } from 'vue';
+import { useToast } from "primevue/usetoast";
 
+
+const toast = useToast();
 const signupPage = ref(1);
 const email = ref('');
 const password = ref('');
 const signupIndex = ref(0);
 const emailWarn = ref(false);
 const pwInput = ref(null);
-
-
-const passwordInputElement = document.getElementById('password');
+const wrongPw = ref(false);
 
 function goToNextSignupStep() {
 
-    if(/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(email.value) === false) {
+    if(/^[\w-.]+@([\w-]+\.)+[\w-]{2,}$/.test(email.value) === false) {
         emailWarn.value = true;
         return;
     }
@@ -84,53 +85,82 @@ function goToNextSignupStep() {
         console.log('next step');
 
         signupIndex.value = signupIndex.value + 1;
-        passwordInputElement.focus();
         emailWarn.value = false;
         return;
     } else if(signupIndex.value === 1) {
         signupPage.value ? signup() : login();
+        return;
     }
-    // Call your API to create a new user account
-    console.log('Creating new user account with email:', email.value, 'and password:', password.value);
 }
 
-watch(pwInput, async (newVal) => {
-    if (newVal) {
-        await nextTick()
-        pwInput.value.focus();
-    }
-});
+
 
 import api from '@/services/api';
 
 const login = async () => {
     console.log('Logging in with email:', email.value, 'and password:', password.value);
-  try {
-    const { data } = await api.post('login_emailpw', { email: email.value, password: password.value });
-    console.log('Login Success:', data);
-    // Handle success, redirect to dashboard or store user data
-  } catch (error) {
-    console.error('Login Error', error);
-    // Handle error (e.g., display error message)
-  }
+
+    try {
+        const { data } = await api.post('login/emailpw', { email: email.value, password: password.value });
+        toast.add({ severity: 'success', summary: 'Success', detail: 'Logged In', life: 3000 });
+        console.log('Login Success:', data);
+        // Handle success, redirect to dashboard or store user data
+    } catch (error) {
+        console.error('Login Error:', error.response.data.error);
+        if (error.response && error.response.status === 401) {
+            toast.add({ severity: 'error', summary: 'Login Failed', detail: 'Invalid credentials', life: 3000 });
+            
+        } else {
+            console.error('Login Error:', error.code);
+        }
+    }
 };
 
 
 const signup = async () => {
-    console.log('Logging in with email:', email.value, 'and password:', password.value);
+    console.log('Signing Up with email:', email.value, 'and password:', password.value);
 
   try {
-    const { data } = await api.post('signup_emailpw', { email: email.value, password: password.value });
+    const { data } = await api.post('signup/emailpw', { email: email.value, password: password.value });
+    toast.add({ severity: 'success', summary: 'Success', detail: 'Signed Up', life: 3000 });
     console.log('Signup Success:', data);
     // Handle success, redirect to dashboard or store user data
     } catch (error) {
-    console.error('Signup Error', error);
+        if(error.response.status === 409) {
+            toast.add({ severity: 'warn', summary: 'Signup Failed', detail: 'User already exists', life: 3000 });
+        }
+
+        if(error.response.status === 400) {
+            toast.add({ severity: 'error', summary: 'Signup Failed', detail: 'Missing username, email, or password', life: 3000 });
+        }
+    
+        console.error('Signup Error:', error.response.data.error);
     // Handle error (e.g., display error message)
     }
 };
 
 const googleAuth = async () => {
-    await api.get('google_auth');
+    const response = await api.get('google_auth');
+    if (response.data.redirect_url) {
+        window.location.href = response.data.redirect_url; // Redirects the client
+        return;
+    }
+    toast.add({ severity: 'error', summary: 'Google Auth Failed', detail: 'Failed to get redirect URL', life: 3000 });
 };
 
 </script>
+<style scoped>
+.blink-border {
+    border: 2px solid transparent;
+    animation: blink 1s ease 2; /* Blinks twice */
+}
+
+@keyframes blink {
+    0%, 100% {
+        border-color: transparent; /* Start and end with no border */
+    }
+    50% {
+        border-color: rgb(255, 60, 60); /* Middle point with red border */
+    }
+}
+</style>

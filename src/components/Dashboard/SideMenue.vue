@@ -38,7 +38,7 @@
 
     <Dialog v-model:visible="visible" modal header="Create a project from your 3D file" :style="{ width: '45rem' }">
         <div class="card border-none">
-        <Toast />
+        <!-- <Toast /> -->
         <h1>Project Name :</h1>
 
         <div class="flex items-center gap-4 mb-4">
