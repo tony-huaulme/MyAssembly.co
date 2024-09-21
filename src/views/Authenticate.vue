@@ -3,7 +3,7 @@
     <div class="flex h-screen justify-center md:p-5">
 
         <!-- Right Section: Placeholder for Login Form -->
-        <div class="md:w-1/2 h-fill w-fill md:max-w-xl flex flex-column justify-center relative">
+        <div class="md:w-1/2 h-fill w-fill md:max-w-xl flex flex-column relative">
 
             <div class="w-fill flex flex-column items-center">
 
@@ -21,26 +21,22 @@
 
                     <div v-else class="flex flex-col gap-2">
                         <label for="password">{{ signupPage ? 'Create new password' : 'Password' }}</label>
-                        <InputText @keydown.enter="goToNextSignupStep" id="password" v-model="password"
-                            type="password" />
+                        <InputText ref="pwInput" @keydown.enter="goToNextSignupStep" id="password" v-model="password"
+                            type="password" focus/>
                     </div>
 
 
                     <Button :label="signupIndex === 0 ? 'Continue' : signupPage ? 'Create Account' : 'Login'"
-                        @click="goToNextSignupStep" class="mt-3 w-fill"></Button>
+                        @click="goToNextSignupStep" class="mt-3 w-fill">
+                    </Button>   
 
                     <div>
                         <Divider align="center" type="solid" style="margin: 48px 0px;">
                             <p class="m-0 text-xl">or</p>
                         </Divider>
 
-                        <div>
-                            <div id="g_id_onload"
-                                data-client_id="93244253552-q2qn4t6vjerpf6mj1qgfduf69agfulas.apps.googleusercontent.com"
-                                data-callback="handleCredentialResponse">
-                            </div>
-                            <div class="g_id_signin" data-type="standard"></div>
-                        </div>
+                        <Button :label="`${signupPage ? 'Sign Up' : 'Sign In'} with Google`" icon="pi pi-google" iconPos="left" @click="googleAuth"
+                            class="w-fill" />
                     </div>
                     <p class="flex flex-row gap-2 justify-center cursor-pointer">{{ signupPage ? 'Have an accout? ' :
                         "Don't have an account? " }}<a class="underline" @click="signupPage = !signupPage">{{ signupPage
@@ -62,84 +58,79 @@
 </template>
 
 <script setup>
-import { onMounted } from 'vue'
-import { RouterLink } from 'vue-router'
 import InputText from 'primevue/inputtext';
 import Button from 'primevue/button';
 import Divider from 'primevue/divider';
-import { ref } from 'vue';
+import { ref, watch, nextTick } from 'vue';
 
 const signupPage = ref(1);
-
 const email = ref('');
 const password = ref('');
 const signupIndex = ref(0);
 const emailWarn = ref(false);
+const pwInput = ref(null);
 
 
 const passwordInputElement = document.getElementById('password');
 
 function goToNextSignupStep() {
-    if (signupIndex.value === 0 && /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(email.value)) {
+
+    if(/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(email.value) === false) {
+        emailWarn.value = true;
+        return;
+    }
+
+    if (signupIndex.value === 0) {
+        console.log('next step');
+
         signupIndex.value = signupIndex.value + 1;
         passwordInputElement.focus();
         emailWarn.value = false;
         return;
-    } else {
-        emailWarn.value = true;
+    } else if(signupIndex.value === 1) {
+        signupPage.value ? signup() : login();
     }
     // Call your API to create a new user account
     console.log('Creating new user account with email:', email.value, 'and password:', password.value);
 }
 
-
-// Google Sign-In
-function parseJwt(token) {
-    // Decode the JWT token to extract user information
-    const base64Url = token.split('.')[1];
-    const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-    const jsonPayload = decodeURIComponent(atob(base64).split('').map(function (c) {
-        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-    }).join(''));
-
-    return JSON.parse(jsonPayload);
-}
-
-function handleCredentialResponse(response) {
-    const idToken = response.credential;
-    const userInfo = parseJwt(idToken);
-
-    // Store userInfo in Pinia store
-    //userStore.setUserInfo(userInfo);
-    //storeUserInfo(userInfo);
-    console.log(userInfo);
-
-    // Redirect the user to the /dashboard route
-    router.push('/demo');
-}
-
-onMounted(() => {
-
-    // Google Sign-In
-    const emailInputElement = document.getElementById('username');
-
-    emailInputElement.focus();
-    // Initialize the Google sign-in button
-    window.google.accounts.id.initialize({
-        client_id: '93244253552-q2qn4t6vjerpf6mj1qgfduf69agfulas.apps.googleusercontent.com',
-        callback: handleCredentialResponse,
-    });
-
-    window.google.accounts.id.renderButton(
-        document.querySelector('.g_id_signin'),
-        { theme: 'outline', size: 'large' } // Custom button options
-    );
+watch(pwInput, async (newVal) => {
+    if (newVal) {
+        await nextTick()
+        pwInput.value.focus();
+    }
 });
+
+import api from '@/services/api';
+
+const login = async () => {
+    console.log('Logging in with email:', email.value, 'and password:', password.value);
+  try {
+    const { data } = await api.post('login_emailpw', { email: email.value, password: password.value });
+    console.log('Login Success:', data);
+    // Handle success, redirect to dashboard or store user data
+  } catch (error) {
+    console.error('Login Error', error);
+    // Handle error (e.g., display error message)
+  }
+};
+
+
+const signup = async () => {
+    console.log('Logging in with email:', email.value, 'and password:', password.value);
+
+  try {
+    const { data } = await api.post('signup_emailpw', { email: email.value, password: password.value });
+    console.log('Signup Success:', data);
+    // Handle success, redirect to dashboard or store user data
+    } catch (error) {
+    console.error('Signup Error', error);
+    // Handle error (e.g., display error message)
+    }
+};
+
+const googleAuth = async () => {
+    await api.get('google_auth');
+};
+
 </script>
-<style>
-.S9gUrf-YoZ4jf {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-}
-</style>

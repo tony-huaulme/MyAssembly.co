@@ -69,7 +69,7 @@ export function setCameraPosition(camera, position, duration = 300) {
 
   let _ = new Tween(camera.position)
       .to(position, duration)
-      .easing(Easing.Cubic.InOut)
+      .easing(Easing.Quadratic.Out)//Easing.Cubic.InOut
       .start()
   TG.add(_);
 
@@ -77,11 +77,14 @@ export function setCameraPosition(camera, position, duration = 300) {
 
 export function OpeningAnimation(camera, model, base, duration = 1){
 
-  setCameraPosition(camera, { "x": -9.539544229757599, "y": 0.9296943318046175, "z": -6.929729846806887 } , 25)
-  setModelPosition(model, { x: 0, y: -20, z: 10 }, 25)
+  setCameraPosition(camera, base, 1)
+  setModelPosition(model, { "x": 1, "y": -3.5, "z": 0 }, 1)
 
-    setTimeout(() => {
-      setCameraPosition(camera, base, duration)
-      setModelPosition(model, { "x": 1, "y": -3.5, "z": 0 }, duration)
-    }, 50);
+  // setCameraPosition(camera, { "x": -9.539544229757599, "y": 0.9296943318046175, "z": -6.929729846806887 } , 25)
+  // setModelPosition(model, { x: 0, y: -20, z: 10 }, 25)
+
+  //   setTimeout(() => {
+  //     setCameraPosition(camera, base, duration)
+  //     setModelPosition(model, { "x": 1, "y": -3.5, "z": 0 }, duration)
+  //   }, 50);
 }

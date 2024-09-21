@@ -63,11 +63,12 @@
                     <Button icon="pi pi-share-alt" class="p-button-rounded p-button-info mr-2"
                         @click="shareProject(slotProps.data)" />
                     <Button icon="pi pi-trash" class="p-button-rounded p-button-danger"
-                        @click="deleteProject(slotProps.data)" />
+                      a  @click="deleteProject(slotProps.data)" />
                 </template>
             </Column>
         </DataTable>
     </div>
+    <ShareDemoModal />
 </template>
 
 <script setup>
@@ -77,6 +78,8 @@ import Button from 'primevue/button';
 import InputText from 'primevue/inputtext';
 import Select from 'primevue/select';
 import Tag from 'primevue/tag';
+
+import ShareDemoModal from '../ShareDemoModal.vue'; 
 
 import { ref, onMounted } from 'vue';
 import { useRouter } from 'vue-router';

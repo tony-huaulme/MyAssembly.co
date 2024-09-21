@@ -1,15 +1,16 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
 import HomePage from '@/views/HomePage.vue'
-import SignUp from '@/views/SignUp.vue'
+import Authenticate from '@/views/Authenticate.vue'
 import Dashboard from '@/views/Dashboard.vue'
 import ProjectsTable from '../components/Dashboard/ProjectsTable.vue'
 import Statistics from '../components/Dashboard/Statistics.vue'
 import Model from '../views/Model.vue'
+import ShareDemoModal from '../components/ShareDemoModal.vue'
 
 const routes = [
   { path: '/', component: HomePage, name: 'Home' },
-  { path: '/signup', component: SignUp, name: 'SignUp' },
+  { path: '/authenticate', component: Authenticate, name: 'Authenticate' },
   { path: '/dashboard', component: Dashboard, name: 'Dashboard', 
     
     children: [
@@ -29,6 +30,11 @@ const routes = [
     path: '/model',
     name: 'Model',
     component: Model
+  },
+  {
+    path : '/testModal',
+    name : 'TestModal',
+    component : ShareDemoModal
   }
 //   { path: '/bars', component: Bars, name: 'Bars' },
 //   { path: '/references', component: References, name: 'Références' },

@@ -7,7 +7,7 @@
 <template>
 
 <!-- btn btn-primary d-flex flex-row -->
-    <RouterLink :to="'/signup'" class="get-started-btn">       
+    <RouterLink :to="'/authenticate'" class="get-started-btn">       
         
             <Button>
                 <slot>

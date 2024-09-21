@@ -28,15 +28,15 @@ export function useHomePageAnimation(camera, model, assemblyBuilding, animationT
 
       },
     3: () => {
-        document.getElementById("HomePageModelContainer").style.opacity = 1;
-
-        setCameraPosition(camera,  { "x": -12.729960454702217, "y": 4.253643292056286, "z": 8.197330870006944 }  , animationTime);
-        setModelPosition(model, { "x": 1, "y": -3.5, "z": 0 }, animationTime);
-        assemblyBuilding.showAllPanels();
-
+        
       },
     4: () => {
-        setModelPosition(model, { "x": 1, "y": -3.5, "z": 0 }, animationTime);
+      document.getElementById("HomePageModelContainer").style.opacity = 1;
+
+      setCameraPosition(camera,  { "x": -12.729960454702217, "y": 4.253643292056286, "z": 8.197330870006944 }  , animationTime);
+      setModelPosition(model, { "x": 1, "y": -3.5, "z": 0 }, animationTime);
+      assemblyBuilding.showAllPanels();
+
       },
     5: () => {
         setModelPosition(model, { "x": 1, "y": -3.5, "z": 0 }, animationTime);
