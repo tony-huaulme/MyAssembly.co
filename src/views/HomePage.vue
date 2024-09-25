@@ -3,8 +3,8 @@
     <div class="container position-relative">
         <!-- <h2 style="position: fixed; left: 0; background-color: aliceblue; color: black;">{{ res }}</h2> -->
         <Header></Header>
-        <div ref="modelContainer" class="h-screen" id="HomePageModelContainer"
-            style="width: 75vw !important; position: fixed;right: 0; top: 0px !important;">
+        <div ref="modelContainer" class="h-screen mg:w-3/4 w-1/2 h-screen" id="HomePageModelContainer"
+            style="position: fixed;right: 0; top: 0px !important;">
             <ModelViewer v-if="modelContainer" ref="modelViewerRef"
                 modelUrl="https://www.myassembly.co/src/assets/models/DemoModel.glb" 
                 :controle="false"
@@ -16,7 +16,7 @@
         <!-- Section 1: More than just 3D visualization -->
         <SideSection side="left">
             <template #title>
-                <span>More than a<br>3D visualization</span>
+                More than a<br>3D visualization
             </template>
             <template #description>
                 <span>With our innovative 3D modeling platform, architects, builders, and clients can explore and
@@ -268,7 +268,7 @@ onUnmounted(() => {
 <style>
 .container {
     width: 90%;
-    max-width: 1580px;
+    max-width: 1380px;
     margin-left: auto;
     margin-right: auto;
 }
@@ -290,4 +290,8 @@ onUnmounted(() => {
 .panel-ittle{
    opacity: 0.8;
 }
+
+
+    
+
 </style>

@@ -25,8 +25,8 @@
                             type="password" :class="wrongPw ? 'blink-border' : ''"/>
                     </div>
 
-
-                    <Button :label="signupIndex === 0 ? 'Continue' : signupPage ? 'Create Account' : 'Login'"
+           
+                    <Button :loading="loading" :label="signupIndex === 0 ? 'Continue' : signupPage ? 'Create Account' : 'Login'"
                         @click="goToNextSignupStep" class="mt-3 w-fill">
                     </Button>   
 
@@ -74,6 +74,8 @@ const emailWarn = ref(false);
 const pwInput = ref(null);
 const wrongPw = ref(false);
 
+const loading = ref(false);
+
 function goToNextSignupStep() {
 
     if(/^[\w-.]+@([\w-]+\.)+[\w-]{2,}$/.test(email.value) === false) {
@@ -98,20 +100,23 @@ function goToNextSignupStep() {
 import api from '@/services/api';
 
 const login = async () => {
+    loading.value = true;
     console.log('Logging in with email:', email.value, 'and password:', password.value);
 
     try {
         const { data } = await api.post('login/emailpw', { email: email.value, password: password.value });
         toast.add({ severity: 'success', summary: 'Success', detail: 'Logged In', life: 3000 });
         console.log('Login Success:', data);
+        loading.value = false;
         // Handle success, redirect to dashboard or store user data
     } catch (error) {
+        loading.value = false;
         console.error('Login Error:', error.response.data.error);
         if (error.response && error.response.status === 401) {
             toast.add({ severity: 'error', summary: 'Login Failed', detail: 'Invalid credentials', life: 3000 });
             
         } else {
-            console.error('Login Error:', error.code);
+            toast.add({ severity: 'error', summary: 'Login Failed', detail: error.code, life: 3000 });
         }
     }
 };
