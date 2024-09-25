@@ -3,10 +3,10 @@ import { link } from 'fs';
 </script>
 
 <template>
-    <footer class="footer p-jc-between p-ai-start p-py-4" style="background-color: black !important;">
+    <footer class="footer justify-center p-py-4" style="background-color: black !important; min-height: 65vh;">
          <!-- Left Section -->
         
-        <div class="footer-links flex-column">
+        <div class="footer-links lg:flex-row flex-wrap">
 
           <div class="left-section">
           <p class="footer-description">
@@ -83,7 +83,6 @@ import { link } from 'fs';
   .footer {
     padding: 2rem 3rem;
     display: flex;
-    justify-content: space-between;
   }
   
   .left-section {

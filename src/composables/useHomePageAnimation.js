@@ -13,33 +13,33 @@ export function useHomePageAnimation(camera, model, assemblyBuilding, animationT
   // Define the steps with their corresponding animations
   const steps = {
     0: () => {
-        setCameraPosition(camera, { "x": -10.349590810671197, "y": 1.1734950219156364, "z": 5.603326770502212 }  , animationTime);
-        setModelPosition(model, { "x": 1, "y": -3.5, "z": 0 }, animationTime);
-        assemblyBuilding.showAllPanels();
-      },
+      setCameraPosition(camera, { "x": -10.349590810671197, "y": 1.1734950219156364, "z": 5.603326770502212 }, animationTime);
+      setModelPosition(model, { "x": 1, "y": -3.5, "z": 0 }, animationTime);
+      assemblyBuilding.showAllPanels();
+    },
     1: () => {
-        setCameraPosition(camera,  { "x": -12.729960454702217, "y": 4.253643292056286, "z": 8.197330870006944 }  , animationTime/2);
-        setModelPosition(model, { "x": 1, "y": -3.5, "z": 0 }, animationTime);
-        document.getElementById("HomePageModelContainer").style.opacity = 1;
-      },
+      setCameraPosition(camera, { "x": -12.729960454702217, "y": 4.253643292056286, "z": 8.197330870006944 }, animationTime);
+      setModelPosition(model, { "x": 1, "y": -3.5, "z": 0 }, animationTime);
+      document.getElementById("HomePageModelContainer").style.opacity = 1;
+    },
     2: () => {
-        document.getElementById("HomePageModelContainer").style.opacity = 0;
-        setModelPosition(model, { "x": 1, "y": -3.5, "z": 20 }, animationTime);
+      document.getElementById("HomePageModelContainer").style.opacity = 0;
+      setModelPosition(model, { "x": 20, "y": -3.5, "z": 0 }, animationTime);
 
-      },
+    },
     3: () => {
-        
-      },
+
+    },
     4: () => {
       document.getElementById("HomePageModelContainer").style.opacity = 1;
 
-      setCameraPosition(camera,  { "x": -12.729960454702217, "y": 4.253643292056286, "z": 8.197330870006944 }  , animationTime);
+      setCameraPosition(camera, { "x": -12.729960454702217, "y": 4.253643292056286, "z": 8.197330870006944 }, animationTime);
       setModelPosition(model, { "x": 1, "y": -3.5, "z": 0 }, animationTime);
       assemblyBuilding.showAllPanels();
 
-      },
+    },
     5: () => {
-        setModelPosition(model, { "x": 1, "y": -3.5, "z": 0 }, animationTime);
+      setModelPosition(model, { "x": 1, "y": -3.5, "z": 0 }, animationTime);
     },
 
   };

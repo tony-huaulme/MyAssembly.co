@@ -45,6 +45,13 @@ const props = defineProps({
 
 
 /* copy paste ancien site (webflowCopy) */
+section {
+    height: 100vh;
+    width: 100%;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+}
 
 h1 { 
     margin-top: 0; 

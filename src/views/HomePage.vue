@@ -3,8 +3,7 @@
     <div class="container position-relative">
         <!-- <h2 style="position: fixed; left: 0; background-color: aliceblue; color: black;">{{ res }}</h2> -->
         <Header></Header>
-        <div ref="modelContainer" class="h-screen mg:w-3/4 w-1/2 h-screen" id="HomePageModelContainer"
-            style="position: fixed;right: 0; top: 0px !important;">
+        <div ref="modelContainer" class="h-screen mg:w-3/4 w-1/2 h-screen" id="HomePageModelContainer">
             <ModelViewer v-if="modelContainer" ref="modelViewerRef"
                 modelUrl="https://www.myassembly.co/src/assets/models/DemoModel.glb" 
                 :controle="false"
@@ -135,10 +134,7 @@
         <!-- <Stepper /> -->
     </div>
 
-    <div class="container">
         <Footer />
-    </div>
-
 
     <ScrollTop />
 </template>
@@ -260,13 +256,14 @@ onUnmounted(() => {
 
 #HomePageModelContainer {
     transition: opacity 0.5s;
+    z-index: 9999;
 }
 
 
 @media screen and (min-width: 1380px) {
     #HomePageModelContainer {
-      right: calc((100vw - 1580px) / 2);
-      width: 890px !important;
+      right:0;
+      width: 75vw !important;
       height: 100vh !important;
       top: 0;
       background-color: transparent;
@@ -302,7 +299,9 @@ onUnmounted(() => {
    opacity: 0.8;
 }
 
-
+#HomePageModelContainer{
+    position: fixed;
+}
     
 
 </style>
