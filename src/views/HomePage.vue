@@ -56,9 +56,9 @@
 
                         </div>
                         <div class="flex flex-row items-baseline">
-                            <Button @click="BuildingAssembly.showOnlyPanelByName('1F-W1');" outlined
+                            <Button @click="BuildingAssembly.showOnlyPanelByName('1F-W1*');" outlined
                                 class="panelButton font-semibold">1F-W1</Button>
-                            <Button @click="BuildingAssembly.showOnlyPanelByName('1F-W2');" outlined
+                            <Button @click="BuildingAssembly.showOnlyPanelByName('1F-W2*');" outlined
                                 class="panelButton font-semibold">1F-W2</Button>
                         </div>
                         <div class="flex flex-row items-baseline">
@@ -143,7 +143,6 @@
 import Header from "../components/HomePage/Header.vue";
 import HeroSection from "../components/HomePage/HeroSection.vue";
 import SideSection from "../components/HomePage/SideSection.vue";
-import Stepper from "../components/HomePage/Stepper.vue";
 import ScrollTop from "primevue/scrolltop";
 import ModelViewer from "../components/Model/ModelViewer.vue";
 import Footer from "../components/HomePage/Footer.vue";
@@ -154,7 +153,9 @@ import Panel from "primevue/panel";
 
 import { Building } from '../ThreeJs/building/Building.js';
 import { OpeningAnimation } from '../ThreeJs/building/ModelAnimation.js';
-
+import {
+  setModelPosition,
+} from '../ThreeJs/building/ModelAnimation.js';
 import { useHomePageAnimation } from '../composables/useHomePageAnimation.js';
 
 import { ref, watch, onMounted, onUnmounted } from "vue";
@@ -177,7 +178,9 @@ watch(ModelCamera, (camera) => {
     if (camera) {
         cameraPosition.value = camera.position;
 
-        OpeningAnimation(camera, ModelBuilding.value, { "x": -10.349590810671197, "y": 1.1734950219156364, "z": 5.603326770502212 }, 1500);
+        OpeningAnimation(camera, ModelBuilding.value, { "x": -9.349590810671197, "y": 1.1734950219156364, "z": 6.603326770502212 }, 1500);
+        setModelPosition(ModelBuilding.value, { "x": 3, "y": -3.5, "z": 0 }, 1500);
+        
         const { setStep } = useHomePageAnimation(ModelCamera.value, ModelBuilding.value, BuildingAssembly.value, 1200);
         stepSetter.value = setStep;
 
@@ -256,7 +259,7 @@ onUnmounted(() => {
 
 #HomePageModelContainer {
     transition: opacity 0.5s;
-    z-index: 9999;
+    z-index: 999;
 }
 
 
@@ -277,11 +280,13 @@ onUnmounted(() => {
       height: 35vh !important;
       left: 0;
       right: 0;
-      bottom: 0px;
       background-color: var(--p-content-background);
     }
     section {
       height: auto;
+    }
+    #section1 {
+        padding-top: 30vh;
     }
   }
 

@@ -130,10 +130,10 @@ const login = async () => {
 const signup = async () => {
     console.log('Signing Up with email:', email.value, 'and password:', password.value);
 
-  try {
-    const { data } = await api.post('signup/emailpw', { email: email.value, password: password.value });
-    toast.add({ severity: 'success', summary: 'Success', detail: 'Signed Up', life: 3000 });
-    console.log('Signup Success:', data);
+    try {
+        const { data } = await api.post('signup/emailpw', { email: email.value, password: password.value });
+        toast.add({ severity: 'success', summary: 'Success', detail: 'Signed Up', life: 3000 });
+        console.log('Signup Success:', data);
     // Handle success, redirect to dashboard or store user data
     } catch (error) {
         if(error.response.status === 409) {
@@ -150,12 +150,19 @@ const signup = async () => {
 };
 
 const googleAuth = async () => {
-    const response = await api.get('google_auth');
-    if (response.data.redirect_url) {
-        window.location.href = response.data.redirect_url; // Redirects the client
-        return;
+    try {
+        const { data } = await api.get('google_auth');
+        console.log('Signup Success:', data);
+
+        if (response.data.redirect_url) {
+            window.location.href = response.data.redirect_url; // Redirects the client
+            return;
+        }
+        toast.add({ severity: 'error', summary: 'Google Auth Failed', detail: 'Failed to get redirect URL', life: 3000 });
+    } catch (error) {
+        console.error('Google Auth Error:', error.response.data.error);
+        toast.add({ severity: 'error', summary: 'Google Auth Failed', detail: error.response.data.error, life: 3000 });
     }
-    toast.add({ severity: 'error', summary: 'Google Auth Failed', detail: 'Failed to get redirect URL', life: 3000 });
 };
 
 </script>
