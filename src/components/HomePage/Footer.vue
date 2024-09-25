@@ -1,19 +1,31 @@
+<script setup lang="ts">
+import { link } from 'fs';
+</script>
+
 <template>
-    <footer class="footer p-d-flex p-jc-between p-ai-start p-py-4">
+    <footer class="footer p-jc-between p-ai-start p-py-4" style="background-color: black !important;">
          <!-- Left Section -->
-        <div class="left-section">
-        <p class="footer-description">
-            Making the world a better place through constructing elegant hierarchies.
-        </p>
-        <div class="social-icons p-d-flex p-ai-center p-mt-2">
-            <Button icon="pi pi-facebook" class="p-button-rounded p-button-text p-mr-2" />
-            <Button icon="pi pi-instagram" class="p-button-rounded p-button-text p-mr-2" />
-            <Button icon="pi pi-twitter" class="p-button-rounded p-button-text p-mr-2" />
-            <Button icon="pi pi-github" class="p-button-rounded p-button-text p-mr-2" />
-            <Button icon="pi pi-youtube" class="p-button-rounded p-button-text" />
+        
+        <div class="footer-links flex-column">
+
+          <div class="left-section">
+          <p class="footer-description">
+              Making the world a better place through constructing elegant hierarchies.
+          </p>
+          <div class="social-icons p-d-flex p-ai-center p-mt-2">
+              <!-- linkdedIn Button, page : https://www.linkedin.com/company/myassembly-co -->
+              <Button 
+                as="a" 
+                icon="pi pi-linkedin" 
+                class="p-button-rounded p-button-text p-mr-2" 
+                href="https://www.linkedin.com/company/myassembly-co" 
+                target="_blank"
+              />
+              <!-- <Button icon="pi pi-facebook" class="p-button-rounded p-button-text p-mr-2" />
+              <Button icon="pi pi-instagram" class="p-button-rounded p-button-text p-mr-2" /> -->
+
+          </div>
         </div>
-        </div>
-        <div class="footer-links p-d-flex p-flex-wrap">
         <!-- Solutions Column -->
         <div class="footer-column">
             <h4 class="footer-title">Solutions</h4>

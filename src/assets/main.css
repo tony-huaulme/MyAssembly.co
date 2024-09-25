@@ -22,6 +22,10 @@ body {
     -moz-osx-font-smoothing: grayscale;
 }
 
+#app {
+  background : var(--p-content-background); 
+}
+
 .card {
     background: var(--card-background);
      border: var(--card-border);

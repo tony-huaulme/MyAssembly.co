@@ -11,11 +11,20 @@
                 <div class="w-2/3 max-w-md mt-10 flex flex-column justify-center ">
                     <i class="pi pi-box text-8xl self-center mb-5"></i>
                     <h1 class="text-2xl font-semibold text-gray-700 text-center mb-6">{{ signupPage ? 'Welcome to MyAssembly.co!' : 'Log into my account' }}</h1>
+                    <Button iconPos="left" @click="googleAuth" class="w-fill" style="background-color: white;"> 
+                            <img src="https://img.icons8.com/?size=24&id=17949&format=png" alt="">    
+                            {{`${signupPage ? 'Sign Up' : 'Sign In'} with Google`}}
+                        </Button>
+
+
+                        <Divider align="center" type="solid" style="margin: 48px 0px;">
+                            <p class="m-0 text-xl">or</p>
+                        </Divider>
 
                     <div v-if="signupIndex == 0" class="flex flex-col gap-2">
 
                         <InputText @keydown.enter="goToNextSignupStep" id="username" v-model="email"
-                            placeholder="Work email address" value="frontend-form@gmai.om"/>
+                            placeholder="Work email address"/>
                         <small v-if="emailWarn" class="p-error">Invalid email format</small>
                     </div>
 
@@ -31,12 +40,8 @@
                     </Button>   
 
                     <div>
-                        <Divider align="center" type="solid" style="margin: 48px 0px;">
-                            <p class="m-0 text-xl">or</p>
-                        </Divider>
 
-                        <Button :label="`${signupPage ? 'Sign Up' : 'Sign In'} with Google`" icon="pi pi-google" iconPos="left" @click="googleAuth"
-                            class="w-fill" />
+
                     </div>
                     <p class="flex flex-row gap-2 justify-center cursor-pointer">{{ signupPage ? 'Have an accout? ' :
                         "Don't have an account? " }}<a class="underline" @click="signupPage = !signupPage">{{ signupPage
@@ -154,7 +159,7 @@ const googleAuth = async () => {
 };
 
 </script>
-<style scoped>
+<style>
 .blink-border {
     border: 2px solid transparent;
     animation: blink 1s ease 2; /* Blinks twice */
@@ -167,5 +172,9 @@ const googleAuth = async () => {
     50% {
         border-color: rgb(255, 60, 60); /* Middle point with red border */
     }
+}
+
+.p-divider-content {
+    background-color: var(--p-content-background) !important;
 }
 </style>

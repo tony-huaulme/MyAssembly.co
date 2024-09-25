@@ -49,39 +49,24 @@
                         <p class="m-0 text-base panel-ittle">
                             Ground floor walls:
                         </p>
-                        <div class="flex flex-row items-baseline mb-3">
-                            <Button @click="BuildingAssembly.showOnlyPanelByName('G-W1*');" outlined
+                        <div class="flex flex-row items-baseline">
+                            <Button @click="BuildingAssembly.showOnlyPanelByName('G-W1');" outlined
                                 class="panelButton font-semibold ">G-W1</Button>
-                            <Button @click="BuildingAssembly.showOnlyPanelByName('G-W2*');" outlined
+                            <Button @click="BuildingAssembly.showOnlyPanelByName('G-W2');" outlined
                                 class="panelButton font-semibold ">G-W2</Button>
-                            <Button @click="BuildingAssembly.showOnlyPanelByName('G-W3*');" outlined
-                                class="panelButton font-semibold ">G-W3</Button>
+
                         </div>
-                        <p class="m-0 text-base panel-ittle">
-
-                            First floor walls:
-                        </p>
-
-                        <div class="flex flex-row items-baseline mb-3">
-                            <Button @click="BuildingAssembly.showOnlyPanelByName('1F-W1*');" outlined
+                        <div class="flex flex-row items-baseline">
+                            <Button @click="BuildingAssembly.showOnlyPanelByName('1F-W1');" outlined
                                 class="panelButton font-semibold">1F-W1</Button>
-                            <Button @click="BuildingAssembly.showOnlyPanelByName('1F-W2*');" outlined
+                            <Button @click="BuildingAssembly.showOnlyPanelByName('1F-W2');" outlined
                                 class="panelButton font-semibold">1F-W2</Button>
-                            <Button @click="BuildingAssembly.showOnlyPanelByName('1F-W3*');" outlined
-                                class="panelButton font-semibold">1F-W3</Button>
                         </div>
-                        <p class="m-0 text-base panel-ittle">
-
-                            Roof:
-                        </p>
-
-                        <div class="flex flex-row items-baseline mb-3">
-                            <Button @click="BuildingAssembly.showOnlyPanelByName('R1*');" outlined
+                        <div class="flex flex-row items-baseline">
+                            <Button @click="BuildingAssembly.showOnlyPanelByName('R1');" outlined
                                 class="panelButton font-semibold">R1</Button>
-                            <Button @click="BuildingAssembly.showOnlyPanelByName('R2*');" outlined
+                            <Button @click="BuildingAssembly.showOnlyPanelByName('R2');" outlined
                                 class="panelButton font-semibold">R2</Button>
-                            <Button @click="BuildingAssembly.showOnlyPanelByName('R3*');" outlined
-                                class="panelButton font-semibold">R3</Button>
                         </div>
                     </div>
 
@@ -147,7 +132,7 @@
             <GetStartedButton />
         </HeroSection>
 
-        <Stepper />
+        <!-- <Stepper /> -->
     </div>
 
     <div class="container">
@@ -276,6 +261,32 @@ onUnmounted(() => {
 #HomePageModelContainer {
     transition: opacity 0.5s;
 }
+
+
+@media screen and (min-width: 1380px) {
+    #HomePageModelContainer {
+      right: calc((100vw - 1580px) / 2);
+      width: 890px !important;
+      height: 100vh !important;
+      top: 0;
+      background-color: transparent;
+    }
+    
+  }
+
+  @media screen and (max-width: 1380px) {
+    #HomePageModelContainer {
+      width: 100vw !important;
+      height: 35vh !important;
+      left: 0;
+      right: 0;
+      bottom: 0px;
+      background-color: var(--p-content-background);
+    }
+    section {
+      height: auto;
+    }
+  }
 
 .panelButton {
     border-radius: 0 !important;
