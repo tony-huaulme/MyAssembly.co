@@ -13,7 +13,7 @@
         </div>
         <slot name="rightcolumn" ></slot>
     </section> -->
-    <section id="section1">
+    <section>
         <div data-hero-content-wrap="" pointer-auto="" class="hero_content-w breakpoint-section">
         <div class="hl_headline-w">
             <h1 class="h1 hero-title">
@@ -40,7 +40,7 @@ const props = defineProps({
 });
 
 </script>
-<style>
+<style scoped>
 
 
 

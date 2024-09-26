@@ -1,8 +1,19 @@
 <template>
+    <div class="container position-fixed" style="
+        position: fixed;
+        top: 0px;
+        z-index: 9999;
+        background: #18181bc7;
+        backdrop-filter: blur(24px);
+        width: 100vw;
+        padding-left: 5%;
+        padding-right: 5%;
+    ">
+        <Header></Header>
+    </div>
 
     <div class="container position-relative">
         <!-- <h2 style="position: fixed; left: 0; background-color: aliceblue; color: black;">{{ res }}</h2> -->
-        <Header></Header>
         <div ref="modelContainer" class="h-screen mg:w-3/4 w-1/2 h-screen" id="HomePageModelContainer">
             <ModelViewer v-if="modelContainer" ref="modelViewerRef"
                 modelUrl="https://www.myassembly.co/src/assets/models/DemoModel.glb" 
@@ -13,7 +24,7 @@
         </div>
 
         <!-- Section 1: More than just 3D visualization -->
-        <SideSection side="left">
+        <SideSection side="left" id="section1">
             <template #title>
                 More than a<br>3D visualization
             </template>
@@ -43,16 +54,15 @@
                         single-family home or a large-scale commercial structure, our 3D models adapt, offering
                         flexibility and real-time updates.</span>
 
-                    <div class="flex flex-column mt-5 card w-fit from-gray-800">
+                    <div class="flex flex-column mt-5 w-fit from-gray-800">
 
-                        <p class="m-0 text-base panel-ittle">
-                            Ground floor walls:
-                        </p>
                         <div class="flex flex-row items-baseline">
                             <Button @click="BuildingAssembly.showOnlyPanelByName('G-W1');" outlined
                                 class="panelButton font-semibold ">G-W1</Button>
                             <Button @click="BuildingAssembly.showOnlyPanelByName('G-W2');" outlined
                                 class="panelButton font-semibold ">G-W2</Button>
+                            <Button @click="BuildingAssembly.showOnlyPanelByName('G-W3');" outlined
+                                class="panelButton font-semibold ">G-W3</Button>
 
                         </div>
                         <div class="flex flex-row items-baseline">
@@ -60,12 +70,16 @@
                                 class="panelButton font-semibold">1F-W1</Button>
                             <Button @click="BuildingAssembly.showOnlyPanelByName('1F-W2*');" outlined
                                 class="panelButton font-semibold">1F-W2</Button>
+                            <Button @click="BuildingAssembly.showOnlyPanelByName('1F-W3*');" outlined
+                                class="panelButton font-semibold">1F-W3</Button>
                         </div>
                         <div class="flex flex-row items-baseline">
                             <Button @click="BuildingAssembly.showOnlyPanelByName('R1');" outlined
                                 class="panelButton font-semibold">R1</Button>
                             <Button @click="BuildingAssembly.showOnlyPanelByName('R2');" outlined
                                 class="panelButton font-semibold">R2</Button>
+                            <Button @click="BuildingAssembly.showOnlyPanelByName('R3');" outlined
+                                class="panelButton font-semibold">R3</Button>
                         </div>
                     </div>
 
@@ -92,8 +106,8 @@
             </template>
         </HeroSection>
 
-        <Panel class="mb-10">
-            <img src="../assets/dashboard_picture.png" class="max-w-full h-50">
+        <Panel class="mb-10" style="height: 50vh; border: none; overflow: hidden;">
+            <img src="../assets/dashboard_picture.png" class="max-w-full">
         </Panel>
 
         <!-- Section 5: Seamless Interactions -->
@@ -114,24 +128,6 @@
             </template>
             <GetStartedButton />
         </SideSection>
-
-        <h1 class="text-5xl sm:text-6xl lg:text-6xl font-bold leading-tight text-center">3 Free Steps</h1>
-
-        <!-- Section 2: A solution that goes beyond blueprints -->
-        <HeroSection>
-            <template #title>
-                <span>A solution that goes beyond blueprints</span>
-            </template>
-            <template #description>
-                <span>
-                    You focus on the project — we provide interactive 3D insights, from element identification to
-                    assembly videos and pop-up instructions.
-                </span>
-            </template>
-            <GetStartedButton />
-        </HeroSection>
-
-        <!-- <Stepper /> -->
     </div>
 
         <Footer />
@@ -280,10 +276,10 @@ onUnmounted(() => {
       height: 35vh !important;
       left: 0;
       right: 0;
-      background-color: var(--p-content-background);
+      background: linear-gradient(to bottom, rgb(24, 24, 27) 90%,  rgba(24, 24, 27, 0) 100%), #18181b00;
     }
     section {
-      height: auto;
+      height: webkit-fill-available;
     }
     #section1 {
         padding-top: 30vh;

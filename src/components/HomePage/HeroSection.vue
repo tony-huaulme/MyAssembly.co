@@ -1,13 +1,13 @@
 <template>
 <!-- Hero Section -->
-    <section class="flex flex-col items-center justify-center text-center mb-32">
+    <section class="flex flex-col items-center justify-center text-center mb-15" style="padding-top: 6.5rem;">
         <h1 class="h1 hero-title mb-5">
             <slot name="title"></slot>
         </h1>
         <p class="text-lg md:text-xl max-w-3xl mx-auto mb-5">
             <slot name="description"></slot>
         </p>
-        <GetStartedButton/>
+        <!-- <GetStartedButton/> -->
     </section>
 
 </template>
