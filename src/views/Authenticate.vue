@@ -66,9 +66,11 @@
 import InputText from 'primevue/inputtext';
 import Button from 'primevue/button';
 import Divider from 'primevue/divider';
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
 import { useToast } from "primevue/usetoast";
+import { useRouter } from 'vue-router';
 
+const $router = useRouter();
 
 const toast = useToast();
 const signupPage = ref(1);
@@ -80,6 +82,14 @@ const pwInput = ref(null);
 const wrongPw = ref(false);
 
 const loading = ref(false);
+
+watch(signupPage, () => {
+    signupIndex.value = 0;
+    email.value = '';
+    password.value = '';
+    emailWarn.value = false;
+    wrongPw.value = false;
+});
 
 function goToNextSignupStep() {
 
@@ -102,6 +112,7 @@ function goToNextSignupStep() {
 
 
 
+
 import api from '@/services/api';
 
 const login = async () => {
@@ -113,6 +124,10 @@ const login = async () => {
         toast.add({ severity: 'success', summary: 'Success', detail: 'Logged In', life: 3000 });
         console.log('Login Success:', data);
         loading.value = false;
+        localStorage.setItem('user', JSON.stringify(data));
+
+        $router.push(`/authenticated?user_email=${data.user.email}&new_user=${false}`);
+        // redirect to the URL returned by the server : ?user_email=raichounoscope@gmail.com&user_name=LEESINGOOD&new_user=<AppUser%20LEESINGOOD>
         // Handle success, redirect to dashboard or store user data
     } catch (error) {
         loading.value = false;
@@ -131,19 +146,29 @@ const signup = async () => {
     console.log('Signing Up with email:', email.value, 'and password:', password.value);
 
     try {
-        const { data } = await api.post('signup/emailpw', { email: email.value, password: password.value });
+        const  { data }  = await api.post('signup/emailpw', { email: email.value, password: password.value });
         toast.add({ severity: 'success', summary: 'Success', detail: 'Signed Up', life: 3000 });
+        
         console.log('Signup Success:', data);
+
+        $router.push(`/authenticated?user_email=${data.user.email}&new_user=${true}`);
+
+
+    // redirect to the URL returned by the server : ?user_email=raichounoscope@gmail.com&user_name=LEESINGOOD&new_user=<AppUser%20LEESINGOOD>
     // Handle success, redirect to dashboard or store user data
     } catch (error) {
+        console.log('Signup Error:', error.response.data.error);
         if(error.response.status === 409) {
             toast.add({ severity: 'warn', summary: 'Signup Failed', detail: 'User already exists', life: 3000 });
+            return;
         }
 
         if(error.response.status === 400) {
             toast.add({ severity: 'error', summary: 'Signup Failed', detail: 'Missing username, email, or password', life: 3000 });
+            return;
         }
-    
+
+        toast.add({ severity: 'error', summary: 'Signup Failed', detail: error.response.data.error, life: 3000 });
         console.error('Signup Error:', error.response.data.error);
     // Handle error (e.g., display error message)
     }
@@ -154,14 +179,16 @@ const googleAuth = async () => {
         const { data } = await api.get('google_auth');
         console.log('Signup Success:', data);
 
-        if (response.data.redirect_url) {
-            window.location.href = response.data.redirect_url; // Redirects the client
+        if (data.redirect_url) {
+            window.location.href = data.redirect_url; // Redirects the client
+            // redirect to the URL returned by the server : ?user_email=raichounoscope@gmail.com&user_name=LEESINGOOD&new_user=<AppUser%20LEESINGOOD>
             return;
         }
         toast.add({ severity: 'error', summary: 'Google Auth Failed', detail: 'Failed to get redirect URL', life: 3000 });
+        
     } catch (error) {
-        console.error('Google Auth Error:', error.response.data.error);
-        toast.add({ severity: 'error', summary: 'Google Auth Failed', detail: error.response.data.error, life: 3000 });
+        console.error('Google Auth Error:', error);
+        toast.add({ severity: 'error', summary: 'Google Auth Failed', detail: error.response?.data?.error, life: 3000 });
     }
 };
 

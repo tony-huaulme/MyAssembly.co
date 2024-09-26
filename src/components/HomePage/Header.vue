@@ -20,7 +20,7 @@
                 </a>
             </template>
             <template #end>
-                <GetStartedButton><p class="m-0 ">Start Building</p></GetStartedButton>
+                <GetStartedButton id="header-get-started" ><p class="m-0 ">Start Building</p></GetStartedButton>
                 <!-- <Button ><p style="font-weight: bold; margin-right: 1ch; margin: 0;">Get Started</p><p style="margin: 0" class="lg:block hidden"> — it's free</p></Button> -->
             </template>
         </Menubar>
@@ -97,5 +97,21 @@ const items = ref([
     background-color: var(--surface);
     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
     padding: 0;
+    /* gap: 40vw; */
 }
+
+@media screen and (max-width: 968px) {
+    #header-get-started {
+        display: none;
+    }
+
+}
+
+@media screen and (max-width: 968px) {
+    .p-menubar { 
+        /* gap: 40vw; */
+    }
+    
+}
+
 </style>
