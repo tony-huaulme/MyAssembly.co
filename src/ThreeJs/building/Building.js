@@ -1,5 +1,5 @@
 import { Panel } from './Panel.js';
-import { isPanelName, isPanelPart } from '../utils.js';
+import { isPanelName, isPanelPart, groupAndSort } from '../utils.js';
 import * as THREE from 'three';
 
 
@@ -79,4 +79,19 @@ export class Building {
         }
     }
    
+    getPanelsByGroupsDict() {
+
+
+
+        let allPanlesNames = Object.keys(this.panels);
+
+        allPanlesNames.forEach((item, index) => {
+            if (item.includes('*')) {
+                allPanlesNames[index] = item.replace('*', ''); // Replace '*' with an empty string
+            }
+          });
+
+        return groupAndSort(allPanlesNames);
+    }
+
 }
