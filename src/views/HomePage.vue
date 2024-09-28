@@ -20,7 +20,8 @@
                 :controle="false"
                 :modelContainer="modelContainer" 
                 @model-loaded="ModelBuilding = $event"
-                @camera-loaded="ModelCamera = $event" />
+                @camera-loaded="ModelCamera = $event" 
+            />
         </div>
 
         <!-- Section 1: More than just 3D visualization -->

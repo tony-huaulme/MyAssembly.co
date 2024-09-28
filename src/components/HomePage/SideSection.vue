@@ -60,16 +60,6 @@ h1 {
     line-height: 1.4;
 } 
 
-.h1 { 
-    margin-top: 0; 
-    margin-bottom: 0; 
-    font-family: WF Visual Sans,Arial,sans-serif; 
-    font-size: 5.313rem; 
-    font-weight: 600; 
-    line-height: 1.04;
-    
-} 
-
 h1,.h1 { 
     font-feature-settings: "ss01" 0, "ss02" 0, "ss03" 0;
 } 

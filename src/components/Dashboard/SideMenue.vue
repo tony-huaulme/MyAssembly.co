@@ -36,20 +36,20 @@
         </Menu>
     </div>
 
-    <Dialog v-model:visible="visible" modal header="Create a project from your 3D file" :style="{ width: '45rem' }">
-        <div class="card border-none">
+    <Dialog v-model:visible="visible" modal header="Create a project" :style="{ width: '45rem' }">
+        <div class="card border-none mb-0">
         <!-- <Toast /> -->
-        <h1>Project Name :</h1>
+        <h4 class="mt-0 mb-1">Project Name :</h4>
 
-        <div class="flex items-center gap-4 mb-4">
+        <div class="flex items-center gap-4">
             <InputText id="project_name" class="flex-auto" autocomplete="off" />
         </div>
-        <h1 class="mt-8">3D Model :</h1>
+        <h4 class="mb-1">3D Model :</h4>
         <FileUpload name="demo[]" url="/api/upload" @upload="onTemplatedUpload($event)" :multiple="false"  :maxFileSize="1000000000000" @select="onSelectedFiles" class="border-dashed">
             <template #header="{ chooseCallback }">
                 <Button v-show="files.length < 1" @click="chooseCallback()" label="Chose File" icon="pi pi-plus"/>
             </template>
-            <template #content="{ files, uploadedFiles, removeUploadedFileCallback, removeFileCallback }">
+            <template #content="{ files, removeFileCallback }">
                 <div class="flex flex-col">
                     <div v-if="files.length > 0">
                         <div class="flex flex-row justify-center">
