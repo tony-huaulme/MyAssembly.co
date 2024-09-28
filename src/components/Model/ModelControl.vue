@@ -75,5 +75,10 @@ const activeIndex = ref(0);
 .p-accordioncontent-content{
     display: flex;
     flex-wrap: wrap;
+    background: transparent;
 }
+.p-accordion, .p-accordionpanel, .p-accordionheader, .p-accordioncontent{
+    background: transparent !important;
+}
+
 </style>

@@ -1,8 +1,17 @@
 <template>
   <FullScreenToggle />
-  <div class="h-screen w-screen flex md:flex-row flex-column-reverse">
-    <ModelControl class="md:w-1/4 md:h-screen h-1/3 w-screen overflow-auto p-3" @control-model="handleControl" :buildingPanels="buildingPanels" :panelBtnOnly="true"/>
-    <div ref="modelContainer" class="md:w-3/4 md:h-screen h-2/3">   
+  <div class="h-screen w-screen flex" 
+    :class="{ 'flex-col-reverse': isPortrait, 'flex-row': !isPortrait }" 
+    >
+    <ModelControl class="overflow-auto p-3" 
+      :class="{ 'h-1/3  w-screen': isPortrait, 'w-1/3 h-screen': !isPortrait }"
+      @control-model="handleControl" 
+      :buildingPanels="buildingPanels" 
+      :panelBtnOnly="true"
+    />
+    <div ref="modelContainer" 
+      :class="{ 'h-2/3 w-screen': isPortrait, 'w-2/3 h-screen': !isPortrait }"
+    >   
       <ModelViewer v-if="modelContainer" ref="modelViewerRef" :modelUrl="modelUrl" @model-loaded="setBuilding" :modelContainer="modelContainer"/>
     </div>
   </div>
@@ -10,7 +19,7 @@
 
 <script setup>
 
-import { ref, computed } from 'vue';
+import { ref, computed, onMounted } from 'vue';
 import { useRoute } from 'vue-router';
 
 import FullScreenToggle from '../components/FullScreenToggle.vue';
@@ -23,6 +32,7 @@ const modelViewerRef = ref(null);
 const modelContainer = ref(null);
 const ModelBuilding = ref(null);
 const buildingPanels = ref(false);
+const isPortrait = ref(false);
 // Handling route params
 const route = useRoute();
 
@@ -48,5 +58,17 @@ function setBuilding(model) {
   ModelBuilding.value = new Building(model);
   buildingPanels.value = ModelBuilding.value.getPanelsByGroupsDict();
 }
+
+
+function detectOrientation() {
+  isPortrait.value = window.innerHeight > window.innerWidth;
+  console.log("Screen Orientation :",isPortrait.value ? "Portrait" : "Landscape");
+}
+
+onMounted(() => {
+  detectOrientation();
+  window.addEventListener('resize', detectOrientation);
+});
+
 
 </script>
