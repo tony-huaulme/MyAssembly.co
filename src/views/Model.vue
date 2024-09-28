@@ -1,8 +1,8 @@
 <template>
   <FullScreenToggle />
-  <div class="h-screen w-screen flex">
-    <ModelControl @control-model="handleControl" :buildingPanels="buildingPanels"/>
-    <div ref="modelContainer" class="w-3/4 h-screen">
+  <div class="h-screen w-screen flex md:flex-row flex-column-reverse">
+    <ModelControl class="md:w-1/4 md:h-screen h-1/3 w-screen overflow-scroll p-3" @control-model="handleControl" :buildingPanels="buildingPanels" :panelBtnOnly="true"/>
+    <div ref="modelContainer" class="md:w-3/4 md:h-screen h-2/3">
       <ModelViewer v-if="modelContainer" ref="modelViewerRef" :modelUrl="modelUrl" @model-loaded="setBuilding" :modelContainer="modelContainer"/>
     </div>
   </div>

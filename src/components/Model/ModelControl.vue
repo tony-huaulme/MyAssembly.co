@@ -1,15 +1,24 @@
 <template>
-    <div class="card w-1/4 m-0">
-        <div v-if="!panelBtnOnly" class="control-panel">
-            <h2>Control Panel</h2>
-            <button @click="$emit('control-model', {controleName : 'zoomCam'});">zoomCam</button>
-        </div>
-
+    <div>
         <div v-if="buildingPanels">
-            <Button v-for="panel in props.buildingPanels" :key="panel" @click="$emit('control-model', {controleName : 'showOnlyPanelByName', arg : panel})">{{panel}}</Button>
+            <Button 
+                style="border-radius: 0; background-color: var(--p-content-background-color); color: var(--p-text-color);"
+                v-for="panel in props.buildingPanels" 
+                :key="panel"
+                @click="$emit('control-model', { controleName: 'showOnlyPanelByName', arg: panel })"
+            >
+                {{ panel }}
+            </Button>
         </div>
         <div v-else>
-            <Skeleton />
+            <Skeleton class="mb-1"/>
+            <Skeleton class="mb-1"/>
+            <Skeleton class="mb-1"/>
+            <Skeleton class="mb-1"/>
+            <Skeleton class="mb-1"/>
+            <Skeleton class="mb-1"/>
+            <Skeleton class="mb-1"/>
+            <Skeleton class="mb-1"/>
         </div>
 
     </div>
@@ -17,22 +26,22 @@
 
 
 <script setup>
-    import Skeleton from 'primevue/skeleton';
+import Skeleton from 'primevue/skeleton';
 
-    const props = defineProps({
-        buildingPanels: {
-            type: Array,
-            required: false,
-        },
-        panelBtnOnly: {
-            type: Boolean,
-            required: false,
-            default: false,
-        },
-    });
+const props = defineProps({
+    buildingPanels: {
+        type: Array,
+        required: false,
+    },
+    panelBtnOnly: {
+        type: Boolean,
+        required: false,
+        default: false,
+    },
+});
 
-    import { useModelControls } from '../../composables/useModelControls';
+import { useModelControls } from '../../composables/useModelControls';
 
-    // Import the shared state and logic from the composable
-    const { isRotating } = useModelControls();
+// Import the shared state and logic from the composable
+const { isRotating } = useModelControls();
 </script>
