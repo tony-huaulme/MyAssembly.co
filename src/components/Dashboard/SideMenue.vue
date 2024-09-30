@@ -127,33 +127,41 @@ const items = ref([
                 label: 'New',
                 icon: 'pi pi-plus', 
                 // shortcut: '⌘+N'
-            },
-            {
-                label: 'Search',
-                icon: 'pi pi-search',
-                // shortcut: '⌘+S'
-            },
-            {
-                label: 'Stats',
-                icon: 'pi pi-chart-bar',
-                // shortcut: '⌘+T',
-                to: 'statistics'
             }
+            // ,
+            // {
+            //     label: 'Projects',
+            //     icon: 'pi pi-folder-open', 
+            //     // shortcut: '⌘+N'
+            // }
+            // ,
+            // {
+            //     label: 'Search',
+            //     icon: 'pi pi-search',
+            //     // shortcut: '⌘+S'
+            // }
+            // ,
+            // {
+            //     label: 'Stats',
+            //     icon: 'pi pi-chart-bar',
+            //     // shortcut: '⌘+T',
+            //     to: 'statistics'
+            // }
         ]
     },
     {
         label: 'Profile',
         items: [
-            {
-                label: 'Settings',
-                icon: 'pi pi-cog',
-                // shortcut: '⌘+O'
-            },
-            {
-                label: 'Messages',
-                icon: 'pi pi-inbox',
-                badge: 2
-            },
+            // {
+            //     label: 'Settings',
+            //     icon: 'pi pi-cog',
+            //     // shortcut: '⌘+O'
+            // },
+            // {
+            //     label: 'Messages',
+            //     icon: 'pi pi-inbox',
+            //     badge: 2
+            // },
             {
                 label: 'Logout',
                 icon: 'pi pi-sign-out',

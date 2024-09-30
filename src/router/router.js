@@ -12,8 +12,9 @@ import Authenticated from '../views/Authenticated.vue'
 const routes = [
   { path: '/', component: HomePage, name: 'Home' },
   { path: '/authenticate', component: Authenticate, name: 'Authenticate' },
-  { path: '/dashboard', component: Dashboard, name: 'Dashboard', 
-    
+  {
+    path: '/dashboard', component: Dashboard, name: 'Dashboard', redirect: '/dashboard/projects',
+
     children: [
       {
         path: 'projects',
@@ -21,9 +22,9 @@ const routes = [
         component: ProjectsTable
       },
       {
-        path : 'statistics',
-        name : 'Statistics',
-        component : Statistics
+        path: 'statistics',
+        name: 'Statistics',
+        component: Statistics
       }
     ]
   },
@@ -33,25 +34,25 @@ const routes = [
     component: Model
   },
   {
-    path : '/testModal',
-    name : 'TestModal',
-    component : ShareDemoModal
+    path: '/testModal',
+    name: 'TestModal',
+    component: ShareDemoModal
   },
   {
-    path : '/authenticated',
-    name : 'Authenticated',
-    component : Authenticated
+    path: '/authenticated',
+    name: 'Authenticated',
+    component: Authenticated
   }
-//   { path: '/bars', component: Bars, name: 'Bars' },
-//   { path: '/references', component: References, name: 'Références' },
-//   { path: '/stocks', component: Stocks },
-//   { 
-//     path  : `/stocks/:typeReference(${["bars", "references"].join('|')})/:idReference(\\d+)`
-//     // typeReference  -> Bar / Boisson
-//     // idReference     -> id de la boisson ou du bar
-//     , component: Stocks 
-//   },
-//   { path: "/:pathMatch(.*)*", component: PageIntrouvable },
+  //   { path: '/bars', component: Bars, name: 'Bars' },
+  //   { path: '/references', component: References, name: 'Références' },
+  //   { path: '/stocks', component: Stocks },
+  //   { 
+  //     path  : `/stocks/:typeReference(${["bars", "references"].join('|')})/:idReference(\\d+)`
+  //     // typeReference  -> Bar / Boisson
+  //     // idReference     -> id de la boisson ou du bar
+  //     , component: Stocks 
+  //   },
+  //   { path: "/:pathMatch(.*)*", component: PageIntrouvable },
 ]
 
 const router = createRouter({
