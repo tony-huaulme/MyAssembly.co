@@ -90,7 +90,7 @@ export class Building {
                 allPanlesNames[index] = item.replace('*', ''); // Replace '*' with an empty string
             }
           });
-
+        console.log("All Panels Names: ", allPanlesNames);  
         return groupAndSort(allPanlesNames);
     }
 

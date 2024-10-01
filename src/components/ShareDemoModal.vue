@@ -35,7 +35,7 @@ const facebookShareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeU
 
 <Dialog v-model:visible="visible" modal header="Share This Demo !" :style="{ width: '25rem' } " class="p-component">
     
-    <img src="../assets/QR.png" class="max-w-full h-50 mb-10 p-5">
+    <img src="../assets/QR.jpeg" class="max-w-full h-50 mb-10 p-5">
     <div class="flex items-center gap-1 mb-4">
         <label for="username" class="font-semibold">Link :</label>
         <InputText id="username" class="flex-auto" autocomplete="off" v-model="shareLink" :class="copiedMessage != '' ? 'messagecopied' : ''"/>
