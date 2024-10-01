@@ -36,7 +36,9 @@ export function useThreeJs() {
       orbitControls.enableZoom = controle;
       orbitControls.enableRotate = controle;
       orbitControls.enablePan = controle;
-      
+      orbitControls.autoRotate = controle;
+      orbitControls.autoRotateSpeed = 1.5;
+
       orbitControls.dampingFactor = 0.25;
       
       // Directional light (acts like sunlight)

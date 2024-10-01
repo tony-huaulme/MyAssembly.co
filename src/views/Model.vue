@@ -12,7 +12,15 @@
     <div ref="modelContainer" 
       :class="{ 'h-2/3 w-screen': isPortrait, 'w-2/3 h-screen': !isPortrait }"
     >   
-      <ModelViewer v-if="modelContainer" ref="modelViewerRef" :modelUrl="modelUrl" @model-loaded="setBuilding" :modelContainer="modelContainer"/>
+      <ModelViewer 
+        v-if="modelContainer" 
+        ref="modelViewerRef" 
+        :modelUrl="modelUrl" 
+        :modelContainer="modelContainer"
+        @model-loaded="setBuilding"
+        @renderer-loaded="renderer= $event"
+        @orbitControls-loaded="orbitControls= $event" 
+      />
     </div>
   </div>
 </template>
@@ -33,6 +41,10 @@ const modelContainer = ref(null);
 const ModelBuilding = ref(null);
 const buildingPanels = ref(false);
 const isPortrait = ref(false);
+
+const orbitControls = ref(null);
+const renderer = ref(null);
+
 // Handling route params
 const route = useRoute();
 
@@ -48,6 +60,10 @@ const handleControl = (arg) => {
 
   if(arg.controleName === 'showOnlyPanelByName') {
     ModelBuilding.value.showOnlyPanelByName(arg.arg);
+  }
+
+  if(arg.controleName === 'stopAutoRotate') {
+    orbitControls.value.autoRotate = false;
   }
 
   modelViewerRef.value.handleControl(arg);

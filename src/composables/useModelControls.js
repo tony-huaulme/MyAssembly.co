@@ -12,6 +12,15 @@ export function useModelControls() {
     }
   };
 
+  const toggleRotation = () => {
+    isRotating.value = !isRotating.value
+    model.value.orbitControls.autoRotate = !model.value.orbitControls.autoRotate
+  }
+
+  const stopAutoRotation = () => {
+    model.value.orbitControls.autoRotate = false
+  }
+
   return {
     isRotating,
     model,

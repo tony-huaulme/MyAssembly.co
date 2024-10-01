@@ -59,6 +59,8 @@ function runBuildProcess() {
       // Pass the model to the parent component
       emit('model-loaded', model)
       emit('camera-loaded', camera)
+      emit('renderer-loaded', renderer)
+      emit('orbitControls-loaded', orbitControls)
 
     })
     .catch(error => {

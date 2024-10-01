@@ -1,7 +1,6 @@
 <template>
     <div>
-        <div v-if="buildingPanels">
-
+        <div @click="$emit('control-model', {controleName : 'stopAutoRotate'})" v-if="buildingPanels">
             <Accordion v-model="activeIndex">
                 <AccordionPanel 
                     v-for="([group, items], index) in Object.entries(props.buildingPanels)" 
