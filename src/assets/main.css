@@ -1,3 +1,5 @@
+@import 'contentSection.css';
+
 @font-face { 
   font-family:'WF Visual Sans';
   src:url('https://dhygzobemt712.cloudfront.net/Fonts/VF/WFVisualSansVF.woff2')
@@ -5,7 +7,7 @@
   font-weight:100 900;
   font-style:normal;
   font-display:swap;
-  } 
+} 
      
 
 * {
@@ -24,6 +26,9 @@ body {
 
 #app {
   background : var(--p-content-background); 
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .card {

@@ -31,62 +31,74 @@
 import { ref } from "vue";
 import Menubar from "primevue/menubar";
 import Badge from "primevue/badge";
-import Button from "primevue/button";
 import GetStartedButton from "./GetStartedButton.vue";
+// import and initialize the router
+import { useRouter } from "vue-router";
+const router = useRouter();
+
 
 const items = ref([
     {
         label: 'Home',
-        icon: 'pi pi-home'
+        icon: 'pi pi-home',
+        command: () => {
+            router.push('/');
+        }
     },
     {
         label: 'Features',
-        icon: 'pi pi-star'
+        icon: 'pi pi-star',
+        command: () => {
+            router.push('/introduction');
+        }
     },
-    {
-        label: 'Projects',
-        icon: 'pi pi-search',
-        items: [
-            {
-                label: 'Core',
-                icon: 'pi pi-bolt',
-                shortcut: '⌘+S'
-            },
-            {
-                label: 'Blocks',
-                icon: 'pi pi-server',
-                shortcut: '⌘+B'
-            },
-            {
-                label: 'UI Kit',
-                icon: 'pi pi-pencil',
-                shortcut: '⌘+U'
-            },
-            {
-                separator: true
-            },
-            {
-                label: 'Templates',
-                icon: 'pi pi-palette',
-                items: [
-                    {
-                        label: 'Apollo',
-                        icon: 'pi pi-palette',
-                        badge: 2
-                    },
-                    {
-                        label: 'Ultima',
-                        icon: 'pi pi-palette',
-                        badge: 3
-                    }
-                ]
-            }
-        ]
-    },
+    // {
+    //     label: 'Projects',
+    //     icon: 'pi pi-search',
+    //     items: [
+    //         {
+    //             label: 'Core',
+    //             icon: 'pi pi-bolt',
+    //             shortcut: '⌘+S'
+    //         },
+    //         {
+    //             label: 'Blocks',
+    //             icon: 'pi pi-server',
+    //             shortcut: '⌘+B'
+    //         },
+    //         {
+    //             label: 'UI Kit',
+    //             icon: 'pi pi-pencil',
+    //             shortcut: '⌘+U'
+    //         },
+    //         {
+    //             separator: true
+    //         },
+    //         {
+    //             label: 'Templates',
+    //             icon: 'pi pi-palette',
+    //             items: [
+    //                 {
+    //                     label: 'Apollo',
+    //                     icon: 'pi pi-palette',
+    //                     badge: 2
+    //                 },
+    //                 {
+    //                     label: 'Ultima',
+    //                     icon: 'pi pi-palette',
+    //                     badge: 3
+    //                 }
+    //             ]
+    //         }
+        // ]
+    // },
     {
         label: 'Contact',
         icon: 'pi pi-envelope',
-        badge: 3
+        command: () => {
+            router.push('/contact');
+        }
+        // badge: 3
     }
 ]);
 </script>

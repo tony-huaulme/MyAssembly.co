@@ -8,13 +8,13 @@ import Statistics from '../components/Dashboard/Statistics.vue'
 import Model from '../views/Model.vue'
 import ShareDemoModal from '../components/ShareDemoModal.vue'
 import Authenticated from '../views/Authenticated.vue'
+import Contact from '../views/Contact.vue'
 
 const routes = [
   { path: '/', component: HomePage, name: 'Home' },
   { path: '/authenticate', component: Authenticate, name: 'Authenticate' },
-  {
-    path: '/dashboard', component: Dashboard, name: 'Dashboard', redirect: '/dashboard/projects',
-
+  { path: '/dashboard', component: Dashboard, name: 'Dashboard', redirect: '/dashboard/projects',
+    
     children: [
       {
         path: 'projects',
@@ -22,9 +22,9 @@ const routes = [
         component: ProjectsTable
       },
       {
-        path: 'statistics',
-        name: 'Statistics',
-        component: Statistics
+        path : 'statistics',
+        name : 'Statistics',
+        component : Statistics
       }
     ]
   },
@@ -34,25 +34,30 @@ const routes = [
     component: Model
   },
   {
-    path: '/testModal',
-    name: 'TestModal',
-    component: ShareDemoModal
+    path : '/testModal',
+    name : 'TestModal',
+    component : ShareDemoModal
   },
   {
-    path: '/authenticated',
-    name: 'Authenticated',
-    component: Authenticated
-  }
-  //   { path: '/bars', component: Bars, name: 'Bars' },
-  //   { path: '/references', component: References, name: 'Références' },
-  //   { path: '/stocks', component: Stocks },
-  //   { 
-  //     path  : `/stocks/:typeReference(${["bars", "references"].join('|')})/:idReference(\\d+)`
-  //     // typeReference  -> Bar / Boisson
-  //     // idReference     -> id de la boisson ou du bar
-  //     , component: Stocks 
-  //   },
-  //   { path: "/:pathMatch(.*)*", component: PageIntrouvable },
+    path : '/authenticated',
+    name : 'Authenticated',
+    component : Authenticated
+  },
+  {
+    path : '/contact',
+    name : 'Contact',
+    component : Contact
+  }  
+//   { path: '/bars', component: Bars, name: 'Bars' },
+//   { path: '/references', component: References, name: 'Références' },
+//   { path: '/stocks', component: Stocks },
+//   { 
+//     path  : `/stocks/:typeReference(${["bars", "references"].join('|')})/:idReference(\\d+)`
+//     // typeReference  -> Bar / Boisson
+//     // idReference     -> id de la boisson ou du bar
+//     , component: Stocks 
+//   },
+//   { path: "/:pathMatch(.*)*", component: PageIntrouvable },
 ]
 
 const router = createRouter({

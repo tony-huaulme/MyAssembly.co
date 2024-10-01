@@ -26,26 +26,25 @@ import { link } from 'fs';
 
           </div>
         </div>
+        <!-- Contact Column -->
+        <div class="footer-column">
+          <h4 class="footer-title">Contact</h4>
+            <ul class="footer-list">
+              <li><a href="mailto:contact@myassembly.co?subject=From your website : &body=Tell us what you are looking for">contact@myassembly.co</a></li>
+            </ul>
+        </div>
         <!-- Solutions Column -->
         <div class="footer-column">
             <h4 class="footer-title">Solutions</h4>
             <ul class="footer-list">
-            <li><a href="#">3D Visualization</a></li>
-            <li><a href="#">Assembly Instructions</a></li>
-            <li><a href="#">Critical Point Alerts</a></li>
-            <li><a href="#">Animations & Videos</a></li>
+              <li><a href="#">3D Visualization</a></li>
+              <li><a href="#">Assembly Instructions</a></li>
+              <li><a href="#">Critical Point Alerts</a></li>
+              <li><a href="#">Animations & Videos</a></li>
             </ul>
         </div>
     
-        <!-- Platform Column -->
-        <div class="footer-column">
-            <h4 class="footer-title">Platform</h4>
-            <ul class="footer-list">
-            <li><a href="#">Project Scalability</a></li>
-            <li><a href="#">Flexible Real-time Updates</a></li>
-            <li><a href="#">Cloud-based Solutions</a></li>
-            </ul>
-        </div>
+
     
         <!-- Resources Column -->
         <div class="footer-column">

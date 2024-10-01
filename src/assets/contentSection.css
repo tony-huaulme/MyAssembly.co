@@ -1,0 +1,68 @@
+
+h1 { 
+    margin-top: 0; 
+    margin-bottom: 0; 
+    font-size: 4em; 
+    line-height: 1.4;
+} 
+
+.h1 { 
+    margin-top: 0; 
+    margin-bottom: 0; 
+    font-family: WF Visual Sans,Arial,sans-serif; 
+    font-size: 5.313rem; 
+    font-weight: 600; 
+    line-height: 1.04;
+    
+} 
+
+h1,.h1 { 
+    font-feature-settings: "ss01" 0, "ss02" 0, "ss03" 0;
+} 
+
+.h1.hero-title { 
+    text-wrap: balance; 
+    font-size: 6vw;
+} 
+
+@media only screen and (min-width: 1600px){ 
+.h1.hero-title { 
+    font-size: 5.313rem;
+} 
+} 
+
+/* sssssssssssssssssssss */
+
+.hl_headline-w { 
+    margin-bottom: 2rem;
+} 
+
+.hero_content-w {
+    padding-top: 6.5rem; 
+    padding-bottom: 0;
+} 
+
+.breakpoint-section {
+    width: 50%;
+}
+
+@media screen and (max-width: 1380px) {
+    .breakpoint-section {
+        width: 100%;
+    }
+
+}
+
+.hl_subheadline-w { 
+    max-width: none; 
+    margin-bottom: 2rem;
+} 
+
+.paragraph-l { 
+    font-size: 1.125rem; 
+    line-height: 1.6;
+} 
+
+.text-secondary {
+    color: var(--color-text-secondary);
+}

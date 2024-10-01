@@ -1,20 +1,18 @@
 <template>
-    <div class="container position-fixed" style="
+    <div class="container position-fixed h-container" style="
         position: fixed;
         top: 0px;
         z-index: 9999;
         background: #18181bc7;
         backdrop-filter: blur(24px);
         width: 100vw;
-        padding-left: 5%;
-        padding-right: 5%;
     ">
         <Header></Header>
     </div>
 
     <div class="container position-relative">
         <!-- <h2 style="position: fixed; left: 0; background-color: aliceblue; color: black;">{{ res }}</h2> -->
-        <div ref="modelContainer" class="h-screen mg:w-3/4 w-1/2 h-screen" id="HomePageModelContainer">
+        <div ref="modelContainer" class="h-screen w-1/2 h-screen" id="HomePageModelContainer">
             <ModelViewer v-if="modelContainer" ref="modelViewerRef"
                 modelUrl="https://www.myassembly.co/src/assets/models/DemoModel.glb" 
                 :controle="false"
@@ -30,9 +28,8 @@
                 More than a<br>3D visualization
             </template>
             <template #description>
-                <span>With our innovative 3D modeling platform, architects, builders, and clients can explore and
-                    interact with building structures in a whole new way — with assembly instructions, detailed parts
-                    identification, and interactive, critical checkpoints — all in a single 3D view.</span>
+                <span>Interact with building structures in a whole new way — with assembly instructions, detailed parts
+                    identification, and interactive, critical checkpoints — even from your phone.</span>
             </template>
             <GetStartedButton />
             <template #rightcolumn>
@@ -51,9 +48,8 @@
 
                 <div class="flex flex-column">
 
-                    <span>Our powerful toolset is designed to scale with your project. Whether you’re working on a
-                        single-family home or a large-scale commercial structure, our 3D models adapt, offering
-                        flexibility and real-time updates.</span>
+                    <span>Designed to scale with your project. Whether you’re working on a
+                        single-family home or a large-scale commercial structure, our 3D models adapt.</span>
 
                     <div class="flex flex-column mt-5 w-fit from-gray-800">
 
@@ -94,10 +90,54 @@
     </div>
     <div class="container">
 
-        
-       <HeroSection>
+        <!-- Section 5: SHARE SECTION -->
+            <!-- share on phone -->
+            <HeroSection class=" md:hidden flex">
+                <template #title>
+                    <span>Share it !</span>
+                </template>
+                <template #description>
+                    <!-- description of the dashboard -->
+                    <span>
+                        Make it accessible from any where.
+                    </span>
+                </template>
+            </HeroSection>
+            <div class="p-10 md:hidden flex">
+                <img src="../assets/shareDemoPopUp.png" class="max-w-full p-5" style="border: solid 1px var(--p-content-color); border-radius:var(--p-dialog-border-radius);">
+            </div>
+
+            <!-- Share on wide screen -->
+            <section class="hidden md:flex h-screen w-fill">
+                <div data-hero-content-wrap="" pointer-auto="" class="flex w-fill">
+                    <div class="w-1/2">
+                        <div class="hl_headline-w">
+                            <h1 class="h1 hero-title">
+                               Share it !
+                            </h1>
+                        </div>
+                        <div class="hl_subheadline-w is--hero">
+                            <p class="paragraph-l text-secondary">
+                                Share your projects with your team, clients, or anyone else.
+                                 <!-- make list of points -->
+                                 <ul>
+                                    <li>Acces it from a <b>Phone</b></li>
+
+                                </ul>
+                            </p>
+                        </div>
+                        <GetStartedButton/>
+                    </div>
+                    <div class="w-1/2 flex flex-row justify-center" style="max-height: 50vh; ">
+                        <img src="../assets/shareDemoPopUp.png" class="p-3" style="border: solid 1px var(--p-content-color); border-radius: 5px;">
+                    </div>
+                </div>
+            </section>
+
+
+        <HeroSection>
             <template #title>
-                <span>Manage your Assembly Pool</span>
+                <span>Manage your Models</span>
             </template>
             <template #description>
                 <!-- description of the dashboard -->
@@ -106,32 +146,18 @@
                 </span>
             </template>
         </HeroSection>
-
-        <Panel class="mb-10" style="height: 50vh; border: none; overflow: hidden;">
+        <div class="w-fill flex flex-row justify-center mb-10 mt-10">
             <img src="../assets/dashboard_picture.png" class="max-w-full">
-        </Panel>
-
-        <!-- Section 5: Seamless Interactions -->
-        <SideSection side="left">
-            <template #title>
-                <span>Share it !</span>
-            </template>
-            <template #description>
-                <span>Navigate the structure with intuitive gestures, switching between a comprehensive view and
-                    detailed assembly instructions.</span>
-                <ul>
-                    <li>Explore the 3D space: Rotate, zoom, and explore every angle of the structure.</li>
-                    <li>Global <> Detailed Views: Switch easily between high-level overviews and focused views on
-                            specific elements.</li>
-                    <li>Play Mode: Activate assembly playback to guide workers or users through key installation steps.
-                    </li>
-                </ul>
-            </template>
-            <GetStartedButton />
-        </SideSection>
+        </div>
     </div>
 
-        <Footer />
+    <HeroSection>
+        <template #title>
+            <span>Try it now or contact us !</span>
+        </template>
+    </HeroSection>
+    <GetStartedButton/>
+    <Footer class="mt-20"/>
 
     <ScrollTop />
 </template>
@@ -285,7 +311,17 @@ onUnmounted(() => {
     #section1 {
         padding-top: 30vh;
     }
+    .h-container {
+        padding-left: 5%;
+        padding-right: 5%;
+    }
   }
+
+@media screen and (max-width: 479px) {
+    .h1.hero-title {
+        font-size: 12vw;
+    }
+}
 
 .panelButton {
     border-radius: 0 !important;
