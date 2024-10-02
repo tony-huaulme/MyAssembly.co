@@ -12,7 +12,7 @@ h1 {
     font-family: WF Visual Sans,Arial,sans-serif; 
     font-size: 5.313rem; 
     font-weight: 600; 
-    line-height: 1.04;
+    line-height: 1.04 !important;
     
 } 
 

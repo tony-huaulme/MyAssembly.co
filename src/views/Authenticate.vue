@@ -1,6 +1,6 @@
 <template>
     <!-- Full-screen container -->
-    <div class="flex h-screen justify-center md:p-5">
+    <div class="flex h-screen justify-center md:p-5 w-fill">
 
         <!-- Right Section: Placeholder for Login Form -->
         <div class="md:w-1/2 h-fill w-fill md:max-w-xl flex flex-column relative">

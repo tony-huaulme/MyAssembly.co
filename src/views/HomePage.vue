@@ -11,7 +11,6 @@
     </div>
 
     <div class="container position-relative">
-        <!-- <h2 style="position: fixed; left: 0; background-color: aliceblue; color: black;">{{ res }}</h2> -->
         <div ref="modelContainer" class="h-screen w-1/2 h-screen" id="HomePageModelContainer">
             <ModelViewer v-if="modelContainer" ref="modelViewerRef"
                 modelUrl="https://www.myassembly.co/src/assets/models/DemoModel.glb" 
@@ -23,7 +22,7 @@
         </div>
 
         <!-- Section 1: More than just 3D visualization -->
-        <SideSection side="left" id="section1">
+        <SideSection side="left" id="section1" class="md:mt-20">
             <template #title>
                 More than a<br>3D visualization
             </template>
@@ -37,8 +36,8 @@
             </template>
         </SideSection>
 
-        <!-- Section 3: A platform designed for builders -->
-        <SideSection side="left">
+        <!-- Section 2: A platform designed for builders -->
+        <SideSection side="left" style="min-height: auto;" >
             <template #title>
                 <span>Designed for builders</span>
             </template>
@@ -51,7 +50,7 @@
                     <span>Designed to scale with your project. Whether you’re working on a
                         single-family home or a large-scale commercial structure, our 3D models adapt.</span>
 
-                    <div class="flex flex-column mt-5 w-fit from-gray-800">
+                    <div class="flex flex-column mt-5 w-fit from-gray-800"   style="z-index: 99999;">
 
                         <div class="flex flex-row items-baseline">
                             <Button @click="BuildingAssembly.showOnlyPanelByName('G-W1');" outlined
@@ -63,11 +62,11 @@
 
                         </div>
                         <div class="flex flex-row items-baseline">
-                            <Button @click="BuildingAssembly.showOnlyPanelByName('1F-W1*');" outlined
+                            <Button @click="BuildingAssembly.showOnlyPanelByName('1F-W1');" outlined
                                 class="panelButton font-semibold">1F-W1</Button>
-                            <Button @click="BuildingAssembly.showOnlyPanelByName('1F-W2*');" outlined
+                            <Button @click="BuildingAssembly.showOnlyPanelByName('1F-W2');" outlined
                                 class="panelButton font-semibold">1F-W2</Button>
-                            <Button @click="BuildingAssembly.showOnlyPanelByName('1F-W3*');" outlined
+                            <Button @click="BuildingAssembly.showOnlyPanelByName('1F-W3');" outlined
                                 class="panelButton font-semibold">1F-W3</Button>
                         </div>
                         <div class="flex flex-row items-baseline">
@@ -87,14 +86,32 @@
                 <p class="m-0 ">Start Building</p>
             </GetStartedButton>
         </SideSection>
+
+        
+        <!-- Section 3: More than just 3D visualization -->
+        <SideSection side="left" class="md:mt-20">
+            <template #title>
+                Even from a Phone
+            </template>
+            <template #description>
+                <span>Interact with building structures in a whole new way — with assembly instructions, detailed parts
+                    identification, and interactive, critical checkpoints — even from your phone.</span>
+            </template>
+            <GetStartedButton />
+            <template #rightcolumn>
+
+            </template>
+        </SideSection>
+
+
     </div>
     <div class="container">
 
         <!-- Section 5: SHARE SECTION -->
             <!-- share on phone -->
-            <HeroSection class=" md:hidden flex">
+            <HeroSection class=" md:hidden flex"  style="z-index: 99999;">
                 <template #title>
-                    <span>Share it !</span>
+                    <span class="md:mt-20">Share it !</span>
                 </template>
                 <template #description>
                     <!-- description of the dashboard -->
@@ -108,9 +125,9 @@
             </div>
 
             <!-- Share on wide screen -->
-            <section class="hidden md:flex h-screen w-fill">
-                <div data-hero-content-wrap="" pointer-auto="" class="flex w-fill">
-                    <div class="w-1/2">
+            <section class="hidden md:flex h-screen w-fill" style="z-index: 99999;">
+                <div data-hero-content-wrap="" pointer-auto="" class="flex w-fill flex-row">
+                    <div class="w-1/2 mt-20 flex flex-column justify-center">
                         <div class="hl_headline-w">
                             <h1 class="h1 hero-title">
                                Share it !
@@ -128,8 +145,8 @@
                         </div>
                         <GetStartedButton/>
                     </div>
-                    <div class="w-1/2 flex flex-row justify-center" style="max-height: 50vh; ">
-                        <img src="../assets/shareDemoPopUp.png" class="p-3" style="border: solid 1px var(--p-content-color); border-radius: 5px;">
+                    <div class="w-1/2 flex flex-row justify-center" style="align-items: center;">
+                        <img src="../assets/shareDemoPopUp.png" class="p-3" style="border: solid 1px var(--p-content-color); border-radius: 5px; max-height: 60vh;">
                     </div>
                 </div>
             </section>
@@ -146,17 +163,17 @@
                 </span>
             </template>
         </HeroSection>
-        <div class="w-fill flex flex-row justify-center mb-10 mt-10">
+        <div class="w-fill flex flex-row justify-center mb-20 mt-20">
             <img src="../assets/dashboard_picture.png" class="max-w-full">
         </div>
     </div>
 
-    <HeroSection>
+    <!-- <HeroSection>
         <template #title>
             <span>Try it now or contact us !</span>
         </template>
     </HeroSection>
-    <GetStartedButton/>
+    <GetStartedButton/> -->
     <Footer class="mt-20"/>
 
     <ScrollTop />

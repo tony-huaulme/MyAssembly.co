@@ -8,6 +8,7 @@
       @control-model="handleControl" 
       :buildingPanels="buildingPanels" 
       :panelBtnOnly="true"
+      :modelName="modelName"
     />
     <div ref="modelContainer" 
       :class="{ 'h-2/3 w-screen': isPortrait, 'w-2/3 h-screen': !isPortrait }"
@@ -47,9 +48,11 @@ const renderer = ref(null);
 
 // Handling route params
 const route = useRoute();
+const modelName = ref(route.query.modelName);
+
 
 // get model name in url params  https://www.myassembly.co/src/assets/models/DemoModel.glb 
-const modelUrl = computed(() => `https://www.myassembly.co/src/assets/models/${route.query.modelName}.glb`);;
+const modelUrl = computed(() => `https://www.myassembly.co/src/assets/models/${modelName.value}.glb`);;
 const cameFromDashboard = computed(() => route.query.from === 'dashboard'); 
 
 
