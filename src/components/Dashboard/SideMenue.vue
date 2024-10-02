@@ -26,9 +26,9 @@
             </template>
             <template #end>
                 <button class="relative overflow-hidden w-full border-0 bg-transparent flex items-start p-2 pl-4 hover:bg-surface-100 dark:hover:bg-surface-800 rounded-none cursor-pointer transition-colors duration-200">
-                    <Avatar image="https://primefaces.org/cdn/primevue/images/avatar/amyelsner.png" class="mr-2" shape="circle" />
+                    <Avatar v-if="userImageUrl" :image="userImageUrl" class="mr-2" shape="circle" />
                     <span class="inline-flex flex-col items-start">
-                        <span class="font-bold">Amy Elsner</span>
+                        <span class="font-bold">{{ userEmail }}</span>
                         <span class="text-sm">Admin</span>
                     </span>
                 </button>
@@ -102,7 +102,7 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { onMounted, ref } from "vue";
 // PrimeVue Components
 import Menu from "primevue/menu";
 import Badge from "primevue/badge";
@@ -114,7 +114,12 @@ import Button from "primevue/button";
 import FileUpload from "primevue/fileupload";
 import Toast from "primevue/toast";
 
-
+const userEmail = ref('');
+const userImageUrl = ref('');
+onMounted(() => {
+    userEmail.value = JSON.parse(localStorage.getItem('user'))['user']['email'];
+    userImageUrl.value = JSON.parse(localStorage.getItem('user'))['user']['image'] || false;
+});
 
 const items = ref([
     {
