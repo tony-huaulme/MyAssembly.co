@@ -103,7 +103,12 @@ const items = ref([
 ]);
 </script>
 <style scoped>
-
+.p-menubar {
+    border: none;
+    border-radius: 0;
+    background-color: var(--surface);
+    padding: 0;
+}
 
 @media screen and (max-width: 968px) {
     #header-get-started {
