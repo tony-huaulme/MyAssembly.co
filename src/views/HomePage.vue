@@ -50,7 +50,7 @@
                     <span>Designed to scale with your project. Whether you’re working on a
                         single-family home or a large-scale commercial structure, our 3D models adapt.</span>
 
-                    <div class="flex flex-column mt-5 w-fit from-gray-800"   style="z-index: 99999;">
+                    <div class="flex flex-column mt-5 w-fit from-gray-800 panelInteractionContainer">
 
                         <div class="flex flex-row items-baseline">
                             <Button @click="BuildingAssembly.showOnlyPanelByName('G-W1');" outlined
@@ -311,7 +311,9 @@ onUnmounted(() => {
       top: 0;
       background-color: transparent;
     }
-    
+    .panelInteractionContainer{
+        z-index: 99999;
+    }
   }
 
   @media screen and (max-width: 1380px) {
@@ -320,7 +322,7 @@ onUnmounted(() => {
       height: 35vh !important;
       left: 0;
       right: 0;
-      background: linear-gradient(to bottom, rgb(24, 24, 27) 90%,  rgba(24, 24, 27, 0) 100%), #18181b00;
+      background: linear-gradient(to bottom, var(--p-content-background) 90%,  rgba(27, 24, 24, 0) 100%), #18181b00;
     }
     section {
       height: webkit-fill-available;
@@ -331,6 +333,9 @@ onUnmounted(() => {
     .h-container {
         padding-left: 5%;
         padding-right: 5%;
+    }
+    .panelInteractionContainer{
+        z-index: 9;
     }
   }
 
