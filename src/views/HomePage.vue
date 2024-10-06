@@ -3,7 +3,6 @@
         position: fixed;
         top: 0px;
         z-index: 9999;
-        background: #18181bc7;
         backdrop-filter: blur(24px);
         width: 100vw;
     ">

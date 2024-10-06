@@ -103,27 +103,13 @@ const items = ref([
 ]);
 </script>
 <style scoped>
-.p-menubar {
-    border: none;
-    border-radius: 0;
-    background-color: var(--surface);
-    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
-    padding: 0;
-    /* gap: 40vw; */
-}
+
 
 @media screen and (max-width: 968px) {
     #header-get-started {
         display: none;
     }
 
-}
-
-@media screen and (max-width: 968px) {
-    .p-menubar { 
-        /* gap: 40vw; */
-    }
-    
 }
 
 </style>
