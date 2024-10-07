@@ -218,7 +218,8 @@ const createNewProject = async () => {
 
     // Prepare form data for file upload
     const formData = new FormData();
-    formData.append('file', files[0]);  // Attach the first file (files[0])
+    console.log('files:', files.value);
+    formData.append('file', files.value[0]);  // Attach the first file (files[0])
 
     // Display loading message
     toast.add({ severity: 'info', summary: 'Loading...', detail: 'Creating your project', life: 3000 });
@@ -232,7 +233,8 @@ const createNewProject = async () => {
 
         // Assuming the backend returns `file_url` in response as the S3 URL
         const file3dLink = fileUploadResponse.file_url;
-
+        console.log('File uploadeResponse:', fileUploadResponse);
+        console.log('File uploaded:', file3dLink);
         // 2. Create the project by sending the project name and file3D link to '/projects'
         const { data: projectResponse } = await api.post('/projects', {
             project_name: projectName,
