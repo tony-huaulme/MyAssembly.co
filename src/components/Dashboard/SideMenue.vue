@@ -236,7 +236,7 @@ const createNewProject = async () => {
         console.log('File uploadeResponse:', fileUploadResponse);
         console.log('File uploaded:', file3dLink);
         // 2. Create the project by sending the project name and file3D link to '/projects'
-        const { data: projectResponse } = await api.post('/projects', {
+        const { data: projectResponse } = await api.post('projects', {
             project_name: projectName,
             file3d_link: file3dLink
         });
