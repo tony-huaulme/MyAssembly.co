@@ -25,7 +25,6 @@ onMounted(() => {
 
   // If new_user is true, show a welcome message
   if (new_user.value == true || new_user.value == 'True' || new_user.value == 'true') {
-    alert(new_user.value);
     $router.push("/model?from=signup&modelName=DemoModel");
   }else{
     $router.push("/dashboard");

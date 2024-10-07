@@ -75,7 +75,7 @@
         </FileUpload>
         <div class="flex justify-end gap-2 mt-5">
                 <Button type="button" label="Cancel" severity="secondary" @click="visible = false"></Button>
-                <Button type="button" label="Create" ></Button>
+                <Button type="button" label="Create" @click="createNewProject" :loading="loadingCreatingProject"></Button>
             </div>
     </div>
 
@@ -112,10 +112,11 @@ import Dialog from "primevue/dialog";
 import InputText from "primevue/inputtext";
 import Button from "primevue/button";
 import FileUpload from "primevue/fileupload";
-import Toast from "primevue/toast";
+
 
 const userEmail = ref('');
 const userImageUrl = ref('');
+const loadingCreatingProject = ref(false);
 onMounted(() => {
     userEmail.value = JSON.parse(localStorage.getItem('user'))['user']['email'];
     userImageUrl.value = JSON.parse(localStorage.getItem('user'))['user']['image'] || false;
@@ -199,7 +200,58 @@ const onUpload = () => {
     toast.add({ severity: 'info', summary: 'Success', detail: 'File Uploaded', life: 3000 });
 };
 
+import api from '@/services/api';
 
+const createNewProject = async () => {
+    // Checking input fields (file and project name)
+    const projectName = document.getElementById('project_name').value;
+    if (!projectName) {
+        toast.add({ severity: 'error', summary: 'Error', detail: 'Please enter a project name', life: 3000 });
+        return;
+    }
+
+    // Assuming `files` contains the file selected by the user
+    if (files.length < 1) {
+        toast.add({ severity: 'error', summary: 'Error', detail: 'Please select a file', life: 3000 });
+        return;
+    }
+
+    // Prepare form data for file upload
+    const formData = new FormData();
+    formData.append('file', files[0]);  // Attach the first file (files[0])
+
+    // Display loading message
+    toast.add({ severity: 'info', summary: 'Loading...', detail: 'Creating your project', life: 3000 });
+    loadingCreatingProject.value = true;
+
+    try {
+        // 1. Upload the file to your backend (assuming '/files/upload' is your upload endpoint)
+        const { data: fileUploadResponse } = await api.post('/files/upload', formData, {
+            headers: { 'Content-Type': 'multipart/form-data' }
+        });
+
+        // Assuming the backend returns `file_url` in response as the S3 URL
+        const file3dLink = fileUploadResponse.file_url;
+
+        // 2. Create the project by sending the project name and file3D link to '/projects'
+        const { data: projectResponse } = await api.post('/projects', {
+            project_name: projectName,
+            file3d_link: file3dLink
+        });
+
+        // Success response
+        toast.add({ severity: 'success', summary: 'Success', detail: 'Project created successfully', life: 3000 });
+        console.log('Project created:', projectResponse);
+
+    } catch (error) {
+        // Error handling
+        toast.add({ severity: 'error', summary: 'Error', detail: error.response?.data?.message || 'Project creation failed', life: 3000 });
+        console.error('Error:', error);
+    } finally {
+        // Reset loading state
+        loadingCreatingProject.value = false;
+    }
+};
 
 
 
