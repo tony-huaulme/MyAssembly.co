@@ -107,6 +107,8 @@ onMounted(async () => {
         console.log(data);
         
         projects.value = data.projects;
+        loading.value = false;
+
     } catch (error) {
         loading.value = false;
         console.error('Login Error:', error.response.data.error);

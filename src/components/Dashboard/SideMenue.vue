@@ -118,7 +118,7 @@ const userEmail = ref('');
 const userImageUrl = ref('');
 const loadingCreatingProject = ref(false);
 onMounted(() => {
-    userEmail.value = JSON.parse(localStorage.getItem('user'))['user']['email'];
+    userEmail.value = JSON.parse(localStorage.getItem('user_email'));
     userImageUrl.value = JSON.parse(localStorage.getItem('user'))['user']['image'] || false;
 });
 

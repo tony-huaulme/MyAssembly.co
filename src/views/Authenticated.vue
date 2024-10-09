@@ -19,15 +19,16 @@ const $router = useRouter();
 
 onMounted(() => {
   email.value = route.query.user_email || '';
-  username.value = route.query.user_name || ''; 
-  localStorage.setItem('user_email', email)
+  username.value = route.query.user_name || '';
+  localStorage.setItem('user_email', JSON.stringify(email.value));
   new_user.value = route.query.new_user || false;
 
   // If new_user is true, show a welcome message
   if (new_user.value == true || new_user.value == 'True' || new_user.value == 'true') {
     $router.push("/model?from=signup&modelName=DemoModel");
   }else{
-    $router.push("/dashboard");
+    $router.push("/model?from=signup&modelName=DemoModel");
+    // $router.push("/dashboard");
   }
 });
 </script>
