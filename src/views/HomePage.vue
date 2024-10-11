@@ -49,11 +49,11 @@
                     <span>Designed to scale with your project. Whether you’re working on a
                         single-family home or a large-scale commercial structure, our 3D models adapt.</span>
 
-                    <div class="flex flex-column mt-5 w-fit from-gray-800 panelInteractionContainer">
+                    <div class="flex flex-column mt-5 w-fit from-gray-800 panelInteractionContainer" @click="blinking = false">
 
                         <div class="flex flex-row items-baseline">
                             <Button @click="BuildingAssembly.showOnlyPanelByName('G-W1');" outlined
-                                class="panelButton font-semibold ">G-W1</Button>
+                                class="panelButton font-semibold" :class="blinking ? 'blink' : ''">G-W1</Button>
                             <Button @click="BuildingAssembly.showOnlyPanelByName('G-W2');" outlined
                                 class="panelButton font-semibold ">G-W2</Button>
                             <Button @click="BuildingAssembly.showOnlyPanelByName('G-W3');" outlined
@@ -210,7 +210,7 @@ const stepSetter = ref(null);
 const BuildingAssembly = ref(null);
 
 const res = ref('Hello World');
-
+const blinking = ref(true);
 const cameraPosition = ref({ x: 0, y: 0, z: 0 });
 
 watch(ModelCamera, (camera) => {
@@ -289,6 +289,19 @@ onUnmounted(() => {
 </script>
 
 <style>
+
+
+.blink {
+    animation: blink-animation 1.8s infinite ease-in-out;
+}
+
+@keyframes blink-animation {
+    0% { opacity: 0.3; }
+    70% { opacity: 1; }
+    100% { opacity: 0.3; }
+}
+
+
 .container {
     width: 90%;
     max-width: 1380px;

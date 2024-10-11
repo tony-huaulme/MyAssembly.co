@@ -11,7 +11,7 @@
                 <div class="w-2/3 max-w-md mt-10 flex flex-column justify-center ">
                     <i class="pi pi-box text-8xl self-center mb-5"></i>
                     <h1 class="text-2xl font-semibold text-gray-700 text-center mb-6">{{ signupPage ? 'Welcome to MyAssembly.co!' : 'Log into my account' }}</h1>
-                    <Button iconPos="left" @click="googleAuth" class="w-fill" style="background-color: white;"> 
+                    <Button iconPos="left" @click="googleAuth" class="w-fill" style="background-color: white; color: #3c4043;"> 
                             <img src="https://img.icons8.com/?size=24&id=17949&format=png" alt="">    
                             {{`${signupPage ? 'Sign Up' : 'Sign In'} with Google`}}
                         </Button>
