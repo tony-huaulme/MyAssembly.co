@@ -49,7 +49,7 @@ const modelContainer = ref(null);
 const ModelBuilding = ref(null);
 const buildingPanels = ref(false);
 const isPortrait = ref(false);
-const modelInfosVisible = ref(true);
+const modelInfosVisible = ref(false);
 
 
 // Model control
