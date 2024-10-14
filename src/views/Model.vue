@@ -1,14 +1,20 @@
 <template>
-  <FullScreenToggle />
+  <FullScreenToggle v-if="!modelInfosVisible"/>
+  <ModelInfos 
+    v-model:visible="modelInfosVisible" 
+    v-model:isPortrait="isPortrait"
+    v-model:activePanel="selectedPanelName"
+  />
   <div class="h-screen w-screen flex" 
     :class="{ 'flex-col-reverse': isPortrait, 'flex-row': !isPortrait }" 
     >
     <ModelControl class="overflow-auto p-3" 
       :class="{ 'h-1/3  w-screen': isPortrait, 'w-1/3 h-screen': !isPortrait }"
-      @control-model="handleControl" 
+      @control-model="handleControl"
       :buildingPanels="buildingPanels" 
       :panelBtnOnly="true"
       :modelName="modelName"
+      @show-panel-info="modelInfosVisible=true"
     />
     <div ref="modelContainer" 
       :class="{ 'h-2/3 w-screen': isPortrait, 'w-2/3 h-screen': !isPortrait }"
@@ -34,6 +40,7 @@ import { useRoute } from 'vue-router';
 import FullScreenToggle from '../components/FullScreenToggle.vue';
 import ModelViewer from '../components/Model/ModelViewer.vue';
 import ModelControl from '../components/Model/ModelControl.vue';
+import ModelInfos from '../components/Model/ModelInfos.vue';
 
 import { Building } from '../ThreeJs/building/Building.js';
 // Get the query params from the current route
@@ -42,7 +49,13 @@ const modelContainer = ref(null);
 const ModelBuilding = ref(null);
 const buildingPanels = ref(false);
 const isPortrait = ref(false);
+const modelInfosVisible = ref(true);
 
+
+// Model control
+const selectedPanelName = ref('');
+
+// Three.js objects
 const orbitControls = ref(null);
 const renderer = ref(null);
 
@@ -55,7 +68,6 @@ const modelName = ref(route.query.modelName);
 const modelUrl = computed(() => `https://www.myassembly.co/src/assets/models/${modelName.value}.glb`);;
 const cameFromDashboard = computed(() => route.query.from === 'dashboard'); 
 
-
 // Data transfer between ModelControl and ModelViewer
 
 // pass controle from ModelControl to ModelViewer
@@ -63,6 +75,7 @@ const handleControl = (arg) => {
 
   if(arg.controleName === 'showOnlyPanelByName') {
     ModelBuilding.value.showOnlyPanelByName(arg.arg);
+    selectedPanelName.value = arg.arg;
   }
 
   if(arg.controleName === 'stopAutoRotate') {

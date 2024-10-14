@@ -1,5 +1,13 @@
 <template>
-    <div id="selectedPanel" class="button">{{ selectedPanelName }}</div>
+    <OverlayBadge 
+        value="2" 
+        severity="info"
+        size="small"
+        id="selectedPanel" 
+        class="button" 
+        @click="$emit('show-panel-info', true)">
+        {{ selectedPanelName }}
+    </OverlayBadge>
     <div style="overflow: auto;">
         <h1 class="project-name p-2">{{ props.modelName }}</h1>
         <div @click="$emit('control-model', {controleName : 'stopAutoRotate'})" v-if="buildingPanels">
@@ -57,8 +65,11 @@ import Accordion from 'primevue/accordion';
 import AccordionPanel from 'primevue/accordionpanel';
 import AccordionHeader from 'primevue/accordionheader';
 import AccordionContent from 'primevue/accordioncontent';
+import OverlayBadge from 'primevue/overlaybadge';
+
+
 import Button from 'primevue/button';
-import { ref } from 'vue';
+import { ref, defineEmits } from 'vue';
 
 const selectedPanelName = ref('');
 
@@ -79,6 +90,8 @@ const props = defineProps({
 });
 
 const activeIndex = ref(0);
+const emit = defineEmits(['control-model', 'show-panel-info']);
+
 </script>
 <style>
 .project-name{
@@ -120,7 +133,7 @@ const activeIndex = ref(0);
     width: auto;
     color: var(--p-text-color);
     position: absolute;
-    top: 25px;
+    top: 45px;
     left: 50%;
     transform: translate(-50%, -50%); 
 }
