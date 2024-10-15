@@ -39,15 +39,19 @@ const props = defineProps({
   }
 });
 
-const emit = defineEmits(['model-loaded', 'camera-loaded']);
+const emit = defineEmits(['model-loaded', 'camera-loaded', 'element-clicked', 'renderer-loaded', 'orbitControls-loaded', 'scene-loaded']);
 
 onMounted(() => {
   if (props.modelContainer) runBuildProcess()
 });
 
+function callbackPieceClicked(pieceUuid) {
+  emit('element-clicked', pieceUuid)
+}
+
 function runBuildProcess() {
 
-  initThreeJs(props.modelContainer, props.modelUrl, loadingProgress, props.controle)
+  initThreeJs(props.modelContainer, props.modelUrl, loadingProgress, props.controle, callbackPieceClicked)
     .then(({ model, camera, renderer, orbitControls, canvas }) => {
       
       // Clean model reveal
@@ -61,6 +65,7 @@ function runBuildProcess() {
       emit('camera-loaded', camera)
       emit('renderer-loaded', renderer)
       emit('orbitControls-loaded', orbitControls)
+      emit('scene-loaded', model.scene)
 
     })
     .catch(error => {

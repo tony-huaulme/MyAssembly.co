@@ -34,6 +34,7 @@ export class Building {
             } else if (currentPanelName && isPanelPart(name)) {
                 this.allowTransprencyOnChild(child);
                 this.panels[currentPanelName].addElement(child);
+                child.myassemblyPanelName = currentPanelName;
             }
   
         });

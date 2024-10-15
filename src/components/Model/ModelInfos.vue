@@ -1,5 +1,5 @@
 <template>
-    <Drawer v-model:visibleLeft="visible" :header="`Panel ${ activePanel }`"class="!w-full md:!w-80 lg:!w-[30rem]">
+    <Drawer v-model:visibleLeft="visible" :header="`Panel - ${ selectedPanelName }`"class="!w-full md:!w-80 lg:!w-[30rem]">
         <!-- <template #header>
             <div class="flex justify-center w-fill">
                 <ToggleButton v-model="drawerLocked" onLabel="Locked" offLabel="Unlocked" onIcon="pi pi-lock" 
@@ -35,7 +35,7 @@
 <script setup>
 
 import Drawer from 'primevue/drawer';
-import ToggleButton from 'primevue/togglebutton';
+// import ToggleButton from 'primevue/togglebutton';
 import Accordion from 'primevue/accordion';
 import AccordionPanel from 'primevue/accordionpanel';
 import Checkbox from 'primevue/checkbox';
@@ -50,7 +50,13 @@ const visible = ref(false);
 const drawerLocked = ref(false);
 const isPortrait = ref(false);
 
-const activePanel = ref("");
+
+const props = defineProps({
+    selectedPanelName: {
+        type: String,
+        required: true,
+    }
+});
 
 const tabs = ref([
     { title: 'Title 1', content: 'Content 1', value: '0', checked: false},

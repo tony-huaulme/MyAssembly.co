@@ -14,7 +14,7 @@
             
             <Accordion v-model="activeIndex">
                 <AccordionPanel 
-                    v-for="([group, items], index) in Object.entries(props.buildingPanels)" 
+                    v-for="( [group, items], index ) in Object.entries(props.buildingPanels)" 
                     :key="group" 
                     :header="group"
                     :value="index"
@@ -25,7 +25,8 @@
                             <div v-for="panel in items" :key="panel">
                                 <Button 
                                     class="button" 
-                                    @click="$emit('control-model', { controleName: 'showOnlyPanelByName', arg: panel }); selectedPanelName = panel"
+                                    @click="$emit(
+                                        'control-model', { controleName: 'showOnlyPanelByName', arg: panel });"
                                     >
                                     {{ panel }}
                                 </Button>
@@ -71,7 +72,6 @@ import OverlayBadge from 'primevue/overlaybadge';
 import Button from 'primevue/button';
 import { ref, defineEmits } from 'vue';
 
-const selectedPanelName = ref('');
 
 const props = defineProps({
     buildingPanels: {
@@ -87,6 +87,10 @@ const props = defineProps({
         type: String,
         required: true,
     },
+    selectedPanelName: {
+        type: String,
+        required: true,
+    }
 });
 
 const activeIndex = ref(0);

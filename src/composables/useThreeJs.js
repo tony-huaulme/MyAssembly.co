@@ -7,7 +7,7 @@ import { TG } from '../ThreeJs/building/ModelAnimation';
 export function useThreeJs() {
   let scene, camera, renderer, labelRenderer, orbitControls, animationFrameId, model, cameraLight;
 
-  const initThreeJs = (container, modelUrl, loadingProgress, controle) => {
+  const initThreeJs = (container, modelUrl, loadingProgress, controle, callbackPieceClicked) => {
 
 
     return new Promise((resolve, reject) => {
@@ -124,6 +124,49 @@ export function useThreeJs() {
       } else {
         reject(new Error('No model URL provided'));
       }
+
+      let mouseDownTime = 0;
+      let startX = 0, startY = 0;
+
+      renderer.domElement.addEventListener('mousedown', (event) => {
+        mouseDownTime = Date.now(); // Record time when the mouse is pressed down
+        startX = event.clientX; // Record start X position
+        startY = event.clientY; // Record start Y position
+      });
+
+      renderer.domElement.addEventListener('mouseup', (event) => {
+
+        const mouseUpTime = Date.now(); // Record time when the mouse is released
+
+        // Check if the click was quick and mouse did not move much
+        const timeDiff = mouseUpTime - mouseDownTime;
+        const movedDistance = Math.sqrt(Math.pow(event.clientX - startX, 2) + Math.pow(event.clientY - startY, 2));
+
+        if (timeDiff < 200 && movedDistance < 5) { 
+
+          const raycaster = new THREE.Raycaster();
+          const mouse = new THREE.Vector2();
+
+
+          const rect = renderer.domElement.getBoundingClientRect();
+
+          // Calculate mouse position in normalized device coordinates (-1 to +1)
+          mouse.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
+          mouse.y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
+
+
+          // Update the picking ray with the camera and mouse position
+          raycaster.setFromCamera(mouse, camera);
+
+          // Calculate objects intersecting the picking ray
+          const intersects = raycaster.intersectObjects(scene.children, true);
+
+          if (intersects.length > 0) {
+            callbackPieceClicked(intersects[0].object.myassemblyPanelName);
+          }
+        }
+      });
+
     });
   };
 

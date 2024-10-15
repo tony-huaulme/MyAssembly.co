@@ -3,7 +3,7 @@
   <ModelInfos 
     v-model:visible="modelInfosVisible" 
     v-model:isPortrait="isPortrait"
-    v-model:activePanel="selectedPanelName"
+    v-model:selectedPanelName="selectedPanelName"
   />
   <div class="h-screen w-screen flex" 
     :class="{ 'flex-col-reverse': isPortrait, 'flex-row': !isPortrait }" 
@@ -11,10 +11,11 @@
     <ModelControl class="overflow-auto p-3" 
       :class="{ 'h-1/3  w-screen': isPortrait, 'w-1/3 h-screen': !isPortrait }"
       @control-model="handleControl"
+      @show-panel-info="modelInfosVisible=true"
+      v-model:selectedPanelName="selectedPanelName"
       :buildingPanels="buildingPanels" 
       :panelBtnOnly="true"
       :modelName="modelName"
-      @show-panel-info="modelInfosVisible=true"
     />
     <div ref="modelContainer" 
       :class="{ 'h-2/3 w-screen': isPortrait, 'w-2/3 h-screen': !isPortrait }"
@@ -25,8 +26,12 @@
         :modelUrl="modelUrl" 
         :modelContainer="modelContainer"
         @model-loaded="setBuilding"
-        @renderer-loaded="renderer= $event"
-        @orbitControls-loaded="orbitControls= $event" 
+        @renderer-loaded="threeJsRenderer = $event"
+        @orbitControls-loaded="threeJsOrbitControls = $event" 
+        @camera-loaded="threeJsModelCamera = $event"
+        @scene-loaded="threeJsScene = $event"
+        @element-clicked="panelClicked = $event"
+        
       />
     </div>
   </div>
@@ -34,7 +39,7 @@
 
 <script setup>
 
-import { ref, computed, onMounted } from 'vue';
+import { ref, computed, onMounted, watch } from 'vue';
 import { useRoute } from 'vue-router';
 
 import FullScreenToggle from '../components/FullScreenToggle.vue';
@@ -44,20 +49,24 @@ import ModelInfos from '../components/Model/ModelInfos.vue';
 
 import { Building } from '../ThreeJs/building/Building.js';
 // Get the query params from the current route
-const modelViewerRef = ref(null);
-const modelContainer = ref(null);
-const ModelBuilding = ref(null);
-const buildingPanels = ref(false);
-const isPortrait = ref(false);
+const modelViewerRef =    ref(null);
+const modelContainer =    ref(null);
+const ModelBuilding =     ref(null);
+const buildingPanels =    ref(false);
+const isPortrait =        ref(false);
 const modelInfosVisible = ref(false);
 
 
 // Model control
 const selectedPanelName = ref('');
+const panelClicked = ref(null);
 
 // Three.js objects
-const orbitControls = ref(null);
-const renderer = ref(null);
+const threeJsOrbitControls = ref(null);
+const threeJsRenderer = ref(null);
+const threeJsModel = ref(null);
+const threeJsModelCamera = ref(null);
+const threeJsScene = ref(null);
 
 // Handling route params
 const route = useRoute();
@@ -67,8 +76,16 @@ const modelName = ref(route.query.modelName);
 // get model name in url params  https://www.myassembly.co/src/assets/models/DemoModel.glb 
 const modelUrl = computed(() => `https://www.myassembly.co/src/assets/models/${modelName.value}.glb`);;
 const cameFromDashboard = computed(() => route.query.from === 'dashboard'); 
-
 // Data transfer between ModelControl and ModelViewer
+
+
+watch(() => panelClicked.value, (newVal) => {
+  if(newVal) {
+    console.log('panelClicked', newVal);
+    selectedPanelName.value = newVal;
+    ModelBuilding.value.showOnlyPanelByName(newVal);
+  }
+});
 
 // pass controle from ModelControl to ModelViewer
 const handleControl = (arg) => {
@@ -79,7 +96,7 @@ const handleControl = (arg) => {
   }
 
   if(arg.controleName === 'stopAutoRotate') {
-    orbitControls.value.autoRotate = false;
+    threeJsOrbitControls.value.autoRotate = false;
   }
 
   modelViewerRef.value.handleControl(arg);
@@ -87,6 +104,7 @@ const handleControl = (arg) => {
 
 function setBuilding(model) {
   // B.value = new Building(model);
+  threeJsModel.value = model;
   ModelBuilding.value = new Building(model);
   buildingPanels.value = ModelBuilding.value.getPanelsByGroupsDict();
 }
