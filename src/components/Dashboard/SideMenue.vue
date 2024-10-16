@@ -42,7 +42,7 @@
         <h4 class="mt-0 mb-1">Project Name :</h4>
 
         <div class="flex items-center gap-4">
-            <InputText id="project_name" class="flex-auto" autocomplete="off" />
+            <InputText v-model="projectName" id="project_name" class="flex-auto" autocomplete="off" />
         </div>
         <h4 class="mb-1">3D Model :</h4>
         <FileUpload name="demo[]" url="/api/upload" @upload="onTemplatedUpload($event)" :multiple="false"  :maxFileSize="1000000000000" @select="onSelectedFiles" class="border-dashed">
@@ -117,6 +117,9 @@ import FileUpload from "primevue/fileupload";
 const userEmail = ref('');
 const userImageUrl = ref('');
 const loadingCreatingProject = ref(false);
+
+const projectName = ref('');
+
 onMounted(() => {
     userEmail.value = JSON.parse(localStorage.getItem('user_email'));
     userImageUrl.value = JSON.parse(localStorage.getItem('user'))['user']['image'] || false;
@@ -204,8 +207,7 @@ import api from '@/services/api';
 
 const createNewProject = async () => {
     // Checking input fields (file and project name)
-    const projectName = document.getElementById('project_name').value;
-    if (!projectName) {
+    if (!projectName.value) {
         toast.add({ severity: 'error', summary: 'Error', detail: 'Please enter a project name', life: 3000 });
         return;
     }
@@ -236,9 +238,15 @@ const createNewProject = async () => {
         console.log('File uploadeResponse:', fileUploadResponse);
         console.log('File uploaded:', file3dLink);
         // 2. Create the project by sending the project name and file3D link to '/projects'
-        const { data: projectResponse } = await api.post('projects', {
-            project_name: projectName,
-            file3d_link: file3dLink
+
+        const payload = new URLSearchParams();  // Using URLSearchParams to simulate form encoding
+        payload.append('project_name', projectName.value);
+        payload.append('file3d_link', file3dLink);
+    
+        const { data: projectResponse } = await api.post('/projects', payload, {
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'  // Set content type to simulate form submission
+            }
         });
 
         // Success response
