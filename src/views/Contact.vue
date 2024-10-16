@@ -15,15 +15,15 @@
             <form action="#" class="space-y-8">
                 <div>
                     <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Your email</label>
-                    <InputText></InputText>
+                    <InputText v-model="email"></InputText>
                 </div>
                 <div>
                     <label for="subject" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Subject</label>
-                    <InputText></InputText>
+                    <InputText v-model="subject"></InputText>
                 </div>
                 <div class="sm:col-span-2">
                     <label for="message" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">Your message</label>
-                    <Textarea style="width: 100%;"></Textarea>
+                    <Textarea v-model="message" style="width: 100%;"></Textarea>
                 </div>
                 <Button @click="submit">Send message</Button>
             </form>
@@ -44,15 +44,50 @@ const toast = useToast();
 
 
 
-const firstname = ref('');
-const lastname = ref('');
 const email = ref('');
-const phone = ref('');
+const subject = ref('');
 const message = ref('');
 
 const submit = () => {
-    toast.add({ severity: 'error', summary: 'Failed, contact directly :', detail: 'contact@myassembly.co', life: 3000 });
-}
+  // Replace with your Discord webhook URL
+  const webhookUrl = 'https://discord.com/api/webhooks/1296176420837527643/_u_w0Z64by58srUkPuBKNRkLeTC7eRyWA3ly0yCEd71NggPOP01mOXu1N25WlchpWSrH';
+
+  // Construct the payload to be sent to the webhook
+  const payload = {
+    embeds: [{
+      title: 'New Form Submission',
+      color: 5814783, // Optional, sets the color of the embed (in decimal, this is light blue)
+      fields: [
+        { name: 'Email', value: email.value || 'N/A', inline: true },
+        { name: 'Subject', value: subject.value || 'N/A', inline: false },
+        { name: 'Message', value: message.value || 'N/A', inline: false }
+      ],
+      footer: {
+        text: 'Form Submission',
+      },
+      timestamp: new Date() // Adds a timestamp to the embed
+    }]
+  };
+
+  // Send the data using fetch
+  fetch(webhookUrl, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(payload)
+  })
+  .then(response => {
+    if (response.ok) {
+      toast.add({ severity: 'success', summary: 'Submitted', detail: 'Your message has been sent!', life: 3000 });
+    } else {
+      throw new Error('Failed to submit');
+    }
+  })
+  .catch(error => {
+    toast.add({ severity: 'error', summary: 'Failed', detail: 'Please try again later.', life: 3000 });
+  });
+};
 
 
 </script>
