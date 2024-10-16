@@ -1,6 +1,6 @@
 <template>
   <!-- Loading Waiter -->
-  <div v-if="!viewerReady" class="absolute top-50 left-50">
+  <div v-if="loadingProgress < 100" class="absolute top-50 left-50">
     <div class="spinner-container">
       <div class="loader-1"></div>
       <div class="spinner-text">{{ loadingProgress }}</div>
@@ -15,7 +15,7 @@ import { useThreeJs } from '@/composables/useThreeJs'; // Import the composable
 
 
 const loadingProgress = ref(0);
-const viewerReady = ref(false);
+// const viewerReady = ref(false);
 const { initThreeJs } = useThreeJs();
 
 
@@ -58,8 +58,8 @@ function runBuildProcess() {
       canvas.style.opacity = 1;
       
       // loadingState 100%
-      viewerReady.value = true;
-      console.log('viewerReady.value:',viewerReady.value);
+      // viewerReady.value = true;
+      // console.log('viewerReady.value:',viewerReady.value);
       // Pass the model to the parent component
       emit('model-loaded', model)
       emit('camera-loaded', camera)
