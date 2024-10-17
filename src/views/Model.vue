@@ -86,14 +86,14 @@ async function getProject() {
 
   const fileKey = data.file3d_link.split('.com/')[1]
 
-  const {data} = await api.get(`files/download`, {
+  const res = await api.get(`files/download`, {
       params: {
         file_key: fileKey // Pass file_key in the query string
       }
     });
-    
-  console.log('message :', data);
-  modelUrl.value = data.presigned_url;
+
+  console.log('message :', res["data"]);
+  modelUrl.value = res["data"].presigned_url;
 }
 
 const cameFromDashboard = computed(() => route.query.from === 'dashboard'); 
