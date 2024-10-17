@@ -84,7 +84,9 @@ async function getProject() {
   console.log('modelName.value:', data);
   modelName.value = data.project_name;
 
-  const fileKey = data.file3d_link.split('.com/')[1]
+  const fileKey_ = data.file3d_link.split('.com/')[1]
+  const fileKey = fileKey_.replace(/^myassembly.co\//, '');
+
 
   const res = await api.get(`files/download`, {
       params: {
