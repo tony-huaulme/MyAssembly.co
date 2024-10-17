@@ -7,7 +7,7 @@
         <!-- DataTable with Filters and Action Buttons -->
         <DataTable v-if="projects != []" class="w-fill" v-model:filters="filters" :value="projects" dataKey="id"
             scrollable scrollHeight="flex" tableStyle="min-width: 50rem"   :loading="loading"
-            filterDisplay="menu" :globalFilterFields="['nomClient', 'nomProjet', 'nomFichierImporte', 'statut']">
+            filterDisplay="menu" :globalFilterFields="['nomClient', 'project_name', 'nomFichierImporte', 'statut']">
             <!-- Header Template -->
             <!-- <template #header>
                 <div class="flex justify-between">
@@ -26,14 +26,14 @@
             <template #loading>Loading project data. Please wait.</template>
 
             <!-- Columns -->
-            <Column field="nomProjet" header="Project Name" style="min-width: 12rem">
-                <template #body="{ data }">{{ data.nomProjet }}</template>
+            <Column field="project_name" header="Project Name" style="min-width: 12rem">
+                <template #body="{ data }">{{ data.project_name }}</template>
                 <template #filter="{ filterModel }">
                     <InputText v-model="filterModel.value" type="text" placeholder="Search by project name" />
                 </template>
             </Column>
 
-            <Column field="nomFichierImporte" header="Imported 3D File" style="min-width: 12rem">
+            <!-- <Column field="nomFichierImporte" header="Imported 3D File" style="min-width: 12rem">
                 <template #body="{ data }">{{ data.nomFichierImporte }}</template>
                 <template #filter="{ filterModel }">
                     <InputText v-model="filterModel.value" type="text" placeholder="Search by file name" />
@@ -51,7 +51,7 @@
                         </template>
                     </Select>
                 </template>
-            </Column>
+            </Column> -->
 
             <!-- Action Buttons Column -->
             <Column header="Actions" bodyClass="p-text-center">
@@ -104,7 +104,6 @@ onMounted(async () => {
     try {
 
         const {data} = await api.get('projects');
-        console.log(data);
         
         projects.value = data.projects;
         loading.value = false;

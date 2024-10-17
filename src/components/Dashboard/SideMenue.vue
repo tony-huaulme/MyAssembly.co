@@ -222,7 +222,7 @@ const createNewProject = async () => {
     const formData = new FormData();
     console.log('files:', files.value);
     formData.append('file', files.value[0]);  // Attach the first file (files[0])
-
+    console.log('FILE NAME :', files.value[0].name);
     // Display loading message
     toast.add({ severity: 'info', summary: 'Loading...', detail: 'Creating your project', life: 3000 });
     loadingCreatingProject.value = true;
@@ -242,6 +242,7 @@ const createNewProject = async () => {
         const payload = new URLSearchParams();  // Using URLSearchParams to simulate form encoding
         payload.append('project_name', projectName.value);
         payload.append('file3d_link', file3dLink);
+        payload.append('file_name', files.value[0].name);
     
         const { data: projectResponse } = await api.post('/projects', payload, {
             headers: {
