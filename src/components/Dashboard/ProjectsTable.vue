@@ -59,9 +59,8 @@
            
                     <Button icon="pi pi-eye" class="p-button-rounded p-button-secondary mr-2"
                         @click="openProject(slotProps.data)" />
-                    
-                    <Button icon="pi pi-pencil" class="p-button-rounded p-button-warning mr-2"
-                        @click="editProject(slotProps.data)" />
+                    <!-- <Button icon="pi pi-pencil" class="p-button-rounded p-button-warning mr-2"
+                        @click="editProject(slotProps.data)" /> -->
                     <Button icon="pi pi-share-alt" class="p-button-rounded p-button-info mr-2"
                         @click="shareProject(slotProps.data)" />
                     <Button icon="pi pi-trash" class="p-button-rounded p-button-danger"
@@ -103,7 +102,7 @@ import api from '@/services/api';
 onMounted(async () => {
     try {
 
-        const {data} = await api.get('projects');
+        const {data} = await api.get('projects/');
         
         projects.value = data.projects;
         loading.value = false;
