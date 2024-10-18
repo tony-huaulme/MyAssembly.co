@@ -21,7 +21,7 @@
       :class="{ 'h-2/3 w-screen': isPortrait, 'w-2/3 h-screen': !isPortrait }"
     >   
       <ModelViewer 
-        v-if="modelContainer" 
+        v-if="modelContainer && modelUrl" 
         ref="modelViewerRef" 
         :modelUrl="modelUrl" 
         :modelContainer="modelContainer"
@@ -70,11 +70,34 @@ const threeJsScene = ref(null);
 
 // Handling route params
 const route = useRoute();
-const modelName = ref(route.query.modelName);
+
+const projectId = ref(route.query.projectId);
+const modelName = ref('');
+const modelUrl = ref('');
 
 
-// get model name in url params  https://www.myassembly.co/src/assets/models/DemoModel.glb 
-const modelUrl = computed(() => `https://www.myassembly.co/src/assets/models/${modelName.value}.glb`);;
+import api from '@/services/api';
+
+async function getProject() {
+
+  const {data} = await api.get(`projects/${projectId.value}`);
+  console.log('modelName.value:', data);
+  modelName.value = data.project_name;
+
+  const fileKey_ = data.file3d_link.split('.com/')[1]
+  const fileKey = fileKey_.replace(/^myassembly.co\//, '');
+
+
+  const res = await api.get(`files/download`, {
+      params: {
+        file_key: fileKey // Pass file_key in the query string
+      }
+    });
+
+  console.log('message :', res["data"]);
+  modelUrl.value = res["data"].presigned_url;
+}
+
 const cameFromDashboard = computed(() => route.query.from === 'dashboard'); 
 // Data transfer between ModelControl and ModelViewer
 
@@ -118,6 +141,7 @@ function detectOrientation() {
 onMounted(() => {
   detectOrientation();
   window.addEventListener('resize', detectOrientation);
+  getProject();
 });
 
 
