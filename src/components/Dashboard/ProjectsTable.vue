@@ -145,7 +145,7 @@ const editProject = (project) => {
 };
 
 const shareProject = (project) => {
-    console.log("Sharing project:", project);
+    console.log("Sharing project:", project.id);
 };
 
 const deleteProject = (project) => {
@@ -155,7 +155,7 @@ const deleteProject = (project) => {
 const openProject = (project) => {
 
     // Navigate to the Model page with the query param
-    router.push({ name: 'Model', query: { from: 'dashboard', modelName: 'DemoModel' } });
+    router.push({ name: 'ModelFromProjectId', query: { projectId: project.id } });
 };
 
 // Initialize Filters
