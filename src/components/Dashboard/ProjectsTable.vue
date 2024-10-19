@@ -102,7 +102,7 @@ import api from '@/services/api';
 onMounted(async () => {
     try {
 
-        const {data} = await api.get('projects/');
+        const {data} = await api.get('projects');
         
         projects.value = data.projects;
         loading.value = false;
