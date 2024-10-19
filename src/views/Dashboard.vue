@@ -1,7 +1,8 @@
 <template>
-    <div ref="DashboardContainer" class="card flex dahsboardContainer h-screen w-fill" :class="isPortrait ? 'flex-column' : 'flex'">
+    <div ref="DashboardContainer" class="card flex dahsboardContainer h-screen w-fill overflow-hidden" :class="isPortrait ? 'flex-column' : 'flex'">
         <SideMenue></SideMenue>
         <RouterView />
+
     </div>
 </template>
 <script setup>

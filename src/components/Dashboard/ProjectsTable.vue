@@ -2,7 +2,7 @@
 <!-- #Id  ||  Nom Client  ||  Nom Projet  ||  Nom Fichier Importé  ||  Statut (SHARED, NOT-SHARED, FILE IMPORTED) ||  [Boutons] -> edit / share / delete -->
 <template>
     <div class="w-fill">
-        <h1 class="mt-5 flex flex-row align-items-center gap-5">
+        <h1 class="flex flex-row align-items-center gap-5 md:mt-0 mt-5" style="text-wrap: balance; font-size: 6vw;     padding: 1rem;">
             <Button icon="pi pi-refresh" class="p-button-rounded p-button-secondary" @click="updateProjectTable()"/>
             Projects
         </h1>
@@ -10,7 +10,7 @@
         
         <!-- DataTable with Filters and Action Buttons -->
         <DataTable v-if="projects != []" class="w-fill" v-model:filters="filters" :value="projects" dataKey="id"
-            scrollable scrollHeight="flex" tableStyle="min-width: 50rem"   :loading="loading"
+            scrollable scrollHeight="flex" tableStyle="min-width: 50rem" :loading="loading"
             filterDisplay="menu" :globalFilterFields="['nomClient', 'project_name', 'nomFichierImporte', 'statut']">
             <!-- Header Template -->
             <!-- <template #header>
@@ -26,7 +26,10 @@
             </template> -->
 
             <!-- Empty and Loading Templates -->
-            <template #empty>No projects found.</template>
+            <template #empty>
+                Create your first project now !
+                <div id="pv_id_1_1_0" class="p-menu-item" role="menuitem" aria-label="New" data-pc-section="item" data-p-focused="false" data-p-disabled="false"><div class="p-menu-item-content" data-pc-section="itemcontent"><a class="flex items-center blink p-menu-item-link" onclick="this.classList.remove('blink')" tabindex="-1" aria-hidden="true" data-pc-section="itemlink"><span class="pi pi-plus"></span><span class="ml-2">New</span><!--v-if--><!--v-if--></a></div></div>
+            </template>
             <template #loading>Loading project data. Please wait.</template>
 
             <!-- Columns -->
@@ -106,20 +109,21 @@ const loading = ref(true);
 
 import api from '@/services/api';
 async function updateProjectTable() {
-    const {data} = await api.get('projects');
-    loading.value = true;
-    projects.value = data.projects;
-    loading.value = false;
-}
 
-
-onMounted(async () => {
     try {
-        updateProjectTable();
+        const {data} = await api.get('projects');
+        loading.value = true;
+        projects.value = data.projects;
+        loading.value = false;
     } catch (error) {
         loading.value = false;
         console.error('Error Getting Projects:', error.response);
     }
+}
+
+
+onMounted(async () => {
+    updateProjectTable();
 });
 // Filters and options
 const filters = ref();
