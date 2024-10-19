@@ -6,6 +6,7 @@ import Dashboard from '@/views/Dashboard.vue'
 import ProjectsTable from '../components/Dashboard/ProjectsTable.vue'
 import Statistics from '../components/Dashboard/Statistics.vue'
 import Model from '../views/Model.vue'
+import ModelFromProjectId from '../views/ModelFromProjectId.vue'
 import ShareDemoModal from '../components/ShareDemoModal.vue'
 import Authenticated from '../views/Authenticated.vue'
 import Contact from '../views/Contact.vue'
@@ -32,6 +33,12 @@ const routes = [
     path: '/model',
     name: 'Model',
     component: Model
+  },
+  // ModelFromProjectId
+  {
+    path: '/ModelFromProjectId',
+    name: 'ModelFromProjectId',
+    component: ModelFromProjectId
   },
   {
     path : '/testModal',
