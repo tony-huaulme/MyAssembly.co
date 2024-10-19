@@ -1,5 +1,18 @@
 <template>
   <FullScreenToggle v-if="!modelInfosVisible"/>
+
+  <RouterLink v-if="modelName == 'DemoModel'" 
+    :to="'/dashboard/projects?from=demo'" 
+    class="get-started-btn absolute"
+    :class="{ 'top-5 left-5': isPortrait, 'bottom-5 right-5': !isPortrait }"
+    >        
+    <Button>
+        <slot>
+            <p class="m-0" style="font-weight: bold; margin-right: 1ch">{{ isPortrait ? 'Create !':'Create yours now !' }}</p>
+        </slot>
+    </Button>
+  </RouterLink>
+
   <ModelInfos 
     v-model:visible="modelInfosVisible" 
     v-model:isPortrait="isPortrait"
@@ -41,6 +54,7 @@
 
 import { ref, computed, onMounted, watch } from 'vue';
 import { useRoute } from 'vue-router';
+import { RouterLink } from 'vue-router'
 
 import FullScreenToggle from '../components/FullScreenToggle.vue';
 import ModelViewer from '../components/Model/ModelViewer.vue';
@@ -112,7 +126,6 @@ function setBuilding(model) {
 
 function detectOrientation() {
   isPortrait.value = window.innerHeight > window.innerWidth;
-  console.log("Screen Orientation :",isPortrait.value ? "Portrait" : "Landscape");
 }
 
 onMounted(() => {

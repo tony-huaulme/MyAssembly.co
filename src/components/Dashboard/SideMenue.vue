@@ -12,12 +12,14 @@
             <template #item="{ item, props }">
                 <RouterLink v-if="item.to" :to="`/dashboard/${item.to}`" class="flex items-center" v-bind="props.action"  >
                     <span :class="item.icon" />
-                    <span class="ml-2">{{ item.label }}</span>
+                    <span class="ml-2" >
+                        {{ item.label }}
+                    </span>
                     <Badge v-if="item.badge" class="ml-auto" :value="item.badge" />
                     <span v-if="item.shortcut" class="ml-auto border border-surface rounded bg-emphasis text-muted-color text-xs p-1">{{ item.shortcut }}</span>
                    
                 </RouterLink>
-                <a v-else class="flex items-center" v-bind="props.action" @click="handleItemClick(item.label)">
+                <a v-else class="flex items-center" :class="item.label == 'New' && isFromDemo ? 'blink' : ''" onclick="this.classList.remove('blink')" v-bind="props.action" @click="handleItemClick(item.label)">
                     <span :class="item.icon" />
                     <span class="ml-2">{{ item.label }}</span>
                     <Badge v-if="item.badge" class="ml-auto" :value="item.badge" />
@@ -137,40 +139,12 @@ const items = ref([
                 icon: 'pi pi-plus', 
                 // shortcut: '⌘+N'
             }
-            // ,
-            // {
-            //     label: 'Projects',
-            //     icon: 'pi pi-folder-open', 
-            //     // shortcut: '⌘+N'
-            // }
-            // ,
-            // {
-            //     label: 'Search',
-            //     icon: 'pi pi-search',
-            //     // shortcut: '⌘+S'
-            // }
-            // ,
-            // {
-            //     label: 'Stats',
-            //     icon: 'pi pi-chart-bar',
-            //     // shortcut: '⌘+T',
-            //     to: 'statistics'
-            // }
         ]
     },
     {
         label: 'Profile',
         items: [
-            // {
-            //     label: 'Settings',
-            //     icon: 'pi pi-cog',
-            //     // shortcut: '⌘+O'
-            // },
-            // {
-            //     label: 'Messages',
-            //     icon: 'pi pi-inbox',
-            //     badge: 2
-            // },
+           
             {
                 label: 'Logout',
                 icon: 'pi pi-sign-out',
@@ -202,6 +176,11 @@ const upload = () => {
 const onUpload = () => {
     toast.add({ severity: 'info', summary: 'Success', detail: 'File Uploaded', life: 3000 });
 };
+
+import { useRoute } from 'vue-router';
+const route = useRoute();
+const isFromDemo = ref(route.query.from === 'demo');
+
 
 import api from '@/services/api';
 
@@ -319,3 +298,19 @@ const formatSize = (bytes) => {
     return `${formattedSize} ${sizes[i]}`;
 };
 </script>
+<style>
+
+.p-dialog-content{
+    overflow: hidden !important;
+}
+
+.blink {
+    animation: blink-animation 1.8s infinite ease-in-out;
+}
+
+@keyframes blink-animation {
+    0% { opacity: 1; }
+    70% { opacity: 0.2; }
+    100% { opacity: 1; }
+}
+</style>

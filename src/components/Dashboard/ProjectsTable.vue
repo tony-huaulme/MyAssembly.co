@@ -2,8 +2,12 @@
 <!-- #Id  ||  Nom Client  ||  Nom Projet  ||  Nom Fichier Importé  ||  Statut (SHARED, NOT-SHARED, FILE IMPORTED) ||  [Boutons] -> edit / share / delete -->
 <template>
     <div class="w-fill">
-        <h1 class="mb-5">Projects</h1>
-
+        <h1 class="mt-5 flex flex-row align-items-center gap-5">
+            <Button icon="pi pi-refresh" class="p-button-rounded p-button-secondary" @click="updateProjectTable()"/>
+            Projects
+        </h1>
+        <!-- button with icon refresh triggering updateProjectTable() -->
+        
         <!-- DataTable with Filters and Action Buttons -->
         <DataTable v-if="projects != []" class="w-fill" v-model:filters="filters" :value="projects" dataKey="id"
             scrollable scrollHeight="flex" tableStyle="min-width: 50rem"   :loading="loading"
@@ -98,57 +102,24 @@ const router = useRouter();
 const projects = ref([]);
 
 const loading = ref(true);
+
+
 import api from '@/services/api';
+async function updateProjectTable() {
+    const {data} = await api.get('projects');
+    loading.value = true;
+    projects.value = data.projects;
+    loading.value = false;
+}
+
+
 onMounted(async () => {
     try {
-
-        const {data} = await api.get('projects');
-        
-        projects.value = data.projects;
-        loading.value = false;
-
+        updateProjectTable();
     } catch (error) {
         loading.value = false;
-        console.error('Login Error:', error.response.data.error);
-        console.log('error.response.status:', error.response.status);
-        // if (error.response && error.response.status === 401) {
-        //     toast.add({ severity: 'error', summary: 'Login Failed', detail: 'Invalid credentials', life: 3000 });
-            
-        // } else {
-        //     toast.add({ severity: 'error', summary: 'Login Failed', detail: error.code, life: 3000 });
-        // }
+        console.error('Error Getting Projects:', error.response);
     }
-
-//     setTimeout(() => {
-
-//         loading.value = false;
-//         projects.value = [
-//         { id: 1, nomClient: "AlphaCorp", nomProjet: "Building Design", nomFichierImporte: "alpha_building_design.ifc", statut: "SHARED" },
-// { id: 2, nomClient: "BetaTech", nomProjet: "Structural Analysis", nomFichierImporte: "beta_structural_analysis.glb", statut: "FILE IMPORTED" },
-// { id: 3, nomClient: "Gamma Solutions", nomProjet: "Building Safety Audit", nomFichierImporte: "gamma_safety_audit.sat", statut: "NOT-SHARED" },
-// { id: 4, nomClient: "DeltaDesign", nomProjet: "Interior Design", nomFichierImporte: "delta_interior_design.obj", statut: "SHARED" },
-// { id: 5, nomClient: "EpsilonWorks", nomProjet: "3D Modeling", nomFichierImporte: "epsilon_3d_modeling.stl", statut: "NOT-SHARED" },
-// { id: 6, nomClient: "Zeta Urban", nomProjet: "Urban Planning", nomFichierImporte: "zeta_urban_plan.3ds", statut: "FILE IMPORTED" },
-// { id: 7, nomClient: "Theta Innovations", nomProjet: "Energy Optimization", nomFichierImporte: "theta_energy_optimization.step", statut: "SHARED" },
-// { id: 8, nomClient: "IotaArch", nomProjet: "Architectural Redesign", nomFichierImporte: "iota_architectural_redesign.ifc", statut: "NOT-SHARED" },
-// { id: 9, nomClient: "KappaBuild", nomProjet: "Building Construction", nomFichierImporte: "kappa_building_construction.glb", statut: "FILE IMPORTED" },
-// { id: 10, nomClient: "Lambda Landscape", nomProjet: "Landscape Planning", nomFichierImporte: "lambda_landscape_plan.obj", statut: "SHARED" },
-// { id: 11, nomClient: "MuProjects", nomProjet: "Construction Management", nomFichierImporte: "mu_construction_management.step", statut: "NOT-SHARED" },
-// { id: 12, nomClient: "NuBIM", nomProjet: "BIM Training", nomFichierImporte: "nu_bim_training.ifc", statut: "FILE IMPORTED" },
-// { id: 13, nomClient: "XiDesign", nomProjet: "Residential Building Design", nomFichierImporte: "xi_residential_building.obj", statut: "SHARED" },
-// { id: 14, nomClient: "OmicronConstruction", nomProjet: "Product Development", nomFichierImporte: "omicron_product_development.stl", statut: "NOT-SHARED" },
-// { id: 15, nomClient: "PiAnalysis", nomProjet: "Financial Analysis", nomFichierImporte: "pi_financial_analysis.sat", statut: "FILE IMPORTED" },
-// { id: 16, nomClient: "RhoResearch", nomProjet: "Research Report", nomFichierImporte: "rho_research_report.step", statut: "SHARED" },
-// { id: 17, nomClient: "SigmaMarketing", nomProjet: "Marketing Plan", nomFichierImporte: "sigma_marketing_plan.obj", statut: "NOT-SHARED" },
-// { id: 18, nomClient: "TauContent", nomProjet: "Content Strategy", nomFichierImporte: "tau_content_strategy.ifc", statut: "FILE IMPORTED" },
-// { id: 19, nomClient: "UpsilonDevelopers", nomProjet: "Site Development", nomFichierImporte: "upsilon_site_development.stl", statut: "SHARED" },
-// { id: 20, nomClient: "PhiMarkets", nomProjet: "Market Analysis", nomFichierImporte: "phi_market_analysis.3ds", statut: "NOT-SHARED" },
-// { id: 21, nomClient: "ChiAudit", nomProjet: "Audit Report", nomFichierImporte: "chi_audit_report.obj", statut: "FILE IMPORTED" },
-// { id: 22, nomClient: "PsiProjects", nomProjet: "Project Planning", nomFichierImporte: "psi_project_planning.step", statut: "SHARED" },
-// { id: 23, nomClient: "OmegaBrands", nomProjet: "Brand Strategy", nomFichierImporte: "omega_brand_strategy.glb", statut: "NOT-SHARED" }
-
-// ]
-//     }, 333);
 });
 // Filters and options
 const filters = ref();

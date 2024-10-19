@@ -1,19 +1,26 @@
 <template>
-    <div ref="DashboardContainer" class="card  md:flex dahsboardContainer h-screen hidden w-fill">
+    <div ref="DashboardContainer" class="card flex dahsboardContainer h-screen w-fill" :class="isPortrait ? 'flex-column' : 'flex'">
         <SideMenue></SideMenue>
         <RouterView />
-
-    </div>
-    <div class="md:hidden flex">
-        Please use a bigger screen to view the dashboard
     </div>
 </template>
 <script setup>
     import SideMenue from '../components/Dashboard/SideMenue.vue';
     import { RouterView } from 'vue-router'
-    import {ref} from 'vue';
+    import { ref, onMounted } from 'vue';
 
     const DashboardContainer = ref(null);
+    const isPortrait = ref(false);
+
+    function detectOrientation() {
+        isPortrait.value = window.innerHeight > window.innerWidth;
+    }
+
+    onMounted(() => {
+        detectOrientation();
+        window.addEventListener('resize', detectOrientation);
+    });
+
 
 </script>
 <style>
