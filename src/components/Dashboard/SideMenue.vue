@@ -178,6 +178,9 @@ const onUpload = () => {
 };
 
 import { useRoute } from 'vue-router';
+import { useRouter } from 'vue-router';
+
+const router = useRouter();
 const route = useRoute();
 const isFromDemo = ref(route.query.from === 'demo');
 
@@ -231,6 +234,11 @@ const createNewProject = async () => {
 
         // Success response
         toast.add({ severity: 'success', summary: 'Success', detail: 'Project created successfully', life: 3000 });
+        
+        // do rooter.push('/dashboard/projects') to refresh the page;
+        router.push('/dashboard/projects');
+
+
         console.log('Project created:', projectResponse);
 
     } catch (error) {
