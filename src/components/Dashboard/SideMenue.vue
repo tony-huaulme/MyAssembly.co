@@ -159,8 +159,6 @@ const items = ref([
 
 const visible = ref(false);
 
-import api from '@/services/api';
-
 function handleItemClick(label) {
     if (label === 'New') {
         visible.value = true;
