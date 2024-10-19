@@ -159,9 +159,24 @@ const items = ref([
 
 const visible = ref(false);
 
+import api from '@/services/api';
+
 function handleItemClick(label) {
     if (label === 'New') {
         visible.value = true;
+    }
+
+    if (label === 'Logout') {
+        try {
+            api.get('logout');
+            toast.add({ severity: 'info', summary: 'Success', detail: 'Logged Out', life: 3000 });
+            router.push({ name: 'authenticate' });
+            localStorage.removeItem('user');
+            localStorage.removeItem('user_email');
+        }catch (error) {
+            console.error('Error:', error);
+        }
+
     }
 }
 

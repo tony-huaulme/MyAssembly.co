@@ -121,6 +121,12 @@ async function updateProjectTable() {
     } catch (error) {
         loading.value = false;
         console.error('Error Getting Projects:', error.response);
+
+        // if response status is 401, redirect to login page
+        if (error.response.status === 401) {
+            router.push({ name: 'authenticate' });
+        }
+
     }
 }
 
