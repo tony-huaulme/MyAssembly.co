@@ -83,7 +83,6 @@ async function getProject() {
   const {data} = await api.get(`projects/${projectId.value}`);
   console.log('modelName.value:', data);
   modelName.value = data.project_name;
-  print("file link : ", data.file3d_link);
   const fileKey = data.file3d_link.split('amazonaws.com/')[1]
   // MyAssemblyDemoLIL.glb
 
