@@ -9,7 +9,8 @@
 
                 <!-- Replace this with your login form -->
                 <div class="w-2/3 max-w-md mt-10 flex flex-column justify-center ">
-                    <img :src=" isDarkMode ? '../assets/logo_darkmode.png' : '../assets/logo_lightmode.png'" class="p-3" style="width: 6rem; height: 6rem; align-self: center;">   
+                    <img v-if="isDarkMode" src="../assets/logo_darkmode.png" alt="MyAssembly.co Icon" class="p-3" style="width: 10rem; height: 10rem; align-self: center;">
+                    <img v-else src="../assets/logo_lightmode.png" alt="MyAssembly.co Icon" class="p-3" style="width: 10rem; height: 10rem; align-self: center;">   
 
                     <h1 class="text-2xl font-semibold text-gray-700 text-center mb-6">{{ signupPage ? 'Welcome to MyAssembly.co!' : 'Log into my account' }}</h1>
                     <Button iconPos="left" @click="googleAuth" class="w-fill" style="background-color: white; color: #3c4043;"> 

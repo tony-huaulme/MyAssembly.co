@@ -148,6 +148,7 @@
                         <img src="../assets/shareDemoPopUp.png" class="p-3" style="border: solid 1px var(--p-content-color); border-radius: 5px; max-height: 60vh;">
                     </div>
                 </div>
+
             </section>
 
 
@@ -165,6 +166,8 @@
         <div class="w-fill flex flex-row justify-center mb-20 mt-20">
             <img src="../assets/dashboard_picture.png" class="max-w-full">
         </div>
+        <GetStartedButton/>
+
     </div>
 
     <!-- <HeroSection>

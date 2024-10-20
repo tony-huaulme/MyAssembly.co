@@ -23,6 +23,7 @@
     >
     <ModelControl class="overflow-auto p-3" 
       :class="{ 'h-1/3  w-screen': isPortrait, 'w-1/3 h-screen': !isPortrait }"
+      :style="{ 'height:33vh;': isPortrait, 'w-1/3 h-screen': !isPortrait }"
       @control-model="handleControl"
       @show-panel-info="modelInfosVisible=true"
       v-model:selectedPanelName="selectedPanelName"
@@ -32,6 +33,7 @@
     />
     <div ref="modelContainer" 
       :class="{ 'h-2/3 w-screen': isPortrait, 'w-2/3 h-screen': !isPortrait }"
+      :style="{ 'width:75vw;': !isPortrait }"
     >   
       <ModelViewer 
         v-if="modelContainer" 
