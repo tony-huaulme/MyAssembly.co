@@ -169,9 +169,9 @@ function handleItemClick(label) {
         try {
             api.get('logout');
             toast.add({ severity: 'info', summary: 'Success', detail: 'Logged Out', life: 3000 });
-            router.push({ name: 'authenticate' });
             localStorage.removeItem('user');
             localStorage.removeItem('user_email');
+            router.push({ name: 'authenticate' });
         }catch (error) {
             console.error('Error:', error);
         }
@@ -249,10 +249,9 @@ const createNewProject = async () => {
         // Success response
         toast.add({ severity: 'success', summary: 'Success', detail: 'Project created successfully', life: 3000 });
         
-        // do rooter.push('/dashboard/projects') to refresh the page;
-        router.push('/dashboard/projects');
-
-
+        visible.value = false;
+        document.getElementById('refreshProjectsButton').click();
+        
         console.log('Project created:', projectResponse);
 
     } catch (error) {

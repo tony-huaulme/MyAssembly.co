@@ -9,7 +9,8 @@
 
                 <!-- Replace this with your login form -->
                 <div class="w-2/3 max-w-md mt-10 flex flex-column justify-center ">
-                    <i class="pi pi-box text-8xl self-center mb-5"></i>
+                    <img :src=" isDarkMode ? '../assets/logo_darkmode.png' : '../assets/logo_lightmode.png'" class="p-3" style="width: 6rem; height: 6rem; align-self: center;">   
+
                     <h1 class="text-2xl font-semibold text-gray-700 text-center mb-6">{{ signupPage ? 'Welcome to MyAssembly.co!' : 'Log into my account' }}</h1>
                     <Button iconPos="left" @click="googleAuth" class="w-fill" style="background-color: white; color: #3c4043;"> 
                             <img src="https://img.icons8.com/?size=24&id=17949&format=png" alt="">    
@@ -66,7 +67,7 @@
 import InputText from 'primevue/inputtext';
 import Button from 'primevue/button';
 import Divider from 'primevue/divider';
-import { ref, watch } from 'vue';
+import { computed, ref, watch } from 'vue';
 import { useToast } from "primevue/usetoast";
 import { useRouter } from 'vue-router';
 
@@ -90,6 +91,8 @@ watch(signupPage, () => {
     emailWarn.value = false;
     wrongPw.value = false;
 });
+
+const isDarkMode = computed(() => window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) 
 
 function goToNextSignupStep() {
 

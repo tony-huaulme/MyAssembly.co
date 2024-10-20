@@ -8,7 +8,7 @@
     >        
     <Button>
         <slot>
-            <p class="m-0" style="font-weight: bold; margin-right: 1ch">{{ isPortrait ? 'Create !':'Create yours now !' }}</p>
+            <p class="m-0" style="font-weight: bold; margin-right: 1ch">{{ isPortrait ? '+ Create':'Create yours now !' }}</p>
         </slot>
     </Button>
   </RouterLink>

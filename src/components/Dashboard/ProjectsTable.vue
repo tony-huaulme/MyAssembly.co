@@ -3,7 +3,12 @@
 <template>
     <div class="w-fill">
         <h1 class="flex flex-row align-items-center gap-5 md:mt-0 mt-5" style="text-wrap: balance; font-size: 6vw;     padding: 1rem;">
-            <Button icon="pi pi-refresh" class="p-button-rounded p-button-secondary" @click="updateProjectTable()"/>
+            <Button 
+                icon="pi pi-refresh" 
+                id="refreshProjectsButton"
+                class="p-button-rounded p-button-secondary" 
+                @click="updateProjectTable()"
+            />
             Projects
         </h1>
         <!-- button with icon refresh triggering updateProjectTable() -->

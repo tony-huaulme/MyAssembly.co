@@ -1,5 +1,6 @@
 <template>
     <OverlayBadge 
+        v-if="selectedPanelName"
         value="2" 
         severity="info"
         size="small"
@@ -8,8 +9,8 @@
         @click="$emit('show-panel-info', true)">
         {{ selectedPanelName }}
     </OverlayBadge>
-    <div style="overflow: auto;">
-        <h1 class="project-name p-2">{{ props.modelName }}</h1>
+    <div style="overflow: auto;" :style="isPortrait ? '': 'width: 25vw;'">
+        <h1 class="project-name p-2" :class="{'portraitPorjectName':isPortrait, 'notPortraitProjectName' : !isPortrait}">{{ props.modelName }}</h1>
         <div @click="$emit('control-model', {controleName : 'stopAutoRotate'})" v-if="buildingPanels">
             
             <Accordion v-model="activeIndex">
@@ -70,7 +71,8 @@ import OverlayBadge from 'primevue/overlaybadge';
 
 
 import Button from 'primevue/button';
-import { ref, defineEmits } from 'vue';
+import { ref, defineEmits, onMounted } from 'vue';
+import { styleText } from 'util';
 
 
 const props = defineProps({
@@ -94,7 +96,18 @@ const props = defineProps({
 });
 
 const activeIndex = ref(0);
+const isPortrait = ref(false);
+
 const emit = defineEmits(['control-model', 'show-panel-info']);
+
+function detectOrientation() {
+  isPortrait.value = window.innerHeight > window.innerWidth;
+}
+
+onMounted(() => {
+  detectOrientation();
+  window.addEventListener('resize', detectOrientation);
+});
 
 </script>
 <style>
@@ -105,6 +118,21 @@ const emit = defineEmits(['control-model', 'show-panel-info']);
     text-align: center; /* Center the text if needed */
     white-space: normal; /* Allows the text to wrap within the container */
     word-wrap: break-word; /* Ensures words break when needed */
+}
+
+.notPortraitProjectName{
+    width: 100%;
+    padding: 10px;
+    font-size: 2vw;
+    word-break: break-word;
+    overflow-wrap: break-word;
+}
+
+.portraitPorjectName {
+    width: 100%;
+    padding: 10px;
+    word-break: break-word;
+    overflow-wrap: break-word;
 }
 
 .p-accordioncontent-content{
