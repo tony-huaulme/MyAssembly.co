@@ -119,13 +119,13 @@
                     </span>
                 </template>
             </HeroSection>
-            <div class="p-10 md:hidden flex">
-                <img src="../assets/shareDemoPopUp.png" class="max-w-full p-5" style="border: solid 1px var(--p-content-color); border-radius:var(--p-dialog-border-radius);">
+            <div class="p-10 md:hidden flex card" style="background-color: #18181b !important;">
+                <img src="../assets/shareDemoPopUp.png" class="max-w-full">
             </div>
 
             <!-- Share on wide screen -->
             <section class="hidden md:flex h-screen w-fill" style="z-index: 99999;">
-                <div data-hero-content-wrap="" pointer-auto="" class="flex w-fill flex-row">
+                <div data-hero-content-wrap="" pointer-auto="" class="flex w-fill flex-row" style="align-items: center; justify-content: space-between;">
                     <div class="w-1/2 mt-20 flex flex-column justify-center">
                         <div class="hl_headline-w">
                             <h1 class="h1 hero-title">
@@ -144,8 +144,8 @@
                         </div>
                         <GetStartedButton/>
                     </div>
-                    <div class="w-1/2 flex flex-row justify-center" style="align-items: center;">
-                        <img src="../assets/shareDemoPopUp.png" class="p-3" style="border: solid 1px var(--p-content-color); border-radius: 5px; max-height: 60vh;">
+                    <div class="flex flex-row justify-center card" style="align-items: center; height: fit-content">
+                        <img src="../assets/shareDemoPopUp.png" class="p-3" style="border-radius: 5px; max-height: 60vh;">
                     </div>
                 </div>
 
