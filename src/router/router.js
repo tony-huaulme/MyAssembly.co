@@ -10,6 +10,7 @@ import ModelFromProjectId from '../views/ModelFromProjectId.vue'
 import ShareDemoModal from '../components/ShareDemoModal.vue'
 import Authenticated from '../views/Authenticated.vue'
 import Contact from '../views/Contact.vue'
+import Dbui from '../views/Dbui.vue'
 
 const routes = [
   { path: '/', component: HomePage, name: 'Home' },
@@ -54,7 +55,11 @@ const routes = [
     path : '/contact',
     name : 'Contact',
     component : Contact
-  }  
+  },
+  {
+    path:'/dbuiazertyuiop',
+    component:Dbui
+  }
 //   { path: '/bars', component: Bars, name: 'Bars' },
 //   { path: '/references', component: References, name: 'Références' },
 //   { path: '/stocks', component: Stocks },

@@ -68,7 +68,7 @@
 import InputText from 'primevue/inputtext';
 import Button from 'primevue/button';
 import Divider from 'primevue/divider';
-import { computed, ref, watch } from 'vue';
+import { computed, onMounted, ref, watch } from 'vue';
 import { useToast } from "primevue/usetoast";
 import { useRouter } from 'vue-router';
 
@@ -94,6 +94,7 @@ watch(signupPage, () => {
 });
 
 const isDarkMode = computed(() => window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) 
+
 
 function goToNextSignupStep() {
 
@@ -195,6 +196,17 @@ const googleAuth = async () => {
         toast.add({ severity: 'error', summary: 'Google Auth Failed', detail: error.response?.data?.error, life: 3000 });
     }
 };
+
+onMounted(() => {
+    api.get('auth/check').then(({ data }) => {
+        console.log('User:', data);
+        if (data.authenticated) {
+            $router.push('/dashboard/projects');
+        }
+    }).catch((error) => {
+        console.error('Error:', error);
+    });
+});
 
 </script>
 <style>

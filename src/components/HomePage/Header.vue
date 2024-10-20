@@ -20,7 +20,7 @@
                 </a>
             </template>
             <template #end>
-                <GetStartedButton id="header-get-started" ><p class="m-0 ">Start Building</p></GetStartedButton>
+                <GetStartedButton id="header-get-started" ><p class="m-0 ">{{userEmail ? 'Dashboard' : 'Start Building'}}</p></GetStartedButton>
                 <!-- <Button ><p style="font-weight: bold; margin-right: 1ch; margin: 0;">Get Started</p><p style="margin: 0" class="lg:block hidden"> — it's free</p></Button> -->
             </template>
         </Menubar>
@@ -28,13 +28,20 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { onMounted, ref } from "vue";
 import Menubar from "primevue/menubar";
 import Badge from "primevue/badge";
 import GetStartedButton from "./GetStartedButton.vue";
 // import and initialize the router
 import { useRouter } from "vue-router";
 const router = useRouter();
+
+
+const userEmail = ref('');
+
+onMounted(() => {
+    userEmail.value = JSON.parse(localStorage.getItem('user_email'))
+})
 
 
 const items = ref([

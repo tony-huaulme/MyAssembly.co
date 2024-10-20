@@ -124,7 +124,7 @@ const projectName = ref('');
 
 onMounted(() => {
     userEmail.value = JSON.parse(localStorage.getItem('user_email'));
-    userImageUrl.value = JSON.parse(localStorage.getItem('userInfo'))['picture'] || false;
+    userImageUrl.value = JSON.parse(localStorage.getItem('user_picture'))|| false;
     console.log('userImageUrl:', userImageUrl.value);
 });
 

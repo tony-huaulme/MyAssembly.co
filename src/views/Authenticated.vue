@@ -11,7 +11,7 @@ import { useRouter } from 'vue-router';
 const email = ref('');
 const username = ref('');
 const new_user = ref(false);
-
+const user_picture = ref('');
 // Use vue-router's useRoute to get query params
 const route = useRoute();
 const $router = useRouter();
@@ -20,7 +20,9 @@ const $router = useRouter();
 onMounted(() => {
   email.value = route.query.user_email || '';
   username.value = route.query.user_name || '';
+  user_picture.value = route.query.picture || '';
   localStorage.setItem('user_email', JSON.stringify(email.value));
+  localStorage.setItem('user_picture', JSON.stringify(user_picture.value));
   new_user.value = route.query.new_user || false;
 
   // If new_user is true, show a welcome message
