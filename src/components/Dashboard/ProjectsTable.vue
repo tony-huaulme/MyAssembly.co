@@ -163,15 +163,24 @@ const shareProject = (project) => {
 };
 
 const deleteProject = (project) => {
-    activeProject.value = project;
-    console.log("Deleting project:", project);
+    api.get(`projects_delete/${project.id}`).then((res) => {
+        if (res.status === 200) {
+            projects.value = projects.value.filter((p) => p.id !== project.id);
+            toast.add({ severity: 'success', summary: 'Success', detail: 'Project Deleted', life: 3000 });
+        } else {
+            toast.add({ severity: 'error', summary: 'Error', detail: 'Failed to Delete', life: 3000 });
+        }
+    }).catch((error) => {
+        toast.add({ severity: 'error', summary: 'Error', detail: 'Failed to Delete', life: 3000 });
+    });
 };
 
 const openProject = (project) => {
-
-    // Navigate to the Model page with the query param
     router.push({ name: 'ModelFromProjectId', query: { projectId: project.id } });
 };
+
+
+
 
 // Initialize Filters
 const initFilters = () => {
