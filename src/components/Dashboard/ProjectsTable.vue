@@ -100,21 +100,19 @@ import { ref, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 
 import { FilterMatchMode, FilterOperator } from '@primevue/core/api'; // Correct import for PrimeVue API filters
+import { useToast } from "primevue/usetoast";
+
+
 
 function clickCreateProject() {
     document.getElementById('createProjectButton').click();
 }
 
 const router = useRouter();
+const toast = useToast();
 
 // Project data
-const projects = ref([{
-    id: '1',
-    project_name: 'Project 1',
-    nomClient: 'Client 1',
-    file3d_link: 'https://myassembly.co.s3.amazonaws.com/3d-files/0555_GAL01_FRA001_A.glb',
-    statut: 'SHARED'
-}]);
+const projects = ref([]);
 
 
 const showShareModal = ref(false);
@@ -165,8 +163,8 @@ const shareProject = (project) => {
 const deleteProject = (project) => {
     api.get(`projects_delete/${project.id}`).then((res) => {
         if (res.status === 200) {
-            projects.value = projects.value.filter((p) => p.id !== project.id);
             toast.add({ severity: 'success', summary: 'Success', detail: 'Project Deleted', life: 3000 });
+            projects.value = projects.value.filter((p) => p.id !== project.id);
         } else {
             toast.add({ severity: 'error', summary: 'Error', detail: 'Failed to Delete', life: 3000 });
         }
