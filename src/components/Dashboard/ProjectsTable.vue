@@ -85,7 +85,7 @@
             <div  id="pv_id_1_1_0" @click="clickCreateProject" class="p-menu-item" role="menuitem" aria-label="New" data-pc-section="item" data-p-focused="false" data-p-disabled="false"><div class="p-menu-item-content" data-pc-section="itemcontent"><a class="flex items-center blink p-menu-item-link" tabindex="-1" aria-hidden="true" data-pc-section="itemlink"><span class="pi pi-plus"></span><span class="ml-2">New</span><!--v-if--><!--v-if--></a></div></div>
         </div>
     </div>
-    <!-- <ShareDemoModal /> -->
+    <ShareDemoModal v-model:visible="showShareModal" v-model:activeProjectId="activeProjectId"/>
 </template>
 
 <script setup>
@@ -98,7 +98,7 @@ import Tag from 'primevue/tag';
 
 import ShareDemoModal from '../ShareDemoModal.vue'; 
 
-import { ref, onMounted } from 'vue';
+import { ref, onMounted} from 'vue';
 import { useRouter } from 'vue-router';
 
 import { FilterMatchMode, FilterOperator } from '@primevue/core/api'; // Correct import for PrimeVue API filters
@@ -111,7 +111,8 @@ const router = useRouter();
 
 // Project data
 const projects = ref([]);
-
+const showShareModal = ref(false);
+const activeProjectId = ref(null);
 const loading = ref(true);
 
 
@@ -146,14 +147,17 @@ const statuses = ref(["SHARED", "NOT-SHARED", "FILE IMPORTED"]);
 
 // Methods for actions
 const editProject = (project) => {
+    activeProjectId.value = project.id;
     console.log("Editing project:", project);
 };
 
 const shareProject = (project) => {
-    console.log("Sharing project:", project.id);
+    activeProjectId.value = project.id;
+    showShareModal.value = true;
 };
 
 const deleteProject = (project) => {
+    activeProjectId.value = project.id;
     console.log("Deleting project:", project);
 };
 
