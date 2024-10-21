@@ -7,19 +7,15 @@ import { ref, computed } from 'vue';
 
 
 const props = defineProps({
-    visible: {
-        type: Boolean,
-        required: true,
-    },
-
-    activeProjectId: {
-        type: String,
+    activeProject: {
         required: true,
     },
 });
-
-const shareLink = computed(() => `https://www.myassembly.co/ModelFromProjectId?projectId=${props.activeProjectId}`)
+    
+const shareLink = computed(() => `https://www.myassembly.co/ModelFromProjectId?projectId=${props.activeProject.id}`)
 const copiedMessage = ref('');
+
+const visible = ref(false);
 
 const copyToClipboard = async () => {
   try {
@@ -45,7 +41,7 @@ const facebookShareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeU
 <template>
 <!-- <Button label="Show" @click="visible = true" /> -->
 
-<Dialog visible="visible" modal header="Share This Demo !" :style="{ width: '25rem' } " class="p-component">
+<Dialog v-model:visible="visible" v-if="activeProject" modal :header="`Share link for : ${activeProject.project_name || '...'}`" :style="{ width: '25rem' } " class="p-component">
     
     <!-- <img src="../assets/QR.jpeg" class="max-w-full h-50 mb-10 p-5"> -->
     <div class="flex items-center gap-1 mb-4">

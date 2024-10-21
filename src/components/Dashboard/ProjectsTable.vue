@@ -16,7 +16,7 @@
         <!-- DataTable with Filters and Action Buttons -->
         <DataTable v-if="projects != []" class="w-fill" v-model:filters="filters" :value="projects" dataKey="id"
             scrollable scrollHeight="flex" tableStyle="min-width: 50rem" :loading="loading"
-            filterDisplay="menu" :globalFilterFields="['nomClient', 'project_name', 'nomFichierImporte', 'statut']">
+            filterDisplay="menu" :globalFilterFields="['nomClient', 'project_name', 'file3d_link', 'statut']">
             <!-- Header Template -->
             <!-- <template #header>
                 <div class="flex justify-between">
@@ -45,13 +45,13 @@
                 </template>
             </Column>
 
-            <!-- <Column field="nomFichierImporte" header="Imported 3D File" style="min-width: 12rem">
-                <template #body="{ data }">{{ data.nomFichierImporte }}</template>
+            <Column field="file3d_link" header="Imported 3D File" style="min-width: 12rem">
+                <template #body="{ data }">{{ data.file3d_link.split('/').pop() }}</template>
                 <template #filter="{ filterModel }">
                     <InputText v-model="filterModel.value" type="text" placeholder="Search by file name" />
                 </template>
             </Column>
-
+<!-- 
             <Column field="statut" header="Status" :filterMenuStyle="{ width: '14rem' }" style="min-width: 12rem">
                 <template #body="{ data }">
                     <Tag :value="data.statut" :severity="getSeverity(data.statut)" />
@@ -85,7 +85,7 @@
             <div  id="pv_id_1_1_0" @click="clickCreateProject" class="p-menu-item" role="menuitem" aria-label="New" data-pc-section="item" data-p-focused="false" data-p-disabled="false"><div class="p-menu-item-content" data-pc-section="itemcontent"><a class="flex items-center blink p-menu-item-link" tabindex="-1" aria-hidden="true" data-pc-section="itemlink"><span class="pi pi-plus"></span><span class="ml-2">New</span><!--v-if--><!--v-if--></a></div></div>
         </div>
     </div>
-    <ShareDemoModal v-model:visible="showShareModal" v-model:activeProjectId="activeProjectId"/>
+    <ShareDemoModal v-model:visible="showShareModal" v-model:activeProject="activeProject"/>
 </template>
 
 <script setup>
@@ -93,12 +93,10 @@ import DataTable from 'primevue/datatable';
 import Column from 'primevue/column';
 import Button from 'primevue/button';
 import InputText from 'primevue/inputtext';
-import Select from 'primevue/select';
-import Tag from 'primevue/tag';
 
 import ShareDemoModal from '../ShareDemoModal.vue'; 
 
-import { ref, onMounted} from 'vue';
+import { ref, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 
 import { FilterMatchMode, FilterOperator } from '@primevue/core/api'; // Correct import for PrimeVue API filters
@@ -110,9 +108,17 @@ function clickCreateProject() {
 const router = useRouter();
 
 // Project data
-const projects = ref([]);
+const projects = ref([{
+    id: '1',
+    project_name: 'Project 1',
+    nomClient: 'Client 1',
+    file3d_link: 'https://myassembly.co.s3.amazonaws.com/3d-files/0555_GAL01_FRA001_A.glb',
+    statut: 'SHARED'
+}]);
+
+
 const showShareModal = ref(false);
-const activeProjectId = ref(null);
+const activeProject = ref(null);
 const loading = ref(true);
 
 
@@ -147,17 +153,17 @@ const statuses = ref(["SHARED", "NOT-SHARED", "FILE IMPORTED"]);
 
 // Methods for actions
 const editProject = (project) => {
-    activeProjectId.value = project.id;
+    activeProject.value = project;
     console.log("Editing project:", project);
 };
 
 const shareProject = (project) => {
-    activeProjectId.value = project.id;
+    activeProject.value = project;
     showShareModal.value = true;
 };
 
 const deleteProject = (project) => {
-    activeProjectId.value = project.id;
+    activeProject.value = project;
     console.log("Deleting project:", project);
 };
 
@@ -173,7 +179,7 @@ const initFilters = () => {
         global: { value: null, matchMode: FilterMatchMode.CONTAINS },
         nomClient: { operator: FilterOperator.AND, constraints: [{ value: null, matchMode: FilterMatchMode.STARTS_WITH }] },
         nomProjet: { operator: FilterOperator.AND, constraints: [{ value: null, matchMode: FilterMatchMode.STARTS_WITH }] },
-        nomFichierImporte: { operator: FilterOperator.AND, constraints: [{ value: null, matchMode: FilterMatchMode.STARTS_WITH }] },
+        file3d_link: { operator: FilterOperator.AND, constraints: [{ value: null, matchMode: FilterMatchMode.STARTS_WITH }] },
         statut: { operator: FilterOperator.OR, constraints: [{ value: null, matchMode: FilterMatchMode.EQUALS }] }
     };
 };

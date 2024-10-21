@@ -180,7 +180,7 @@ function handleItemClick(label) {
             toast.add({ severity: 'info', summary: 'Success', detail: 'Logged Out', life: 3000 });
             localStorage.removeItem('user');
             localStorage.removeItem('user_email');
-            router.push({ name: 'authenticate' });
+            router.push({ name: 'Authenticate' });
         }catch (error) {
             console.error('Error:', error);
         }
