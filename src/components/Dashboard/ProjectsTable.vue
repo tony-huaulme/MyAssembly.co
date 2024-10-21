@@ -82,7 +82,7 @@
         </DataTable>
         <div v-else>
             Create your first project now !
-            <div id="pv_id_1_1_0" @click="clickCreateProject" class="p-menu-item" role="menuitem" aria-label="New" data-pc-section="item" data-p-focused="false" data-p-disabled="false"><div class="p-menu-item-content" data-pc-section="itemcontent"><a class="flex items-center blink p-menu-item-link" tabindex="-1" aria-hidden="true" data-pc-section="itemlink"><span class="pi pi-plus"></span><span class="ml-2">New</span><!--v-if--><!--v-if--></a></div></div>
+            <div  id="pv_id_1_1_0" @click="clickCreateProject" class="p-menu-item" role="menuitem" aria-label="New" data-pc-section="item" data-p-focused="false" data-p-disabled="false"><div class="p-menu-item-content" data-pc-section="itemcontent"><a class="flex items-center blink p-menu-item-link" tabindex="-1" aria-hidden="true" data-pc-section="itemlink"><span class="pi pi-plus"></span><span class="ml-2">New</span><!--v-if--><!--v-if--></a></div></div>
         </div>
     </div>
     <!-- <ShareDemoModal /> -->

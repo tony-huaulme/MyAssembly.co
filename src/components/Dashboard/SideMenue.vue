@@ -46,8 +46,17 @@
         <div class="flex items-center gap-4">
             <InputText v-model="projectName" id="project_name" class="flex-auto" autocomplete="off" />
         </div>
-        <h4 class="mb-1">3D Model :</h4>
-        <FileUpload name="demo[]" url="/api/upload" @upload="onTemplatedUpload($event)" :multiple="false"  :maxFileSize="1000000000000" @select="onSelectedFiles" class="border-dashed">
+        <h4 class="mb-1">3D Model ( .glb format ) : <a href="https://imagetostl.com/convert/file/ifc/to/glb#convert" target="_blank" >Convert 3D File</a></h4>
+        <FileUpload 
+            name="demo[]" 
+            url="/api/upload" 
+            @upload="onTemplatedUpload($event)" 
+            :multiple="false"  
+            :maxFileSize="1000000000000" 
+            @select="onSelectedFiles" 
+            class="border-dashed"
+            accept=".glb"    
+        >
             <template #header="{ chooseCallback }">
                 <Button v-show="files.length < 1" @click="chooseCallback()" label="Chose File" icon="pi pi-plus"/>
             </template>
@@ -70,7 +79,7 @@
             <template #empty>
                 <div class="flex items-center justify-center flex-col">
                     <i class="pi pi-cloud-upload !border-2 !rounded-full !text-4xl !text-muted-color" />
-                    <p class="mt-6 mb-0">Drag and drop a file here to upload.</p>
+                    <p class="mt-6 mb-0">Drag and drop a <b>.glb</b> file here to upload.</p>
                 </div>
             </template>
  
