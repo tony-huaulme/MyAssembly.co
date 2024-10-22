@@ -12,7 +12,14 @@
     <div style="overflow: auto;" :style="isPortrait ? '': 'width: 25vw;'">
         <h1 class="project-name p-2" :class="{'portraitPorjectName':isPortrait, 'notPortraitProjectName' : !isPortrait}">{{ props.modelName }}</h1>
         <div @click="$emit('control-model', {controleName : 'stopAutoRotate'})" v-if="buildingPanels">
-            
+            <div>
+                <Button 
+                    class="button" 
+                    @click="$emit('control-model', { controleName: 'showAllPanels' })"
+                >
+                    Show All Panels
+                </Button>
+            </div>
             <Accordion v-model="activeIndex">
                 <AccordionPanel 
                     v-for="( [group, items], index ) in Object.entries(props.buildingPanels)" 
@@ -37,24 +44,29 @@
                 </AccordionPanel>
             </Accordion>
 
-            <!-- <Button 
-                style="border-radius: 0; background-color: var(--p-content-background-color); color: var(--p-text-color);"
-                v-for="panel in props.buildingPanels" 
-                :key="panel"
-                @click="$emit('control-model', { controleName: 'showOnlyPanelByName', arg: panel })"
-            >
-                {{ panel }}
-            </Button> -->
         </div>
-        <div v-else>
+        <div v-else class="p-3">
+            <Skeleton class="mb-1"/>
+            <Skeleton class="mb-1"/>
+            <br>
             <Skeleton class="mb-1"/>
             <Skeleton class="mb-1"/>
             <Skeleton class="mb-1"/>
             <Skeleton class="mb-1"/>
             <Skeleton class="mb-1"/>
             <Skeleton class="mb-1"/>
+            <br>
             <Skeleton class="mb-1"/>
             <Skeleton class="mb-1"/>
+            <Skeleton class="mb-1"/>
+            <Skeleton class="mb-1"/>
+            <br>
+            <Skeleton class="mb-1"/>
+            <Skeleton class="mb-1"/>
+            <Skeleton class="mb-1"/>
+            <Skeleton class="mb-1"/>
+            <br>
+   
         </div>
 
     </div>

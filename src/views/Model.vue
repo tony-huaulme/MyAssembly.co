@@ -22,6 +22,7 @@
     :class="{ 'flex-col-reverse': isPortrait, 'flex-row': !isPortrait }" 
     >
     <ModelControl class="overflow-auto p-3" 
+      v-if="buildingPanels != {} && buildingPanels"
       :class="{ 'h-1/3  w-screen': isPortrait, 'w-1/3 h-screen': !isPortrait }"
       :style="{ 'height:33vh;': isPortrait, 'w-1/3 h-screen': !isPortrait }"
       @control-model="handleControl"
@@ -46,6 +47,7 @@
         @camera-loaded="threeJsModelCamera = $event"
         @scene-loaded="threeJsScene = $event"
         @element-clicked="panelClicked = $event"
+        @click="threeJsOrbitControls.autoRotate = false;"
         
       />
     </div>
@@ -113,6 +115,16 @@ const handleControl = (arg) => {
 
   if(arg.controleName === 'stopAutoRotate') {
     threeJsOrbitControls.value.autoRotate = false;
+  }
+
+  if(arg.controleName === 'startAutoRotate') {
+    threeJsOrbitControls.value.autoRotate = true;
+  }
+
+  // showall panels
+  if(arg.controleName === 'showAllPanels') {
+    ModelBuilding.value.showAllPanels();
+    selectedPanelName.value = '';
   }
 
   modelViewerRef.value.handleControl(arg);
