@@ -12,7 +12,7 @@
     <div style="overflow: auto;" :style="isPortrait ? '': 'width: 25vw;'">
         <h1 class="project-name p-2" :class="{'portraitPorjectName':isPortrait, 'notPortraitProjectName' : !isPortrait}">{{ props.modelName }}</h1>
         <div @click="$emit('control-model', {controleName : 'stopAutoRotate'})" v-if="buildingPanels">
-            <div>
+            <div v-if="selectedPanelName != ''">
                 <Button 
                     class="button" 
                     @click="$emit('control-model', { controleName: 'showAllPanels' })"

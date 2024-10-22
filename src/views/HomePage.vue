@@ -293,6 +293,10 @@ onUnmounted(() => {
 
 <style>
 
+.p-button-icon-only {
+    font-size: 15px;
+    padding: 0.8rem;
+}
 
 .blink {
     animation: blink-animation 1.8s infinite ease-in-out;

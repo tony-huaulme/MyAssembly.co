@@ -39,6 +39,17 @@ body {
      padding: 2rem;
  }
 
+.p-button {
+  border: none;
+  font-weight: normal !important;
+}
+
+* {
+  --p-button-primary-background : #146ef5;
+  --p-primary-contrast-color : #ffffff;
+
+  --p-button-primary-hover-background : #0a5dc2;
+}
 
  /* SCROLLBAR */
 * {
@@ -77,3 +88,4 @@ body {
   font-weight: 600; 
   line-height: 1.04;
 }
+

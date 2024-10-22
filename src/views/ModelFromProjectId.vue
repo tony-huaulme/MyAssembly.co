@@ -1,40 +1,48 @@
 <template>
-  <FullScreenToggle v-if="!modelInfosVisible"/>
-  <ModelInfos 
-    v-model:visible="modelInfosVisible" 
-    v-model:isPortrait="isPortrait"
-    v-model:selectedPanelName="selectedPanelName"
-  />
-  <div class="h-screen w-screen flex" 
-    :class="{ 'flex-col-reverse': isPortrait, 'flex-row': !isPortrait }" 
-    >
-    <ModelControl class="overflow-auto p-3" 
-      :class="{ 'h-1/3  w-screen': isPortrait, 'w-1/3 h-screen': !isPortrait }"
-      @control-model="handleControl"
-      @show-panel-info="modelInfosVisible=true"
+  <div v-if="noAccessToModel" class="h-screen w-screen flex flex-column items-center justify-center">
+    <h1 class="text-3xl mb-5">No access to this model</h1>
+    <!-- user pi-times in big size -->
+    <i class="pi pi-times text-7xl"></i>
+  </div>
+  <div v-else>
+    <FullScreenToggle v-if="!modelInfosVisible"/>
+    <ModelInfos 
+      v-model:visible="modelInfosVisible" 
+      v-model:isPortrait="isPortrait"
       v-model:selectedPanelName="selectedPanelName"
-      :buildingPanels="buildingPanels" 
-      :panelBtnOnly="true"
-      :modelName="modelName"
     />
-    <div ref="modelContainer" 
-      :class="{ 'h-2/3 w-screen': isPortrait, 'w-2/3 h-screen': !isPortrait }"
-    >   
-      <ModelViewer 
-        v-if="modelContainer && modelUrl" 
-        ref="modelViewerRef" 
-        :modelUrl="modelUrl" 
-        :modelContainer="modelContainer"
-        @model-loaded="setBuilding"
-        @renderer-loaded="threeJsRenderer = $event"
-        @orbitControls-loaded="threeJsOrbitControls = $event" 
-        @camera-loaded="threeJsModelCamera = $event"
-        @scene-loaded="threeJsScene = $event"
-        @element-clicked="panelClicked = $event"
-        
+    <div class="h-screen w-screen flex" 
+      :class="{ 'flex-col-reverse': isPortrait, 'flex-row': !isPortrait }" 
+      >
+      <ModelControl class="overflow-auto p-3" 
+        :class="{ 'h-1/3  w-screen': isPortrait, 'w-1/3 h-screen': !isPortrait }"
+        @control-model="handleControl"
+        @show-panel-info="modelInfosVisible=true"
+        v-model:selectedPanelName="selectedPanelName"
+        :buildingPanels="buildingPanels" 
+        :panelBtnOnly="true"
+        :modelName="modelName"
       />
+      <div ref="modelContainer" 
+        :class="{ 'h-2/3 w-screen': isPortrait, 'w-2/3 h-screen': !isPortrait }"
+      >   
+        <ModelViewer 
+          v-if="modelContainer && modelUrl" 
+          ref="modelViewerRef" 
+          :modelUrl="modelUrl" 
+          :modelContainer="modelContainer"
+          @model-loaded="setBuilding"
+          @renderer-loaded="threeJsRenderer = $event"
+          @orbitControls-loaded="threeJsOrbitControls = $event" 
+          @camera-loaded="threeJsModelCamera = $event"
+          @scene-loaded="threeJsScene = $event"
+          @element-clicked="panelClicked = $event"
+          
+        />
+      </div>
     </div>
   </div>
+
 </template>
 
 <script setup>
@@ -56,6 +64,7 @@ const buildingPanels =    ref(false);
 const isPortrait =        ref(false);
 const modelInfosVisible = ref(false);
 
+const noAccessToModel = ref(false);
 
 // Model control
 const selectedPanelName = ref('');
@@ -79,22 +88,32 @@ const modelUrl = ref('');
 import api from '@/services/api';
 
 async function getProject() {
+  try {
 
-  const {data} = await api.get(`projects/${projectId.value}`);
-  console.log('modelName.value:', data);
-  modelName.value = data.project_name;
-  const fileKey = data.file3d_link.split('amazonaws.com/')[1]
-  // MyAssemblyDemoLIL.glb
+    const {data} = await api.get(`projects/${projectId.value}`);
+    modelName.value = data.project_name;
+    const fileKey = data.file3d_link.split('amazonaws.com/')[1]
+    // MyAssemblyDemoLIL.glb
 
 
-  const res = await api.get(`files/download`, {
-      params: {
-        file_key: fileKey // Pass file_key in the query string
-      }
-    });
+    const res = await api.get(`files/download`, {
+        params: {
+          file_key: fileKey // Pass file_key in the query string
+        }
+      });
 
-  console.log('message :', res["data"]);
-  modelUrl.value = res["data"].presigned_url;
+    modelUrl.value = res["data"].presigned_url;
+
+    if(!modelUrl.value) {
+      noAccessToModel.value = true;
+    }
+
+  } catch (error) {
+    noAccessToModel.value = true;
+  }
+
+
+
 }
 
 const cameFromDashboard = computed(() => route.query.from === 'dashboard'); 
