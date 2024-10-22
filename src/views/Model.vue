@@ -5,10 +5,11 @@
     :to="'/dashboard/projects?from=demo'" 
     class="get-started-btn absolute"
     :class="{ 'top-5 left-5': isPortrait, 'bottom-5 right-5': !isPortrait }"
+    style=" border: none;"
     >        
     <Button>
         <slot>
-            <p class="m-0" style="margin-right: 1ch; border: none;">{{ isPortrait ? '+ Create':'Create yours now !' }}</p>
+            <p class="m-0" style="margin-right: 1ch;">{{ isPortrait ? '+ Create':'Create yours now !' }}</p>
         </slot>
     </Button>
   </RouterLink>

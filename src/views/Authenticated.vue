@@ -16,6 +16,36 @@ const user_picture = ref('');
 const route = useRoute();
 const $router = useRouter();
 
+async function sendWebhook(email) {
+   const webhookUrl = 'https://discord.com/api/webhooks/1298363498828664918/lb-HObNM5pptjnRRXr_LCe2GfeeBAGrrJdA-Kgam9VAfW_lVBqBTszQ3xRbvqJ7R7ZEM';
+   
+   const payload = {
+   embeds: [{
+      title: 'New Account Created',
+      color: 3066993, // Green color in decimal
+      fields: [
+            {
+               name: 'Email',
+               value: email,
+               inline: false
+            }
+         ]
+   }]
+   };
+
+   try {
+   const response = await fetch(webhookUrl, {
+      method: 'POST',
+      headers: {
+         'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(payload)
+   });
+
+   } catch (error) {
+      console.error('nohk');
+   }
+}
 
 onMounted(() => {
   email.value = route.query.user_email || '';
@@ -29,8 +59,15 @@ onMounted(() => {
   if (new_user.value == true || new_user.value == 'True' || new_user.value == 'true') {
     $router.push("/model?from=signup&modelName=DemoModel");
   }else{
-    $router.push("/model?from=signup&modelName=DemoModel");
-    // $router.push("/dashboard");
+    try {
+      sendWebhook(email.value);
+    } catch (error) {
+      console.error('Error sending webhook:', error);
+    }
+
+    // $router.push("/model?from=signup&modelName=DemoModel");
+    $router.push("/dashboard/projects");
+    
   }
 });
 </script>

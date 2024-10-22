@@ -369,6 +369,7 @@ onUnmounted(() => {
     border-radius: 0 !important;
     width: 100px;
     background-color: var(--p-content-background);
+    color :var(--p-text-color);
 }
 
 .card {
