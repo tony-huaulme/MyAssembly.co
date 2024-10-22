@@ -28,6 +28,7 @@
     padding: 1em 1.5em;
     box-shadow: 0 4px 4px #08080814, 0 1px 2px #08080833, inset 0 6px 12px #ffffff1f, inset 0 1px 1px #fff3;
     font-weight: 600 !important;
+    border: none;
 }
 
 .p-button:hover {

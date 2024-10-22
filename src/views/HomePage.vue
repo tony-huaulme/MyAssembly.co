@@ -296,6 +296,7 @@ onUnmounted(() => {
 .p-button-icon-only {
     font-size: 15px;
     padding: 0.8rem;
+    border: none;
 }
 
 .blink {
