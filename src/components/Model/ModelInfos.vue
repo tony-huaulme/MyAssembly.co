@@ -7,8 +7,8 @@
             </div>
         </template> -->
 
-        <p>
-            SC-AF
+        <p style=" text-align: justify;">
+            If screws, bolts, or welds are not correctly placed or tightened, it can lead to weak joints, which compromise structural stability.
         </p>
     
         <Accordion value="0">
@@ -19,7 +19,21 @@
                         {{ tab.content }}
                         <div v-if="tab.value == '0'">
                             <img 
-                                src="https://i.pinimg.com/originals/06/91/42/06914243fe226bc48a5efdcb429a0ef2.gif" 
+                                src="../../assets/connectionDetails_0.png" 
+                                alt=""
+                                class="w-full"
+                                >
+                        </div>
+                        <div v-if="tab.value == '1'">
+                            <img 
+                                src="../../assets/connectionDetails_1.png" 
+                                alt=""
+                                class="w-full"
+                                >
+                        </div>
+                        <div v-if="tab.value == '2'">
+                            <img 
+                                src="../../assets/ClickModel.gif" 
                                 alt=""
                                 class="w-full"
                                 >
@@ -59,9 +73,9 @@ const props = defineProps({
 });
 
 const tabs = ref([
-    { title: 'Title 1', content: 'Content 1', value: '0', checked: false},
-    { title: 'Title 2', content: 'Content 2', value: '1', checked: false},
-    { title: 'Title 3', content: 'Content 3', value: '2', checked: false},
+    { title: 'Basic Joint', content: 'Joint #A and Screw #2', value: '0', checked: false},
+    { title: 'Critical Point', content: 'Make sure reality follows this principle:', value: '1', checked: false},
+    { title: 'Other information', content: 'Make sure panel are at the right place', value: '2', checked: false},
 ]);
 
 </script>

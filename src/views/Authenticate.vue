@@ -13,7 +13,7 @@
                     <img v-else src="../assets/logo_lightmode.png" alt="MyAssembly.co Icon" class="p-3" style="width: 10rem; height: 10rem; align-self: center;">   
 
                     <h1 class="text-2xl font-semibold text-gray-700 text-center mb-6">{{ signupPage ? 'Welcome to MyAssembly.co!' : 'Log into my account' }}</h1>
-                    <Button iconPos="left" @click="googleAuth" class="w-fill" style="background-color: white; color: #3c4043;"> 
+                    <Button iconPos="left" @click="googleAuth" class="w-fill" style="background-color: white; color: #3c4043; border: none;"> 
                             <img src="https://img.icons8.com/?size=24&id=17949&format=png" alt="">    
                             {{`${signupPage ? 'Sign Up' : 'Sign In'} with Google`}}
                         </Button>
@@ -38,7 +38,7 @@
 
            
                     <Button :loading="loading" :label="signupIndex === 0 ? 'Continue' : signupPage ? 'Create Account' : 'Login'"
-                        @click="goToNextSignupStep" class="mt-3 w-fill">
+                        @click="goToNextSignupStep" class="mt-3 w-fill" style="border: none;">
                     </Button>   
 
                     <div>

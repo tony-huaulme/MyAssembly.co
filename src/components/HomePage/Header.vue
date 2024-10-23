@@ -52,13 +52,13 @@ const items = ref([
             router.push('/');
         }
     },
-    {
-        label: 'Features',
-        icon: 'pi pi-star',
-        command: () => {
-            router.push('/introduction');
-        }
-    },
+    // {
+    //     label: 'Features',
+    //     icon: 'pi pi-star',
+    //     command: () => {
+    //         router.push('/introduction');
+    //     }
+    // },
     // {
     //     label: 'Projects',
     //     icon: 'pi pi-search',

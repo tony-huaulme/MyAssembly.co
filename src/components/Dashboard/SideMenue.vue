@@ -36,6 +36,16 @@
                 </button>
             </template>
         </Menu>
+        <RouterLink :to="'/model?modelName=DemoModel'" class="get-started-btn" style="border: none;">       
+        
+            <Button>
+                <slot>
+                    <p class="m-0" style=" margin-right: 1ch">Start Demo</p>
+                    <p class="lg:block hidden m-0"> — It's Easy</p>
+                </slot>
+            </Button>
+            
+        </RouterLink>
     </div>
 
     <Dialog v-model:visible="visible" modal header="Create a project" :style="{ width: '45rem' }">

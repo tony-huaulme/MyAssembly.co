@@ -5,14 +5,14 @@
         severity="info"
         size="small"
         id="selectedPanel" 
-        class="button" 
-        @click="$emit('show-panel-info', true)">
+        class="button blink-bg" 
+        @click="$emit('show-panel-info', true); stopBlinking('selectedPanel'); openFirstInfoAccordion()" >
         {{ selectedPanelName }}
     </OverlayBadge>
     <div style="overflow: auto;" :style="isPortrait ? '': 'width: 25vw;'">
         <h1 class="project-name p-2" :class="{'portraitPorjectName':isPortrait, 'notPortraitProjectName' : !isPortrait}">{{ props.modelName }}</h1>
-        <div @click="$emit('control-model', {controleName : 'stopAutoRotate'})" v-if="buildingPanels">
-            <div v-if="selectedPanelName != ''">
+        <div v-if="buildingPanels">
+            <div v-if="selectedPanelName != ''  && clickedPanelCount > 3">
                 <Button 
                     class="button" 
                     @click="$emit('control-model', { controleName: 'showAllPanels' })"
@@ -31,10 +31,19 @@
                     <AccordionContent>
                         <div class="containerPanelName">
                             <div v-for="panel in items" :key="panel">
-                                <Button 
+                            
+                                <Button v-if="panel == 'R1'" 
+                                    class="button blink-bg" 
+                                    id="clickPanelR1"
+                                    @click.stop="$emit(
+                                        'control-model', { controleName: 'showOnlyPanelByName', arg: panel }); stopBlinking('clickPanelR1'); clickedPanelCount++"
+                                    >
+                                    {{ panel }}
+                                </Button>
+                                <Button v-else
                                     class="button" 
                                     @click="$emit(
-                                        'control-model', { controleName: 'showOnlyPanelByName', arg: panel });"
+                                        'control-model', { controleName: 'showOnlyPanelByName', arg: panel }); stopBlinking('clickPanelR1'); clickedPanelCount++"
                                     >
                                     {{ panel }}
                                 </Button>
@@ -83,8 +92,7 @@ import OverlayBadge from 'primevue/overlaybadge';
 
 
 import Button from 'primevue/button';
-import { ref, defineEmits, onMounted } from 'vue';
-import { styleText } from 'util';
+import { ref, defineEmits, onMounted, watch } from 'vue';
 
 
 const props = defineProps({
@@ -109,6 +117,7 @@ const props = defineProps({
 
 const activeIndex = ref(0);
 const isPortrait = ref(false);
+const clickedPanelCount = ref(0);
 
 const emit = defineEmits(['control-model', 'show-panel-info']);
 
@@ -116,13 +125,54 @@ function detectOrientation() {
   isPortrait.value = window.innerHeight > window.innerWidth;
 }
 
+
 onMounted(() => {
   detectOrientation();
   window.addEventListener('resize', detectOrientation);
+    //   delay with 1s to allow the page to load before clicking the first accordion header
+    setTimeout(() => {
+        try {
+            document.getElementsByClassName('p-accordionheader')[0].click();
+        } catch (error) {
+            console.error('Error clicking the first accordion header: ', error);
+        }
+    }, 1000);
 });
+
+function stopBlinking(idToStop) {
+    const blinkBg = document.getElementsByClassName('blink-bg');
+    for (let i = 0; i < blinkBg.length; i++) {
+        if (blinkBg[i].id == idToStop) {
+            blinkBg[i].classList.remove('blink-bg');
+        }
+    }
+}
+
+function openFirstInfoAccordion() {
+    const firstAccordion = document.getElementsById('pv_id_2_accordionheader_0');
+    firstAccordion.click();
+
+    // add blink bg to #pv_id_3_accordionheader_1
+    const secondAccordion = document.getElementById('pv_id_2_accordionheader_1');
+    secondAccordion.classList.add('blink');
+
+}
 
 </script>
 <style>
+
+/* Blink animation for the background that transitions from white to gray to black */
+@keyframes blink-background {
+    0% { background-color: var(--p-content-background-color); }
+    50% { background-color: gray; }
+    100% { background-color: var(--p-content-background-color); }
+}
+
+.blink-bg {
+    animation: blink-background 1.8s infinite ease-in-out;
+}
+
+
 .project-name{
     display: block;
     width: 100%;

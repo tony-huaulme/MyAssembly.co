@@ -1,13 +1,13 @@
 <template>
   <FullScreenToggle v-if="!modelInfosVisible"/>
-
+  
   <RouterLink v-if="modelName == 'DemoModel'" 
     :to="'/dashboard/projects?from=demo'" 
     class="get-started-btn absolute"
     :class="{ 'top-5 left-5': isPortrait, 'bottom-5 right-5': !isPortrait }"
     style=" border: none;"
     >        
-    <Button>
+    <Button style="border: none;">
         <slot>
             <p class="m-0" style="margin-right: 1ch;">{{ isPortrait ? '+ Create':'Create yours now !' }}</p>
         </slot>
@@ -36,6 +36,7 @@
     <div ref="modelContainer" 
       :class="{ 'h-2/3 w-screen': isPortrait, 'w-2/3 h-screen': !isPortrait }"
       :style="{ 'width:75vw;': !isPortrait }"
+      @click="threeJsOrbitControls.autoRotate = false;"
     >   
       <ModelViewer 
         v-if="modelContainer" 
@@ -150,3 +151,9 @@ onMounted(() => {
 
 
 </script>
+
+<style>
+
+
+
+</style>

@@ -309,6 +309,17 @@ onUnmounted(() => {
     100% { opacity: 0.3; }
 }
 
+/* blink animation for the background that goes from transparent to gray between white and black */
+@keyframes blink-background {
+    0% { background-color: transparent; }
+    50% { background-color: #18181b; }
+    100% { background-color: transparent; }
+}
+
+.blink-bg {
+    animation: blink-background 1.8s infinite ease-in-out;
+}
+
 
 .container {
     width: 90%;

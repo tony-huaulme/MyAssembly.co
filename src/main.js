@@ -20,10 +20,13 @@ import App from './App.vue';
 import Button from 'primevue/button';
 import ToastService from 'primevue/toastservice';
 import Ripple from 'primevue/ripple';
+import Tooltip from 'primevue/tooltip';
 
 
 const app = createApp(App);
 const pinia = createPinia();
+
+app.directive('tooltip', Tooltip);
 
 
 const MyPreset = definePreset(Aura, {
