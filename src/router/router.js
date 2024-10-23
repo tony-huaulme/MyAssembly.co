@@ -10,7 +10,9 @@ import ModelFromProjectId from '../views/ModelFromProjectId.vue'
 import ShareDemoModal from '../components/ShareDemoModal.vue'
 import Authenticated from '../views/Authenticated.vue'
 import Contact from '../views/Contact.vue'
-import Dbui from '../views/Dbui.vue'
+import AdminDashboard from '../views/AdminDashboard.vue'
+import ProjectsTableAdmin from '../components/AdminDashboard/ProjectsTableAdmin.vue'
+import UsersTable from '../components/AdminDashboard/UsersTable.vue'
 
 const routes = [
   { path: '/', component: HomePage, name: 'Home' },
@@ -58,7 +60,25 @@ const routes = [
   },
   {
     path:'/dbuiazertyuiop',
-    component:Dbui
+    component:AdminDashboard,
+    redirect: '/dbuiazertyuiop/projects',
+    children: [
+      {
+        path: 'projects',
+        name: 'ProjectsAdmin',
+        component: ProjectsTableAdmin
+      },
+      {
+        path: 'users',
+        name: 'UsersAdmin',
+        component: UsersTable
+      },
+      {
+        path : 'statistics',
+        name : 'StatisticsAdmin',
+        component : Statistics
+      }
+    ]
   }
 //   { path: '/bars', component: Bars, name: 'Bars' },
 //   { path: '/references', component: References, name: 'Références' },
