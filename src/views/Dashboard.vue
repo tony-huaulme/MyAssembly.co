@@ -1,5 +1,5 @@
 <template>
-    <div ref="DashboardContainer" class="card flex dahsboardContainer h-screen w-fill overflow-hidden" :class="isPortrait ? 'flex-column' : 'flex'">
+    <div ref="DashboardContainer" class="card flex dahsboardContainer h-screen w-fill" style="overflow-y: auto; overflow-x: hidden;" :class="isPortrait ? 'flex-column' : 'flex'">
         <SideMenue></SideMenue>
         <RouterView />
     </div>

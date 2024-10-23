@@ -1,5 +1,5 @@
 <template>
-    <div class="min-w-72 mr-5">
+    <div class="min-w-72 md:mr-5">
         <Menu :model="items" class="w-full md:w-60">
             <template #start>
                 <span class="inline-flex items-center gap-1 px-2 py-2">
@@ -36,12 +36,20 @@
                 </button>
             </template>
         </Menu>
-        <RouterLink :to="'/model?modelName=DemoModel'" class="get-started-btn" style="border: none;">       
+        <RouterLink :to="'/model?modelName=DemoModel'" class="get-started-btn" style="border: none; ">       
         
-            <Button>
+            <Button class="mt-2 w-full"  style="background-color: var(--p-focus-ring-color);">
                 <slot>
-                    <p class="m-0" style=" margin-right: 1ch">Start Demo</p>
-                    <p class="lg:block hidden m-0"> — It's Easy</p>
+                    <p class="m-0" style=" margin-right: 1ch">Open Demo</p>
+                </slot>
+            </Button>
+            
+        </RouterLink>
+        <RouterLink :to="'/contact'" class="get-started-btn" style="border: none;">       
+            
+            <Button class="mt-2 w-full" style="background-color: var(--p-content-color); border: none; ">
+                <slot>
+                    <p class="m-0" style=" margin-right: 1ch; color: var(--p-content-background);"><b>Contact Us</b></p>
                 </slot>
             </Button>
             

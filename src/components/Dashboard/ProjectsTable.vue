@@ -1,8 +1,8 @@
 <!-- construction du datatable avec primevue -->
 <!-- #Id  ||  Nom Client  ||  Nom Projet  ||  Nom Fichier Importé  ||  Statut (SHARED, NOT-SHARED, FILE IMPORTED) ||  [Boutons] -> edit / share / delete -->
 <template>
-    <div class="w-fill">
-        <h1 class="flex flex-row align-items-center gap-5 md:mt-0 mt-5" style="text-wrap: balance; font-size: 6vw;     padding: 1rem;">
+    <div class="w-fill pb-10">
+        <h1 class="flex flex-row align-items-center gap-5 md:mt-0 mt-5" style="text-wrap: balance; font-size: 3rem; padding: 1rem;">
             <Button 
                 icon="pi pi-refresh" 
                 id="refreshProjectsButton"
@@ -14,7 +14,7 @@
         <!-- button with icon refresh triggering updateProjectTable() -->
         
         <!-- DataTable with Filters and Action Buttons -->
-        <DataTable v-if="projects != []" class="w-fill" v-model:filters="filters" :value="projects" dataKey="id"
+        <DataTable v-if="projects != []" class="w-fill" style="height: 70vh;" v-model:filters="filters" :value="projects" dataKey="id"
             scrollable scrollHeight="flex" tableStyle="min-width: 50rem" :loading="loading"
             filterDisplay="menu" :globalFilterFields="['nomClient', 'project_name', 'file3d_link', 'statut']">
             <!-- Header Template -->
@@ -112,7 +112,27 @@ const router = useRouter();
 const toast = useToast();
 
 // Project data
-const projects = ref([]);
+const projects = ref([{ id: 1, project_name: 'Project 1', file3d_link: 'file1.obj', statut: 'SHARED' },
+    { id: 2, project_name: 'Project 2', file3d_link: 'file2.obj', statut: 'NOT-SHARED' },
+    { id: 3, project_name: 'Project 3', file3d_link: 'file3.obj', statut: 'FILE IMPORTED' },
+    
+    { id: 3, project_name: 'Project 3', file3d_link: 'file3.obj', statut: 'FILE IMPORTED' },
+    { id: 3, project_name: 'Project 3', file3d_link: 'file3.obj', statut: 'FILE IMPORTED' },
+    { id: 3, project_name: 'Project 3', file3d_link: 'file3.obj', statut: 'FILE IMPORTED' },
+    { id: 3, project_name: 'Project 3', file3d_link: 'file3.obj', statut: 'FILE IMPORTED' },
+    { id: 3, project_name: 'Project 3', file3d_link: 'file3.obj', statut: 'FILE IMPORTED' },
+    { id: 3, project_name: 'Project 3', file3d_link: 'file3.obj', statut: 'FILE IMPORTED' },
+    { id: 3, project_name: 'Project 3', file3d_link: 'file3.obj', statut: 'FILE IMPORTED' },
+    { id: 3, project_name: 'Project 3', file3d_link: 'file3.obj', statut: 'FILE IMPORTED' },
+    { id: 3, project_name: 'Project 3', file3d_link: 'file3.obj', statut: 'FILE IMPORTED' },
+    { id: 3, project_name: 'Project 3', file3d_link: 'file3.obj', statut: 'FILE IMPORTED' },
+    { id: 3, project_name: 'Project 3', file3d_link: 'file3.obj', statut: 'FILE IMPORTED' },
+    { id: 3, project_name: 'Project 3', file3d_link: 'file3.obj', statut: 'FILE IMPORTED' },
+    { id: 3, project_name: 'Project 3', file3d_link: 'file3.obj', statut: 'FILE IMPORTED' },
+    { id: 3, project_name: 'Project 3', file3d_link: 'file3.obj', statut: 'FILE IMPORTED' },
+    { id: 3, project_name: 'ZZZZZZZZZZZZZZZ', file3d_link: 'file3.obj', statut: 'FILE IMPORTED' },
+
+]);
 
 
 const showShareModal = ref(false);
