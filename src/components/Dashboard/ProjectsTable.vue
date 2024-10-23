@@ -112,28 +112,26 @@ const router = useRouter();
 const toast = useToast();
 
 // Project data
-const projects = ref([{ id: 1, project_name: 'Project 1', file3d_link: 'file1.obj', statut: 'SHARED' },
-    { id: 2, project_name: 'Project 2', file3d_link: 'file2.obj', statut: 'NOT-SHARED' },
-    { id: 3, project_name: 'Project 3', file3d_link: 'file3.obj', statut: 'FILE IMPORTED' },
+const projects = ref([]);
+// { id: 1, project_name: 'Project 1', file3d_link: 'file1.obj', statut: 'SHARED' },
+//     { id: 2, project_name: 'Project 2', file3d_link: 'file2.obj', statut: 'NOT-SHARED' },
+//     { id: 3, project_name: 'Project 3', file3d_link: 'file3.obj', statut: 'FILE IMPORTED' },
     
-    { id: 3, project_name: 'Project 3', file3d_link: 'file3.obj', statut: 'FILE IMPORTED' },
-    { id: 3, project_name: 'Project 3', file3d_link: 'file3.obj', statut: 'FILE IMPORTED' },
-    { id: 3, project_name: 'Project 3', file3d_link: 'file3.obj', statut: 'FILE IMPORTED' },
-    { id: 3, project_name: 'Project 3', file3d_link: 'file3.obj', statut: 'FILE IMPORTED' },
-    { id: 3, project_name: 'Project 3', file3d_link: 'file3.obj', statut: 'FILE IMPORTED' },
-    { id: 3, project_name: 'Project 3', file3d_link: 'file3.obj', statut: 'FILE IMPORTED' },
-    { id: 3, project_name: 'Project 3', file3d_link: 'file3.obj', statut: 'FILE IMPORTED' },
-    { id: 3, project_name: 'Project 3', file3d_link: 'file3.obj', statut: 'FILE IMPORTED' },
-    { id: 3, project_name: 'Project 3', file3d_link: 'file3.obj', statut: 'FILE IMPORTED' },
-    { id: 3, project_name: 'Project 3', file3d_link: 'file3.obj', statut: 'FILE IMPORTED' },
-    { id: 3, project_name: 'Project 3', file3d_link: 'file3.obj', statut: 'FILE IMPORTED' },
-    { id: 3, project_name: 'Project 3', file3d_link: 'file3.obj', statut: 'FILE IMPORTED' },
-    { id: 3, project_name: 'Project 3', file3d_link: 'file3.obj', statut: 'FILE IMPORTED' },
-    { id: 3, project_name: 'Project 3', file3d_link: 'file3.obj', statut: 'FILE IMPORTED' },
-    { id: 3, project_name: 'ZZZZZZZZZZZZZZZ', file3d_link: 'file3.obj', statut: 'FILE IMPORTED' },
-
-]);
-
+//     { id: 3, project_name: 'Project 3', file3d_link: 'file3.obj', statut: 'FILE IMPORTED' },
+//     { id: 3, project_name: 'Project 3', file3d_link: 'file3.obj', statut: 'FILE IMPORTED' },
+//     { id: 3, project_name: 'Project 3', file3d_link: 'file3.obj', statut: 'FILE IMPORTED' },
+//     { id: 3, project_name: 'Project 3', file3d_link: 'file3.obj', statut: 'FILE IMPORTED' },
+//     { id: 3, project_name: 'Project 3', file3d_link: 'file3.obj', statut: 'FILE IMPORTED' },
+//     { id: 3, project_name: 'Project 3', file3d_link: 'file3.obj', statut: 'FILE IMPORTED' },
+//     { id: 3, project_name: 'Project 3', file3d_link: 'file3.obj', statut: 'FILE IMPORTED' },
+//     { id: 3, project_name: 'Project 3', file3d_link: 'file3.obj', statut: 'FILE IMPORTED' },
+//     { id: 3, project_name: 'Project 3', file3d_link: 'file3.obj', statut: 'FILE IMPORTED' },
+//     { id: 3, project_name: 'Project 3', file3d_link: 'file3.obj', statut: 'FILE IMPORTED' },
+//     { id: 3, project_name: 'Project 3', file3d_link: 'file3.obj', statut: 'FILE IMPORTED' },
+//     { id: 3, project_name: 'Project 3', file3d_link: 'file3.obj', statut: 'FILE IMPORTED' },
+//     { id: 3, project_name: 'Project 3', file3d_link: 'file3.obj', statut: 'FILE IMPORTED' },
+//     { id: 3, project_name: 'Project 3', file3d_link: 'file3.obj', statut: 'FILE IMPORTED' },
+//     { id: 3, project_name: 'ZZZZZZZZZZZZZZZ', file3d_link: 'file3.obj', statut: 'FILE IMPORTED' },
 
 const showShareModal = ref(false);
 const activeProject = ref(null);
