@@ -57,12 +57,13 @@ onMounted(() => {
 
   // If new_user is true, show a welcome message
   if (new_user.value == true || new_user.value == 'True' || new_user.value == 'true') {
-      $router.push("/model?from=signup&modelName=DemoModel");
       try {
          sendWebhook(email.value);
       } catch (error) {
          console.error('Error sending webhook:', error);
       }
+      $router.push("/model?from=signup&modelName=DemoModel");
+
   }else{
     // $router.push("/model?from=signup&modelName=DemoModel");
     $router.push("/dashboard/projects");
