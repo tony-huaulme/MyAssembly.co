@@ -197,16 +197,16 @@ const googleAuth = async () => {
     }
 };
 
-onMounted(() => {
-    api.get('auth/check').then(({ data }) => {
-        console.log('User:', data);
-        if (data.authenticated) {
-            $router.push('/dashboard/projects');
-        }
-    }).catch((error) => {
-        console.error('Error:', error);
-    });
-});
+// onMounted(() => {
+//     api.get('auth/check').then(({ data }) => {
+//         console.log('User:', data);
+//         if (data.authenticated) {
+//             $router.push('/dashboard/projects');
+//         }
+//     }).catch((error) => {
+//         console.error('Error:', error);
+//     });
+// });
 
 </script>
 <style>
