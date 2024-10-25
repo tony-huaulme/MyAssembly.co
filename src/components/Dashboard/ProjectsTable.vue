@@ -1,5 +1,5 @@
 <!-- construction du datatable avec primevue -->
-<!-- #Id  ||  Nom Client  ||  Nom Projet  ||  Nom Fichier Importé  ||  Statut (SHARED, NOT-SHARED, FILE IMPORTED) ||  [Boutons] -> edit / share / delete -->
+<!-- #Id  ||  Nom Client  ||  Nom Projet  ||  Nom Fichier Importé  ||  Statut (SHARED, READY, FILE IMPORTED) ||  [Boutons] -> edit / share / delete -->
 <template>
     <div class="w-fill pb-10">
         <h1 class="flex flex-row align-items-center gap-5 md:mt-0 mt-5" style="text-wrap: balance; font-size: 3rem; padding: 1rem;">
@@ -16,7 +16,7 @@
         <!-- DataTable with Filters and Action Buttons -->
         <DataTable v-if="projects != []" class="w-fill" style="height: 70vh;" v-model:filters="filters" :value="projects" dataKey="id"
             scrollable scrollHeight="flex" tableStyle="min-width: 50rem" :loading="loading"
-            filterDisplay="menu" :globalFilterFields="['nomClient', 'project_name', 'file3d_link', 'statut']">
+            filterDisplay="menu" :globalFilterFields="['project_name', 'file3d_link', 'statut']">
             <!-- Header Template -->
             <!-- <template #header>
                 <div class="flex justify-between">
@@ -40,30 +40,30 @@
             <!-- Columns -->
             <Column field="project_name" header="Project Name" style="min-width: 12rem">
                 <template #body="{ data }">{{ data.project_name }}</template>
-                <template #filter="{ filterModel }">
+                <!-- <template #filter="{ filterModel }">
                     <InputText v-model="filterModel.value" type="text" placeholder="Search by project name" />
-                </template>
+                </template> -->
             </Column>
 
             <Column field="file3d_link" header="Imported 3D File" style="min-width: 12rem">
                 <template #body="{ data }">{{ data.file3d_link.split('/').pop() }}</template>
-                <template #filter="{ filterModel }">
+                <!-- <template #filter="{ filterModel }">
                     <InputText v-model="filterModel.value" type="text" placeholder="Search by file name" />
-                </template>
+                </template> -->
             </Column>
-<!-- 
+
             <Column field="statut" header="Status" :filterMenuStyle="{ width: '14rem' }" style="min-width: 12rem">
                 <template #body="{ data }">
                     <Tag :value="data.statut" :severity="getSeverity(data.statut)" />
                 </template>
-                <template #filter="{ filterModel }">
+                <!-- <template #filter="{ filterModel }">
                     <Select v-model="filterModel.value" :options="statuses" placeholder="Select One" showClear>
                         <template #option="slotProps">
                             <Tag :value="slotProps.option" :severity="getSeverity(slotProps.option)" />
                         </template>
                     </Select>
-                </template>
-            </Column> -->
+                </template> -->
+            </Column>
 
             <!-- Action Buttons Column -->
             <Column header="Actions" bodyClass="p-text-center">
@@ -71,8 +71,8 @@
            
                     <Button icon="pi pi-eye" class="p-button-rounded p-button-secondary mr-2"
                         @click="openProject(slotProps.data)" />
-                    <!-- <Button icon="pi pi-pencil" class="p-button-rounded p-button-warning mr-2"
-                        @click="editProject(slotProps.data)" /> -->
+                    <Button icon="pi pi-pencil" class="p-button-rounded p-button-warning mr-2"
+                        @click="editProject(slotProps.data)" />
                     <Button icon="pi pi-share-alt" class="p-button-rounded p-button-info mr-2"
                         @click="shareProject(slotProps.data)" />
                     <Button icon="pi pi-trash" class="p-button-rounded p-button-danger"
@@ -93,6 +93,7 @@ import DataTable from 'primevue/datatable';
 import Column from 'primevue/column';
 import Button from 'primevue/button';
 import InputText from 'primevue/inputtext';
+import Tag from 'primevue/tag';
 
 import ShareDemoModal from '../ShareDemoModal.vue'; 
 
@@ -113,25 +114,6 @@ const toast = useToast();
 
 // Project data
 const projects = ref([]);
-// { id: 1, project_name: 'Project 1', file3d_link: 'file1.obj', statut: 'SHARED' },
-//     { id: 2, project_name: 'Project 2', file3d_link: 'file2.obj', statut: 'NOT-SHARED' },
-//     { id: 3, project_name: 'Project 3', file3d_link: 'file3.obj', statut: 'FILE IMPORTED' },
-    
-//     { id: 3, project_name: 'Project 3', file3d_link: 'file3.obj', statut: 'FILE IMPORTED' },
-//     { id: 3, project_name: 'Project 3', file3d_link: 'file3.obj', statut: 'FILE IMPORTED' },
-//     { id: 3, project_name: 'Project 3', file3d_link: 'file3.obj', statut: 'FILE IMPORTED' },
-//     { id: 3, project_name: 'Project 3', file3d_link: 'file3.obj', statut: 'FILE IMPORTED' },
-//     { id: 3, project_name: 'Project 3', file3d_link: 'file3.obj', statut: 'FILE IMPORTED' },
-//     { id: 3, project_name: 'Project 3', file3d_link: 'file3.obj', statut: 'FILE IMPORTED' },
-//     { id: 3, project_name: 'Project 3', file3d_link: 'file3.obj', statut: 'FILE IMPORTED' },
-//     { id: 3, project_name: 'Project 3', file3d_link: 'file3.obj', statut: 'FILE IMPORTED' },
-//     { id: 3, project_name: 'Project 3', file3d_link: 'file3.obj', statut: 'FILE IMPORTED' },
-//     { id: 3, project_name: 'Project 3', file3d_link: 'file3.obj', statut: 'FILE IMPORTED' },
-//     { id: 3, project_name: 'Project 3', file3d_link: 'file3.obj', statut: 'FILE IMPORTED' },
-//     { id: 3, project_name: 'Project 3', file3d_link: 'file3.obj', statut: 'FILE IMPORTED' },
-//     { id: 3, project_name: 'Project 3', file3d_link: 'file3.obj', statut: 'FILE IMPORTED' },
-//     { id: 3, project_name: 'Project 3', file3d_link: 'file3.obj', statut: 'FILE IMPORTED' },
-//     { id: 3, project_name: 'ZZZZZZZZZZZZZZZ', file3d_link: 'file3.obj', statut: 'FILE IMPORTED' },
 
 const showShareModal = ref(false);
 const activeProject = ref(null);
@@ -149,7 +131,10 @@ async function updateProjectTable() {
     } catch (error) {
         loading.value = false;
         console.error('Error Getting Projects:', error.response);
-
+        projects.value = [
+            { id: 44, project_name: 'UFO_1', file3d_link: 'HOUSE.obj', statut: 'SHARED' },
+            { id: 44, project_name: 'JARICO_12S', file3d_link: 'Industry_889.ifc', statut: 'READY TO SHARE' },
+            { id: 44, project_name: 'Project-ASC', file3d_link: '0554_AI_WILCK.obj', statut: 'FILE IMPORTED' }, ];
         // if response status is 401, redirect to login page
         if (error.response.status === 401) {
             router.push({ name: 'authenticate' });
@@ -165,11 +150,12 @@ onMounted(async () => {
 // Filters and options
 const filters = ref();
 
-const statuses = ref(["SHARED", "NOT-SHARED", "FILE IMPORTED"]);
+const statuses = ref(["SHARED", "READY TO SHARE", "FILE IMPORTED"]);
 
 // Methods for actions
 const editProject = (project) => {
     activeProject.value = project;
+    router.push({ name: 'EditProject', query: { projectId: project.id } });
     console.log("Editing project:", project);
 };
 
@@ -222,8 +208,8 @@ const getSeverity = (status) => {
     switch (status) {
         case 'SHARED':
             return 'success';
-        case 'NOT-SHARED':
-            return 'danger';
+        case 'READY TO SHARE':
+            return 'info';
         case 'FILE IMPORTED':
             return 'warn';
         default:

@@ -48,6 +48,8 @@ body {
   --p-primary-contrast-color : #ffffff;
 
   --p-button-primary-hover-background : #0a5dc2;
+
+  --p-content-background : #101011;
 }
 
  /* SCROLLBAR */

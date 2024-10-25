@@ -1,18 +1,18 @@
 <template>
     <OverlayBadge 
         v-if="selectedPanelName"
-        value="2" 
         severity="info"
-        size="small"
+        :value="null" 
         id="selectedPanel" 
-        class="button blink-bg" 
-        @click="$emit('show-panel-info', true); stopBlinking('selectedPanel'); openFirstInfoAccordion()" >
+        class="button"
+        :class="{'blink-bg': isDemo}"
+        @click="$emit('show-panel-info', true); isDemo ? stopBlinking('selectedPanel') : ''; openFirstInfoAccordion()" >
         {{ selectedPanelName }}
     </OverlayBadge>
     <div style="overflow: auto;" :style="isPortrait ? '': 'width: 25vw;'">
         <h1 class="project-name p-2" :class="{'portraitPorjectName':isPortrait, 'notPortraitProjectName' : !isPortrait}">{{ props.modelName }}</h1>
         <div v-if="buildingPanels">
-            <div v-if="selectedPanelName != ''  && clickedPanelCount > 3">
+            <div v-if="(selectedPanelName != '' && !isDemo) || (selectedPanelName != ''  && clickedPanelCount > 2)">
                 <Button 
                     class="button" 
                     @click="$emit('control-model', { controleName: 'showAllPanels' })"
@@ -33,17 +33,18 @@
                             <div v-for="panel in items" :key="panel">
                             
                                 <Button v-if="panel == 'R1'" 
-                                    class="button blink-bg" 
+                                    class="button" 
+                                    :class="{'blink-bg': isDemo}"
                                     id="clickPanelR1"
                                     @click.stop="$emit(
-                                        'control-model', { controleName: 'showOnlyPanelByName', arg: panel }); stopBlinking('clickPanelR1'); clickedPanelCount++"
+                                        'control-model', { controleName: 'showOnlyPanelByName', arg: panel }); isDemo ? stopBlinking('clickPanelR1') : ''"
                                     >
                                     {{ panel }}
                                 </Button>
                                 <Button v-else
                                     class="button" 
                                     @click="$emit(
-                                        'control-model', { controleName: 'showOnlyPanelByName', arg: panel }); stopBlinking('clickPanelR1'); clickedPanelCount++"
+                                        'control-model', { controleName: 'showOnlyPanelByName', arg: panel }); isDemo ? stopBlinking('clickPanelR1') : ''"
                                     >
                                     {{ panel }}
                                 </Button>
@@ -92,8 +93,13 @@ import OverlayBadge from 'primevue/overlaybadge';
 
 
 import Button from 'primevue/button';
-import { ref, defineEmits, onMounted, watch } from 'vue';
+import { ref, defineEmits, onMounted } from 'vue';
 
+
+import { useRoute } from 'vue-router';
+const route = useRoute();
+
+const isDemo = ref(route.query.modelName == 'DemoModel');
 
 const props = defineProps({
     buildingPanels: {
@@ -140,6 +146,7 @@ onMounted(() => {
 });
 
 function stopBlinking(idToStop) {
+    clickedPanelCount.value ++
     const blinkBg = document.getElementsByClassName('blink-bg');
     for (let i = 0; i < blinkBg.length; i++) {
         if (blinkBg[i].id == idToStop) {
@@ -149,13 +156,9 @@ function stopBlinking(idToStop) {
 }
 
 function openFirstInfoAccordion() {
-    const firstAccordion = document.getElementsById('pv_id_2_accordionheader_0');
-    firstAccordion.click();
-
-    // add blink bg to #pv_id_3_accordionheader_1
-    const secondAccordion = document.getElementById('pv_id_2_accordionheader_1');
-    secondAccordion.classList.add('blink');
-
+    const firstAccordion = document.getElementById('pv_id_2_accordionheader_0');
+    
+    if (firstAccordion) firstAccordion.click();
 }
 
 </script>

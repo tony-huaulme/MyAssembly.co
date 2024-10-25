@@ -18,6 +18,7 @@
     v-model:visible="modelInfosVisible" 
     v-model:isPortrait="isPortrait"
     v-model:selectedPanelName="selectedPanelName"
+
   />
   <div class="h-screen w-screen flex" 
     :class="{ 'flex-col-reverse': isPortrait, 'flex-row': !isPortrait }" 
@@ -25,7 +26,7 @@
     <ModelControl class="overflow-auto p-3" 
       v-if="buildingPanels != {} && buildingPanels"
       :class="{ 'h-1/3  w-screen': isPortrait, 'w-1/3 h-screen': !isPortrait }"
-      :style="{ 'height:33vh;': isPortrait, 'w-1/3 h-screen': !isPortrait }"
+      :style="{ 'height:33vh': isPortrait, 'w-1/3 h-screen': !isPortrait }"
       @control-model="handleControl"
       @show-panel-info="modelInfosVisible=true"
       v-model:selectedPanelName="selectedPanelName"
@@ -72,7 +73,7 @@ import { Building } from '../ThreeJs/building/Building.js';
 const modelViewerRef =    ref(null);
 const modelContainer =    ref(null);
 const ModelBuilding =     ref(null);
-const buildingPanels =    ref(false);
+const buildingPanels =    ref(null);
 const isPortrait =        ref(false);
 const modelInfosVisible = ref(false);
 

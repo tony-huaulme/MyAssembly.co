@@ -7,12 +7,14 @@ import ProjectsTable from '../components/Dashboard/ProjectsTable.vue'
 import Statistics from '../components/Dashboard/Statistics.vue'
 import Model from '../views/Model.vue'
 import ModelFromProjectId from '../views/ModelFromProjectId.vue'
+import EditProject from '../views/EditProject.vue'
 import ShareDemoModal from '../components/ShareDemoModal.vue'
 import Authenticated from '../views/Authenticated.vue'
 import Contact from '../views/Contact.vue'
 import AdminDashboard from '../views/AdminDashboard.vue'
 import ProjectsTableAdmin from '../components/AdminDashboard/ProjectsTableAdmin.vue'
 import UsersTable from '../components/AdminDashboard/UsersTable.vue'
+
 
 const routes = [
   { path: '/', component: HomePage, name: 'Home' },
@@ -42,6 +44,11 @@ const routes = [
     path: '/ModelFromProjectId',
     name: 'ModelFromProjectId',
     component: ModelFromProjectId
+  },
+  {
+    path:'/EditProject',
+    name: 'EditProject',
+    component: EditProject
   },
   {
     path : '/testModal',
