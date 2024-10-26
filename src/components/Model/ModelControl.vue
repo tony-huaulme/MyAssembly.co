@@ -5,6 +5,7 @@
         :value="null" 
         id="selectedPanel" 
         class="button"
+        style="z-index: 1001"
         :class="{'blink-bg': isDemo}"
         @click="$emit('show-panel-info', true); isDemo ? stopBlinking('selectedPanel') : ''; openFirstInfoAccordion()" >
         {{ selectedPanelName }}

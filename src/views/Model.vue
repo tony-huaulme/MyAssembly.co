@@ -32,7 +32,7 @@
       v-model:selectedPanelName="selectedPanelName"
       :buildingPanels="buildingPanels" 
       :panelBtnOnly="true"
-      :modelName="modelName"
+      :projectName="modelName"
     />
     <div ref="modelContainer" 
       :class="{ 'h-2/3 w-screen': isPortrait, 'w-2/3 h-screen': !isPortrait }"
