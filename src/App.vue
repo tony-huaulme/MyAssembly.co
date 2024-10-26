@@ -9,28 +9,39 @@ import Toast from "primevue/toast";
 import { onMounted } from 'vue';
 
 async function sendWebhook() {
-   const webhookUrl = 'https://discord.com/api/webhooks/1296183137587433564/g8D7euIKzA6gmS5fTW0rylDyQmzu4xYlZNdi8fk6GqEUe8SJpHBEjuBSy7OGg3gcpNTI';
-   
-   const payload = {
-   embeds: [{
-      title: 'New Visitor!',
-      color: 3066993, // Green color in decimal
-   }]
-   };
+    const webhookUrl = 'https://discord.com/api/webhooks/1296183137587433564/g8D7euIKzA6gmS5fTW0rylDyQmzu4xYlZNdi8fk6GqEUe8SJpHBEjuBSy7OGg3gcpNTI';
 
-   try {
-   const response = await fetch(webhookUrl, {
-      method: 'POST',
-      headers: {
-         'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(payload)
-   });
+    // Determine if the user is on a PC or mobile
+    const isMobile = /Mobi|Android/i.test(navigator.userAgent);
+    const deviceType = isMobile ? 'Phone' : 'PC';
 
-   } catch (error) {
-      console.error('nohk');
-   }
+    const payload = {
+        embeds: [{
+            title: 'New Visitor!',
+            description: `Visitor is using a ${deviceType}.`, // Include device type in the message
+            color: 3066993, // Green color in decimal
+        }]
+    };
+
+    try {
+        const response = await fetch(webhookUrl, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(payload)
+        });
+
+        if (!response.ok) {
+            throw new Error(`Error: ${response.statusText}`);
+        }
+
+        console.log('Webhook sent successfully.');
+    } catch (error) {
+        console.error('Error sending webhook:', error);
+    }
 }
+
 
 onMounted(() => {
    if (!localStorage.getItem('webhookTriggered')) {

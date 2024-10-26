@@ -36,24 +36,24 @@
                 </button>
             </template>
         </Menu>
-        <RouterLink :to="'/model?modelName=DemoModel'" class="get-started-btn" style="border: none; ">       
+        <RouterLink :to="'/ModelFromProjectId?projectId=48'" class="get-started-btn" style="border: none; ">       
         
-            <Button class="mt-2 w-full"  style="background-color: var(--p-focus-ring-color);">
-                <slot>
-                    <p class="m-0" style=" margin-right: 1ch">Open Demo</p>
-                </slot>
-            </Button>
-            
-        </RouterLink>
-        <RouterLink :to="'/contact'" class="get-started-btn" style="border: none;">       
-            
-            <Button class="mt-2 w-full" style="background-color: var(--p-content-color); border: none; ">
-                <slot>
-                    <p class="m-0" style=" margin-right: 1ch; color: var(--p-content-background);"><b>Contact Us</b></p>
-                </slot>
-            </Button>
-            
-        </RouterLink>
+        <Button class="mt-2 w-full" outlined severity="contrast">
+            <slot>
+                <p class="m-0" style=" margin-right: 1ch">Open Demo</p>
+            </slot>
+        </Button>
+        
+    </RouterLink>
+    <RouterLink :to="'/contact'" class="get-started-btn" style="border: none;">       
+        
+        <Button class="mt-2 w-full  mb-5" style="background-color: var(--p-content-color); border: none; ">
+            <slot>
+                <p class="m-0" style=" margin-right: 1ch; color: var(--p-content-background);"><b>Contact Us</b></p>
+            </slot>
+        </Button>
+        
+    </RouterLink>
     </div>
 
     <Dialog v-model:visible="visible" modal header="Create a project" :style="{ width: '45rem' }">

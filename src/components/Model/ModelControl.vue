@@ -40,7 +40,7 @@
                     :header="group"
                     :value="index"
                 >
-                <AccordionHeader>{{ group }}</AccordionHeader>
+                <AccordionHeader >{{ group }}</AccordionHeader>
                     <AccordionContent>
                         <div class="containerPanelName">
                             <div v-for="panel in items" :key="panel">
@@ -106,13 +106,12 @@ import OverlayBadge from 'primevue/overlaybadge';
 
 
 import Button from 'primevue/button';
-import { ref, defineEmits, onMounted } from 'vue';
+import { ref, defineEmits, onMounted, nextTick } from 'vue';
 
 
 import { useRoute } from 'vue-router';
 const route = useRoute();
-
-const isDemo = ref(route.query.modelName == 'DemoModel');
+const isDemo = ref(route.query.projectId == '48');
 
 const props = defineProps({
     buildingPanels: {
@@ -169,9 +168,12 @@ function stopBlinking(idToStop) {
 }
 
 function openFirstInfoAccordion() {
-    const firstAccordion = document.getElementById('pv_id_2_accordionheader_0');
+    nextTick(() => {
+        const firstAccordion = document.getElementsByClassName('panelInfoHeader_0');
     
-    if (firstAccordion) firstAccordion.click();
+        if (firstAccordion) firstAccordion[0].click();
+    });
+    
 }
 
 </script>

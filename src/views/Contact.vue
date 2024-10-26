@@ -9,9 +9,14 @@
             <Header></Header>
         </div>
 
-        <div class="py-8 lg:py-16 px-4 mx-auto max-w-screen-md ">
+        <div class="py-4 lg:py-8 px-4 mx-auto max-w-screen-md ">
             <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-center text-gray-900 dark:text-white">Contact Us</h2>
-            <p class="mb-8 lg:mb-16 font-light text-center text-gray-500 dark:text-gray-400 sm:text-xl">Got a technical issue? Want to send feedback about a beta feature? Need details about our Business plan? Let us know.</p>
+            <p class="font-light text-center text-gray-500 dark:text-gray-400 sm:text-xl">Got a technical issue? Want to send feedback about a beta feature? Need details about our Business plan? Let us know.</p>
+            <div class="flex flex-row justify-center mb-7 lg:mb-15 mt-5 lg:t-10">
+              <Button as="a" severity="contrast" icon="pi pi-linkedin" label="Direct Message" href="https://www.linkedin.com/company/myassembly-co" target="_blank" rel="noopener" />
+              
+            </div>          
+             
             <form action="#" class="space-y-8">
                 <div>
                     <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Your email</label>
@@ -41,8 +46,6 @@ import Textarea  from 'primevue/textarea';
 import { useToast } from "primevue/usetoast";
 
 const toast = useToast();
-
-
 
 const email = ref('');
 const subject = ref('');

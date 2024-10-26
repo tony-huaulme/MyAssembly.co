@@ -5,7 +5,7 @@
       <div v-html="projectDescription"></div>
     </Dialog>
     
-    <!-- <Button @click="updateSettings()">UPDATE SETTIGNS</Button> -->
+    <Button @click="updateSettings()">UPDATE SETTIGNS</Button>
 </template>
 
 <script setup>
@@ -28,7 +28,7 @@ const props = defineProps({
 import api from '@/services/api';
 
 const updateSettings = async () => {
-    const settings =     {
+    const settings =         {
   "description": `
   <h2><strong>Let's Build It Together!</strong></h2> 
 <p><strong>We’re excited to support you in bringing your <u>unique project</u> to life!</strong> Before diving into the steps, please take a moment to review these essential guidelines to ensure a smooth, enjoyable, and successful building experience.</p>
@@ -56,12 +56,12 @@ const updateSettings = async () => {
         {
           "title": "Positioning",
           "content": "Align R8 with the main frame to secure the left side.",
-          "image": "https://via.placeholder.com/150"
+          "image": "https://www.myassembly.co/src/assets/ClickModel.gif"
         },
         {
           "title": "Fastening",
           "content": "Use 10mm bolts along the frame intersections for R8.",
-          "image": "https://via.placeholder.com/150"
+          "image": "https://www.myassembly.co/src/assets/DragModel.gif"
         }
       ]
     },
@@ -71,12 +71,12 @@ const updateSettings = async () => {
         {
           "title": "Pre-check",
           "content": "Ensure all edges are clear and aligned with other panels for R9.",
-          "image": "https://via.placeholder.com/150"
+          "image": "https://www.myassembly.co/src/assets/ClickModel.gif"
         },
         {
           "title": "Final Adjustment",
           "content": "Level the panel to match adjacent elements before fastening.",
-          "image": "https://via.placeholder.com/150"
+          "image": "https://www.myassembly.co/src/assets/DragModel.gif"
         }
       ]
     },
@@ -86,12 +86,12 @@ const updateSettings = async () => {
         {
           "title": "Primary Anchoring",
           "content": "Attach R6 to adjacent framing sections with reinforced screws.",
-          "image": "https://via.placeholder.com/150"
+          "image": "https://www.myassembly.co/src/assets/ClickModel.gif"
         },
         {
           "title": "Secondary Fastening",
           "content": "Secure additional joints to ensure structural stability.",
-          "image": "https://via.placeholder.com/150"
+          "image": "https://www.myassembly.co/src/assets/DragModel.gif"
         }
       ]
     },
@@ -101,12 +101,12 @@ const updateSettings = async () => {
         {
           "title": "Top Connections",
           "content": "Secure R3's top edge with brackets provided in the kit.",
-          "image": "https://via.placeholder.com/150"
+          "image": "https://www.myassembly.co/src/assets/ClickModel.gif"
         },
         {
           "title": "Lower Edge",
           "content": "Fasten the lower edge to align flush with the ground level.",
-          "image": "https://via.placeholder.com/150"
+          "image": "https://www.myassembly.co/src/assets/DragModel.gif"
         }
       ]
     },
@@ -116,12 +116,12 @@ const updateSettings = async () => {
         {
           "title": "Flush Alignment",
           "content": "Ensure G-W20's edges are flush with the main structure.",
-          "image": "https://via.placeholder.com/150"
+          "image": "https://www.myassembly.co/src/assets/ClickModel.gif"
         },
         {
           "title": "Bolt Placement",
           "content": "Insert bolts at each corner to hold G-W20 firmly in place.",
-          "image": "https://via.placeholder.com/150"
+          "image": "https://www.myassembly.co/src/assets/DragModel.gif"
         }
       ]
     },
@@ -131,12 +131,12 @@ const updateSettings = async () => {
         {
           "title": "Accordion 1",
           "content": "This is the content of the accordion 1",
-          "image": "https://via.placeholder.com/150"
+          "image": "https://www.myassembly.co/src/assets/ClickModel.gif"
         },
         {
           "title": "Accordion 2",
           "content": "This is the content of the accordion 2",
-          "image": "https://via.placeholder.com/150"
+          "image": "https://www.myassembly.co/src/assets/DragModel.gif"
         }
       ]
     },
@@ -146,12 +146,12 @@ const updateSettings = async () => {
         {
           "title": "Preparation",
           "content": "Check all pre-drilled holes for G-W11 alignment.",
-          "image": "https://via.placeholder.com/150"
+          "image": "https://www.myassembly.co/src/assets/ClickModel.gif"
         },
         {
           "title": "Attachment",
           "content": "Secure G-W11 using heavy-duty bolts at top and bottom edges.",
-          "image": "https://via.placeholder.com/150"
+          "image": "https://www.myassembly.co/src/assets/DragModel.gif"
         }
       ]
     },
@@ -161,12 +161,12 @@ const updateSettings = async () => {
         {
           "title": "Base Support",
           "content": "Attach G-W5 securely to base frame with reinforced screws.",
-          "image": "https://via.placeholder.com/150"
+          "image": "https://www.myassembly.co/src/assets/ClickModel.gif"
         },
         {
           "title": "Top Anchoring",
           "content": "Ensure top anchors are tight to avoid panel shifts.",
-          "image": "https://via.placeholder.com/150"
+          "image": "https://www.myassembly.co/src/assets/DragModel.gif"
         }
       ]
     },
@@ -176,12 +176,12 @@ const updateSettings = async () => {
         {
           "title": "Anchor Setup",
           "content": "Fasten G-W22 with anchors at designated frame points.",
-          "image": "https://via.placeholder.com/150"
+          "image": "https://www.myassembly.co/src/assets/ClickModel.gif"
         },
         {
           "title": "Final Checks",
           "content": "Confirm that G-W22 is level and aligned before moving on.",
-          "image": "https://via.placeholder.com/150"
+          "image": "https://www.myassembly.co/src/assets/DragModel.gif"
         }
       ]
     },
@@ -191,12 +191,12 @@ const updateSettings = async () => {
         {
           "title": "Mounting Points",
           "content": "Attach G-W13 to upper and lower structural members.",
-          "image": "https://via.placeholder.com/150"
+          "image": "https://www.myassembly.co/src/assets/ClickModel.gif"
         },
         {
           "title": "Secondary Supports",
           "content": "Add secondary screws for extra stability.",
-          "image": "https://via.placeholder.com/150"
+          "image": "https://www.myassembly.co/src/assets/DragModel.gif"
         }
       ]
     }
@@ -207,12 +207,12 @@ const updateSettings = async () => {
         {
           "title": "Upper Connection",
           "content": "Align and secure G-W16 to the upper frame with heavy bolts.",
-          "image": "https://via.placeholder.com/150"
+          "image": "https://www.myassembly.co/src/assets/ClickModel.gif"
         },
         {
           "title": "Base Securing",
           "content": "Verify base is flush before finalizing lower screws.",
-          "image": "https://via.placeholder.com/150"
+          "image": "https://www.myassembly.co/src/assets/DragModel.gif"
         }
       ]
     },
@@ -222,12 +222,12 @@ const updateSettings = async () => {
         {
           "title": "Alignment Check",
           "content": "Level G-W4 before securing to avoid misalignment.",
-          "image": "https://via.placeholder.com/150"
+          "image": "https://www.myassembly.co/src/assets/ClickModel.gif"
         },
         {
           "title": "Final Fastening",
           "content": "Tighten screws at top and bottom after alignment is verified.",
-          "image": "https://via.placeholder.com/150"
+          "image": "https://www.myassembly.co/src/assets/DragModel.gif"
         }
       ]
     },
@@ -237,12 +237,12 @@ const updateSettings = async () => {
         {
           "title": "Initial Placement",
           "content": "Align 1F-W8 with the foundation points.",
-          "image": "https://via.placeholder.com/150"
+          "image": "https://www.myassembly.co/src/assets/ClickModel.gif"
         },
         {
           "title": "Final Screws",
           "content": "Use reinforced screws to secure 1F-W8 at all corners.",
-          "image": "https://via.placeholder.com/150"
+          "image": "https://www.myassembly.co/src/assets/DragModel.gif"
         }
       ]
     },
@@ -252,12 +252,12 @@ const updateSettings = async () => {
         {
           "title": "Edge Anchoring",
           "content": "Align 1F-W11's edges with adjacent panels and fasten securely.",
-          "image": "https://via.placeholder.com/150"
+          "image": "https://www.myassembly.co/src/assets/ClickModel.gif"
         },
         {
           "title": "Cross-Bracing",
           "content": "Add cross-bracing to stabilize 1F-W11 within the frame.",
-          "image": "https://via.placeholder.com/150"
+          "image": "https://www.myassembly.co/src/assets/DragModel.gif"
         }
       ]
     },
@@ -267,12 +267,12 @@ const updateSettings = async () => {
         {
           "title": "Structural Check",
           "content": "Verify stability of 1F-W14 within the assembly frame.",
-          "image": "https://via.placeholder.com/150"
+          "image": "https://www.myassembly.co/src/assets/ClickModel.gif"
         },
         {
           "title": "Edge Fastening",
           "content": "Fasten all edges with heavy-duty bolts.",
-          "image": "https://via.placeholder.com/150"
+          "image": "https://www.myassembly.co/src/assets/DragModel.gif"
         }
       ]
     }
@@ -283,12 +283,12 @@ const updateSettings = async () => {
         {
           "title": "Primary Securing",
           "content": "Attach 1F-W2 to the main framework, focusing on top edge alignment.",
-          "image": "https://via.placeholder.com/150"
+          "image": "https://www.myassembly.co/src/assets/ClickModel.gif"
         },
         {
           "title": "Reinforcement Check",
           "content": "Verify all bolts are tight to maintain stability of 1F-W2.",
-          "image": "https://via.placeholder.com/150"
+          "image": "https://www.myassembly.co/src/assets/DragModel.gif"
         }
       ]
     },
@@ -298,12 +298,12 @@ const updateSettings = async () => {
         {
           "title": "Lower Edge Fastening",
           "content": "Secure the lower edge of 1F-W4 to align with the base frame.",
-          "image": "https://via.placeholder.com/150"
+          "image": "https://www.myassembly.co/src/assets/ClickModel.gif"
         },
         {
           "title": "Final Bolt Check",
           "content": "Ensure all bolts are fully tightened before moving to the next panel.",
-          "image": "https://via.placeholder.com/150"
+          "image": "https://www.myassembly.co/src/assets/DragModel.gif"
         }
       ]
     },
@@ -313,12 +313,12 @@ const updateSettings = async () => {
         {
           "title": "Initial Placement",
           "content": "Align 1F-W7 carefully with adjacent panels before securing.",
-          "image": "https://via.placeholder.com/150"
+          "image": "https://www.myassembly.co/src/assets/ClickModel.gif"
         },
         {
           "title": "Anchor Tightening",
           "content": "Ensure anchors are tightened at all four corners of 1F-W7.",
-          "image": "https://via.placeholder.com/150"
+          "image": "https://www.myassembly.co/src/assets/DragModel.gif"
         }
       ]
     },
@@ -328,12 +328,12 @@ const updateSettings = async () => {
         {
           "title": "Side Connection",
           "content": "Attach 1F-W12's side edges to adjacent panels.",
-          "image": "https://via.placeholder.com/150"
+          "image": "https://www.myassembly.co/src/assets/ClickModel.gif"
         },
         {
           "title": "Top Securing",
           "content": "Fasten the top edge firmly to avoid gaps.",
-          "image": "https://via.placeholder.com/150"
+          "image": "https://www.myassembly.co/src/assets/DragModel.gif"
         }
       ]
     },
@@ -343,12 +343,12 @@ const updateSettings = async () => {
         {
           "title": "Pre-Installation Check",
           "content": "Ensure all support points are clear for 1F-W1 installation.",
-          "image": "https://via.placeholder.com/150"
+          "image": "https://www.myassembly.co/src/assets/ClickModel.gif"
         },
         {
           "title": "Final Fastening",
           "content": "Tighten bolts along edges and center for maximum stability.",
-          "image": "https://via.placeholder.com/150"
+          "image": "https://www.myassembly.co/src/assets/DragModel.gif"
         }
       ]
     },
@@ -358,12 +358,12 @@ const updateSettings = async () => {
         {
           "title": "Primary Positioning",
           "content": "Set 1F-W10 along the structural lines, ensuring alignment.",
-          "image": "https://via.placeholder.com/150"
+          "image": "https://www.myassembly.co/src/assets/ClickModel.gif"
         },
         {
           "title": "Final Securing",
           "content": "Use heavy-duty bolts to secure all corners and edges.",
-          "image": "https://via.placeholder.com/150"
+          "image": "https://www.myassembly.co/src/assets/DragModel.gif"
         }
       ]
     },
@@ -373,12 +373,12 @@ const updateSettings = async () => {
         {
           "title": "Bottom Anchoring",
           "content": "Fasten the bottom edge of 1F-W9 to the foundation frame.",
-          "image": "https://via.placeholder.com/150"
+          "image": "https://www.myassembly.co/src/assets/ClickModel.gif"
         },
         {
           "title": "Top Bracing",
           "content": "Secure top bracing screws to add stability.",
-          "image": "https://via.placeholder.com/150"
+          "image": "https://www.myassembly.co/src/assets/DragModel.gif"
         }
       ]
     },
@@ -388,12 +388,12 @@ const updateSettings = async () => {
         {
           "title": "Base Connection",
           "content": "Align 1F-W3 with base structure and secure tightly.",
-          "image": "https://via.placeholder.com/150"
+          "image": "https://www.myassembly.co/src/assets/ClickModel.gif"
         },
         {
           "title": "Side Brackets",
           "content": "Install side brackets to ensure lateral stability of 1F-W3.",
-          "image": "https://via.placeholder.com/150"
+          "image": "https://www.myassembly.co/src/assets/DragModel.gif"
         }
       ]
     },
@@ -403,12 +403,12 @@ const updateSettings = async () => {
         {
           "title": "Initial Alignment",
           "content": "Set 1F-W5 in position and ensure alignment with nearby panels.",
-          "image": "https://via.placeholder.com/150"
+          "image": "https://www.myassembly.co/src/assets/ClickModel.gif"
         },
         {
           "title": "Final Bolting",
           "content": "Complete bolting at each corner to secure 1F-W5.",
-          "image": "https://via.placeholder.com/150"
+          "image": "https://www.myassembly.co/src/assets/DragModel.gif"
         }
       ]
     },
@@ -418,12 +418,12 @@ const updateSettings = async () => {
         {
           "title": "Edge Fastening",
           "content": "Align and fasten the edges of 1F-W6 with heavy screws.",
-          "image": "https://via.placeholder.com/150"
+          "image": "https://www.myassembly.co/src/assets/ClickModel.gif"
         },
         {
           "title": "Cross-Support",
           "content": "Install cross-support for enhanced stability.",
-          "image": "https://via.placeholder.com/150"
+          "image": "https://www.myassembly.co/src/assets/DragModel.gif"
         }
       ]
     },
@@ -433,12 +433,12 @@ const updateSettings = async () => {
         {
           "title": "Initial Placement",
           "content": "Set 1F-W13 along designated points and check level alignment.",
-          "image": "https://via.placeholder.com/150"
+          "image": "https://www.myassembly.co/src/assets/ClickModel.gif"
         },
         {
           "title": "Edge Reinforcement",
           "content": "Secure edges with reinforcement screws for additional stability.",
-          "image": "https://via.placeholder.com/150"
+          "image": "https://www.myassembly.co/src/assets/DragModel.gif"
         }
       ]
     },
@@ -448,12 +448,12 @@ const updateSettings = async () => {
         {
           "title": "Corner Fastening",
           "content": "Attach 1F-W15 at each corner with reinforced bolts.",
-          "image": "https://via.placeholder.com/150"
+          "image": "https://www.myassembly.co/src/assets/ClickModel.gif"
         },
         {
           "title": "Final Stability Check",
           "content": "Ensure the panel is stable by testing light pressure along all edges.",
-          "image": "https://via.placeholder.com/150"
+          "image": "https://www.myassembly.co/src/assets/DragModel.gif"
         }
       ]
     },
@@ -464,12 +464,12 @@ const updateSettings = async () => {
         {
           "title": "Alignment Check",
           "content": "Ensure G-W15 is level with adjacent panels before securing.",
-          "image": "https://via.placeholder.com/150"
+          "image": "https://www.myassembly.co/src/assets/ClickModel.gif"
         },
         {
           "title": "Final Fastening",
           "content": "Tighten screws along all edges after alignment is confirmed.",
-          "image": "https://via.placeholder.com/150"
+          "image": "https://www.myassembly.co/src/assets/DragModel.gif"
         }
       ]
     },
@@ -479,12 +479,12 @@ const updateSettings = async () => {
         {
           "title": "Initial Placement",
           "content": "Align G-W17 with frame corners before fastening.",
-          "image": "https://via.placeholder.com/150"
+          "image": "https://www.myassembly.co/src/assets/ClickModel.gif"
         },
         {
           "title": "Final Anchor",
           "content": "Anchor bolts at each corner to complete the installation.",
-          "image": "https://via.placeholder.com/150"
+          "image": "https://www.myassembly.co/src/assets/DragModel.gif"
         }
       ]
     },
@@ -494,12 +494,12 @@ const updateSettings = async () => {
         {
           "title": "Edge Securing",
           "content": "Attach G-W18's edges with reinforced bolts.",
-          "image": "https://via.placeholder.com/150"
+          "image": "https://www.myassembly.co/src/assets/ClickModel.gif"
         },
         {
           "title": "Stability Check",
           "content": "Verify the stability of G-W18 with gentle pressure after securing.",
-          "image": "https://via.placeholder.com/150"
+          "image": "https://www.myassembly.co/src/assets/DragModel.gif"
         }
       ]
     },
@@ -509,12 +509,12 @@ const updateSettings = async () => {
         {
           "title": "Lower Bracing",
           "content": "Secure the bottom edge of G-W10 to the frame.",
-          "image": "https://via.placeholder.com/150"
+          "image": "https://www.myassembly.co/src/assets/ClickModel.gif"
         },
         {
           "title": "Top Fastening",
           "content": "Fasten the top edge to ensure no movement between panels.",
-          "image": "https://via.placeholder.com/150"
+          "image": "https://www.myassembly.co/src/assets/DragModel.gif"
         }
       ]
     },
@@ -524,12 +524,12 @@ const updateSettings = async () => {
         {
           "title": "Primary Securing",
           "content": "Align and attach G-W8 to main supports.",
-          "image": "https://via.placeholder.com/150"
+          "image": "https://www.myassembly.co/src/assets/ClickModel.gif"
         },
         {
           "title": "Final Stability Check",
           "content": "Inspect all screws for tightness.",
-          "image": "https://via.placeholder.com/150"
+          "image": "https://www.myassembly.co/src/assets/DragModel.gif"
         }
       ]
     },
@@ -539,12 +539,12 @@ const updateSettings = async () => {
         {
           "title": "Edge Placement",
           "content": "Ensure G-W7 is flush with adjacent panels.",
-          "image": "https://via.placeholder.com/150"
+          "image": "https://www.myassembly.co/src/assets/ClickModel.gif"
         },
         {
           "title": "Anchor Reinforcement",
           "content": "Double-check all anchors for added stability.",
-          "image": "https://via.placeholder.com/150"
+          "image": "https://www.myassembly.co/src/assets/DragModel.gif"
         }
       ]
     },
@@ -554,12 +554,12 @@ const updateSettings = async () => {
         {
           "title": "Bottom Fastening",
           "content": "Attach the bottom edge of G-W6 securely to the frame.",
-          "image": "https://via.placeholder.com/150"
+          "image": "https://www.myassembly.co/src/assets/ClickModel.gif"
         },
         {
           "title": "Top Securing",
           "content": "Complete the installation by tightening the top edge screws.",
-          "image": "https://via.placeholder.com/150"
+          "image": "https://www.myassembly.co/src/assets/DragModel.gif"
         }
       ]
     },
@@ -569,12 +569,12 @@ const updateSettings = async () => {
         {
           "title": "Initial Placement",
           "content": "Align G-W19 carefully along the frame.",
-          "image": "https://via.placeholder.com/150"
+          "image": "https://www.myassembly.co/src/assets/ClickModel.gif"
         },
         {
           "title": "Final Screw Tightening",
           "content": "Ensure each screw is fully tightened after alignment.",
-          "image": "https://via.placeholder.com/150"
+          "image": "https://www.myassembly.co/src/assets/DragModel.gif"
         }
       ]
     },
@@ -584,12 +584,12 @@ const updateSettings = async () => {
         {
           "title": "Primary Alignment",
           "content": "Check alignment of G-W21 with the rest of the frame.",
-          "image": "https://via.placeholder.com/150"
+          "image": "https://www.myassembly.co/src/assets/ClickModel.gif"
         },
         {
           "title": "Edge Fastening",
           "content": "Secure edges with reinforced bolts for stability.",
-          "image": "https://via.placeholder.com/150"
+          "image": "https://www.myassembly.co/src/assets/DragModel.gif"
         }
       ]
     },
@@ -599,12 +599,12 @@ const updateSettings = async () => {
         {
           "title": "Edge Securing",
           "content": "Secure G-W9’s edges to prevent movement.",
-          "image": "https://via.placeholder.com/150"
+          "image": "https://www.myassembly.co/src/assets/ClickModel.gif"
         },
         {
           "title": "Final Inspection",
           "content": "Inspect all connections for a secure fit.",
-          "image": "https://via.placeholder.com/150"
+          "image": "https://www.myassembly.co/src/assets/DragModel.gif"
         }
       ]
     },
@@ -614,12 +614,12 @@ const updateSettings = async () => {
         {
           "title": "Bottom Fastening",
           "content": "Attach bottom edge of G-W12 to maintain alignment.",
-          "image": "https://via.placeholder.com/150"
+          "image": "https://www.myassembly.co/src/assets/ClickModel.gif"
         },
         {
           "title": "Upper Screwing",
           "content": "Complete by securing upper edge.",
-          "image": "https://via.placeholder.com/150"
+          "image": "https://www.myassembly.co/src/assets/DragModel.gif"
         }
       ]
     },
@@ -629,12 +629,12 @@ const updateSettings = async () => {
         {
           "title": "Initial Securing",
           "content": "Fasten G-W14's lower edge first.",
-          "image": "https://via.placeholder.com/150"
+          "image": "https://www.myassembly.co/src/assets/ClickModel.gif"
         },
         {
           "title": "Top Screwing",
           "content": "Finish by securing the top edge.",
-          "image": "https://via.placeholder.com/150"
+          "image": "https://www.myassembly.co/src/assets/DragModel.gif"
         }
       ]
     },
@@ -644,12 +644,12 @@ const updateSettings = async () => {
         {
           "title": "Base Connection",
           "content": "Connect R1 to the frame base.",
-          "image": "https://via.placeholder.com/150"
+          "image": "https://www.myassembly.co/src/assets/ClickModel.gif"
         },
         {
           "title": "Final Securing",
           "content": "Check all edges are properly tightened.",
-          "image": "https://via.placeholder.com/150"
+          "image": "https://www.myassembly.co/src/assets/DragModel.gif"
         }
       ]
     },
@@ -659,12 +659,12 @@ const updateSettings = async () => {
         {
           "title": "Initial Alignment",
           "content": "Align R2 carefully with adjacent supports.",
-          "image": "https://via.placeholder.com/150"
+          "image": "https://www.myassembly.co/src/assets/ClickModel.gif"
         },
         {
           "title": "Final Screwing",
           "content": "Tighten all screws to finalize installation.",
-          "image": "https://via.placeholder.com/150"
+          "image": "https://www.myassembly.co/src/assets/DragModel.gif"
         }
       ]
     },
@@ -674,12 +674,12 @@ const updateSettings = async () => {
         {
           "title": "Placement",
           "content": "Align R4 with base structure.",
-          "image": "https://via.placeholder.com/150"
+          "image": "https://www.myassembly.co/src/assets/ClickModel.gif"
         },
         {
           "title": "Secure Edges",
           "content": "Fasten all edges.",
-          "image": "https://via.placeholder.com/150"
+          "image": "https://www.myassembly.co/src/assets/DragModel.gif"
         }
       ]
     },
@@ -689,12 +689,12 @@ const updateSettings = async () => {
         {
           "title": "Base Alignment",
           "content": "Align R5 along base frame.",
-          "image": "https://via.placeholder.com/150"
+          "image": "https://www.myassembly.co/src/assets/ClickModel.gif"
         },
         {
           "title": "Final Tightening",
           "content": "Complete by tightening all screws.",
-          "image": "https://via.placeholder.com/150"
+          "image": "https://www.myassembly.co/src/assets/DragModel.gif"
         }
       ]
     },
@@ -704,12 +704,12 @@ const updateSettings = async () => {
         {
           "title": "Anchor Placement",
           "content": "Anchor R10 carefully at corners.",
-          "image": "https://via.placeholder.com/150"
+          "image": "https://www.myassembly.co/src/assets/ClickModel.gif"
         },
         {
           "title": "Final Bolt Check",
           "content": "Ensure bolts are tight.",
-          "image": "https://via.placeholder.com/150"
+          "image": "https://www.myassembly.co/src/assets/DragModel.gif"
         }
       ]
     },
@@ -719,12 +719,12 @@ const updateSettings = async () => {
         {
           "title": "Lower Edge Securing",
           "content": "Fasten R7 at the lower edge.",
-          "image": "https://via.placeholder.com/150"
+          "image": "https://www.myassembly.co/src/assets/ClickModel.gif"
         },
         {
           "title": "Final Bolt Tightening",
           "content": "Complete with a final check of all bolts.",
-          "image": "https://via.placeholder.com/150"
+          "image": "https://www.myassembly.co/src/assets/DragModel.gif"
         }
       ]
     },
@@ -734,12 +734,12 @@ const updateSettings = async () => {
         {
           "title": "Initial Positioning",
           "content": "Place G-W3 carefully before securing.",
-          "image": "https://via.placeholder.com/150"
+          "image": "https://www.myassembly.co/src/assets/ClickModel.gif"
         },
         {
           "title": "Final Screw Tightening",
           "content": "Check screws for tightness.",
-          "image": "https://via.placeholder.com/150"
+          "image": "https://www.myassembly.co/src/assets/DragModel.gif"
         }
       ]
     },
@@ -749,12 +749,12 @@ const updateSettings = async () => {
         {
           "title": "Edge Securing",
           "content": "Attach G-W2 along the edge.",
-          "image": "https://via.placeholder.com/150"
+          "image": "https://www.myassembly.co/src/assets/ClickModel.gif"
         },
         {
           "title": "Final Bolt Check",
           "content": "Ensure all bolts are tight.",
-          "image": "https://via.placeholder.com/150"
+          "image": "https://www.myassembly.co/src/assets/DragModel.gif"
         }
       ]
     }

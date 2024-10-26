@@ -62,7 +62,7 @@ onMounted(() => {
       } catch (error) {
          console.error('Error sending webhook:', error);
       }
-      $router.push("/model?from=signup&modelName=DemoModel");
+      $router.push("/ModelFromProjectId?projectId=48");
 
   }else{
     // $router.push("/model?from=signup&modelName=DemoModel");

@@ -7,7 +7,7 @@
         class="!w-full md:!w-80 lg:!w-[30rem]">
         <template #header>
             <div style="font-size: x-large; font-weight: 800;"> {{selectedPanelName}} </div>
-            <ToggleButton v-model="drawerLocked" onLabel="Unclock Infos" offLabel="Lock Infos" onIcon="pi pi-lock" 
+            <ToggleButton v-if="!isPortrait" v-model="drawerLocked" onLabel="Unclock Infos" offLabel="Lock Infos" onIcon="pi pi-lock" 
                 offIcon="pi pi-lock-open"/>
         </template>
 
@@ -17,10 +17,12 @@
     
         <Accordion value="0" v-if="tabs">
             <AccordionPanel v-for="(tab, index) in tabs" :key="tab.title" :value="index">
-                <AccordionHeader><Checkbox  @click.stop="" v-model="tab.checked" :binary="true" />{{ tab.title }}</AccordionHeader>
+                <AccordionHeader :class="`panelInfoHeader_${index}`"><Checkbox  @click.stop="" v-model="tab.checked" :binary="true" />{{ tab.title }}</AccordionHeader>
                 <AccordionContent>
                     <p class="m-0"> {{ tab.content }} </p>
-                    <img :src="tab.image" :alt="`Image for tab n°${index}`" class="w-full mt-2" >
+                    <!-- <img :src="tab.image" :alt="`Image for tab n°${index}`" class="w-full mt-2" > -->
+                    <img :src="`https://www.myassembly.co/src/assets/DragModel.gif`" :alt="`Image for tab n°${index}`" class="w-full mt-2" >
+
                 </AccordionContent>
             </AccordionPanel>
         </Accordion>
@@ -45,7 +47,7 @@ import { nextTick, ref, watch } from 'vue';
 
 const visible = ref(false);
 const drawerLocked = ref(false);
-const isPortrait = ref(false);
+
 
 // Script setup
 watch(drawerLocked, (newValue) => {
@@ -72,6 +74,11 @@ const props = defineProps({
     panelDescription: {
         type: String,
         required: true,
+    },
+    isPortrait: {
+        type: Boolean,
+        required: false,
+        default: false,
     },
 });
 
