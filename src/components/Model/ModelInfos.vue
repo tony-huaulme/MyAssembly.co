@@ -20,8 +20,7 @@
                 <AccordionHeader :class="`panelInfoHeader_${index}`"><Checkbox  @click.stop="" v-model="tab.checked" :binary="true" />{{ tab.title }}</AccordionHeader>
                 <AccordionContent>
                     <p class="m-0"> {{ tab.content }} </p>
-                    <!-- <img :src="tab.image" :alt="`Image for tab n°${index}`" class="w-full mt-2" > -->
-                    <img :src="`https://www.myassembly.co/src/assets/DragModel.gif`" :alt="`Image for tab n°${index}`" class="w-full mt-2" >
+                    <img :src="tab.image" :alt="`Image for tab n°${index}`" class="w-full mt-2" >
 
                 </AccordionContent>
             </AccordionPanel>
