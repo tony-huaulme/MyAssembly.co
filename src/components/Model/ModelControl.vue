@@ -14,8 +14,9 @@
             <h1 class="project-name ps-3" :class="{'portraitPorjectName':isPortrait, 'notPortraitProjectName' : !isPortrait}">{{ props.projectName }}</h1>
             <Button 
                 @click="$emit('show-project-info', true)"
-                class="pi pi-info-circle p-1 h-fill" 
+                class="pi pi-info-circle h-fill info-button" 
                 severity="success" 
+                aria-label="Info"
                 style="padding: .35rem;"
             ></Button>
         </div>

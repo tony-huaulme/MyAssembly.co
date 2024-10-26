@@ -43,6 +43,7 @@
         ref="modelContainer" 
         @click="threeJsOrbitControls.autoRotate = false;"
         :class="{ 'h-2/3 w-screen': isPortrait, 'w-2/3 h-screen': !isPortrait }"
+        class="canvas-container"
       >   
       <ModelViewer 
         v-if="modelContainer && modelUrl" 
@@ -254,3 +255,35 @@ onMounted(() => {
 });
 
 </script>
+
+<style>
+
+.canvas-container {
+    position: relative;
+    overflow: hidden;
+    width: 100%; /* Optional: Ensure full width if needed */
+    height: 100vh; /* Ensure full height to match screen */
+}
+
+.canvas-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('https://www.myassembly.co/src/assets/logo_dass.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    opacity: 0.1;
+    z-index: 0;
+}
+
+canvas {
+    position: relative;
+    z-index: 1; /* Ensure the canvas stays on top */
+}
+
+
+</style>

@@ -38,7 +38,7 @@
         </Menu>
         <RouterLink :to="'/model?modelName=DemoModel'" class="get-started-btn" style="border: none; ">       
         
-            <Button class="mt-2 w-full"  style="background-color: var(--p-focus-ring-color);">
+            <Button class="mt-2 w-full" outlined severity="contrast">
                 <slot>
                     <p class="m-0" style=" margin-right: 1ch">Open Demo</p>
                 </slot>
