@@ -5,7 +5,7 @@
       <div v-html="projectDescription"></div>
     </Dialog>
     
-    <Button @click="updateSettings()">UPDATE SETTIGNS</Button>
+    <!-- <Button @click="updateSettings()">UPDATE SETTIGNS</Button> -->
 </template>
 
 <script setup>
