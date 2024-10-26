@@ -1,8 +1,13 @@
 <template>
 
     <Drawer 
-        v-model:visibleLeft="visible" class="!w-full md:!w-80 lg:!w-[30rem]">
+        v-model:visibleLeft="visible" 
+        :modal="!drawerLocked"
+        :dismissableMask="drawerLocked"
+        class="!w-full md:!w-80 lg:!w-[30rem]">
         <template #header>
+                <ToggleButton v-model="drawerLocked" onLabel="Unclock Infos" offLabel="Lock Infos" onIcon="pi pi-lock" 
+                    offIcon="pi pi-lock-open"/>
            <div style="font-size: x-large; font-weight: 800;"> {{selectedPanelName}} </div>
         </template>
 
@@ -27,7 +32,7 @@
 <script setup>
 
 import Drawer from 'primevue/drawer';
-// import ToggleButton from 'primevue/togglebutton';
+import ToggleButton from 'primevue/togglebutton';
 import Accordion from 'primevue/accordion';
 import AccordionPanel from 'primevue/accordionpanel';
 import Checkbox from 'primevue/checkbox';
@@ -35,13 +40,25 @@ import AccordionHeader from 'primevue/accordionheader';
 import AccordionContent from 'primevue/accordioncontent';
 
 
-import { ref, watch } from 'vue';
+import { nextTick, ref, watch } from 'vue';
 
 
 const visible = ref(false);
 const drawerLocked = ref(false);
 const isPortrait = ref(false);
 
+// Script setup
+watch(drawerLocked, (newValue) => {
+  console.log('DrawerLocked toggled:', newValue);
+  if (newValue) {
+    nextTick(() => {
+      const drawerMask = document.getElementsByClassName('p-drawer-mask')[0];
+      if (drawerMask) {
+        drawerMask.style.setProperty('width', 'auto', 'important');
+      }
+    });
+  }
+});
 
 const props = defineProps({
     selectedPanelName: {
@@ -59,3 +76,9 @@ const props = defineProps({
 });
 
 </script>
+<style>
+
+.custom-drawer-width {
+  width: auto !important;
+}
+</style>

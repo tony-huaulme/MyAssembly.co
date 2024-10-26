@@ -10,9 +10,20 @@
         {{ selectedPanelName }}
     </OverlayBadge>
     <div style="overflow: auto;" :style="isPortrait ? '': 'width: 25vw;'">
-        <h1 class="project-name p-2" :class="{'portraitPorjectName':isPortrait, 'notPortraitProjectName' : !isPortrait}">{{ props.modelName }}</h1>
+        <div class="flex flex-row p-3">
+            <h1 class="project-name ps-3" :class="{'portraitPorjectName':isPortrait, 'notPortraitProjectName' : !isPortrait}">{{ props.projectName }}</h1>
+            <Button 
+                @click="$emit('show-project-info', true)"
+                class="pi pi-info-circle p-1 h-fill" 
+                severity="success" 
+                style="padding: .35rem;"
+            ></Button>
+        </div>
         <div v-if="buildingPanels">
-            <div v-if="(selectedPanelName != '' && !isDemo) || (selectedPanelName != ''  && clickedPanelCount > 2)">
+            <div 
+                v-if="(selectedPanelName != '' && !isDemo) || (selectedPanelName != ''  && clickedPanelCount > 2)"
+                class="p-3 w-50"
+                >
                 <Button 
                     class="button" 
                     @click="$emit('control-model', { controleName: 'showAllPanels' })"
@@ -111,7 +122,7 @@ const props = defineProps({
         required: false,
         default: false,
     },
-    modelName: {
+    projectName: {
         type: String,
         required: true,
     },
@@ -125,7 +136,7 @@ const activeIndex = ref(0);
 const isPortrait = ref(false);
 const clickedPanelCount = ref(0);
 
-const emit = defineEmits(['control-model', 'show-panel-info']);
+const emit = defineEmits(['control-model', 'show-panel-info', 'show-project-info']);
 
 function detectOrientation() {
   isPortrait.value = window.innerHeight > window.innerWidth;

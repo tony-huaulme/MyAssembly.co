@@ -17,6 +17,12 @@
       v-model:tabs="infosTabs"
       v-model:panelDescription="infosDescription"
     />
+
+    <ProjectInfos 
+      v-model:visible="projectInfosVisible" 
+      :projectName="projectName"
+    />
+
     <div 
       class="h-screen w-screen flex" 
       :class="{ 'flex-col-reverse': isPortrait, 'flex-row': !isPortrait }" 
@@ -25,10 +31,11 @@
         :class="{ 'h-1/3  w-screen': isPortrait, 'w-1/3 h-screen': !isPortrait }"
         @control-model="handleControl"
         @show-panel-info="modelInfosVisible=true"
+        @show-project-info="projectInfosVisible=true"
         v-model:selectedPanelName="selectedPanelName"
         :buildingPanels="buildingPanels" 
         :panelBtnOnly="true"
-        :modelName="modelName"
+        :projectName="projectName"
       />
       <div 
         @mousedown.right="mouseDown"
@@ -65,6 +72,8 @@ import FullScreenToggle from '../components/FullScreenToggle.vue';
 import ModelViewer from '../components/Model/ModelViewer.vue';
 import ModelControl from '../components/Model/ModelControl.vue';
 import ModelInfos from '../components/Model/ModelInfos.vue';
+import ProjectInfos from '../components/Model/ProjectInfos.vue';
+
 
 import { Building } from '../ThreeJs/building/Building.js';
 // Get the query params from the current route
@@ -74,6 +83,7 @@ const ModelBuilding =     ref(null);
 const buildingPanels =    ref(null);
 const isPortrait =        ref(false);
 const modelInfosVisible = ref(false);
+const projectInfosVisible = ref(false);
 
 const noAccessToModel = ref(false);
 
@@ -93,7 +103,7 @@ const route = useRoute();
 
 // Project INFOS
 const projectId = ref(route.query.projectId);
-const modelName = ref('');
+const projectName = ref('');
 const modelUrl = ref('');
 const project_settings = ref(null);
 
@@ -132,7 +142,7 @@ import api from '@/services/api';
 async function getProject() {
   try {
     const {data} = await api.get(`projects/${projectId.value}`);
-    modelName.value = data.project_name;
+    projectName.value = data.project_name;
     project_settings.value = data.settings || 
       {'pannels': {'G-W1': {'description': 'This is a panel description', 'accordions' : [{'title': 'Accordion 1', 'content': 'This is the content of the accordion 1', 'image': 'https://via.placeholder.com/150'}, {'title': 'Accordion 2', 'content': 'This is the content of the accordion 2', 'image': 'https://via.placeholder.com/150'}]}}};
     emit('project-settings', project_settings.value);
