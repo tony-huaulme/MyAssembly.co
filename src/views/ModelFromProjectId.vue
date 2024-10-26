@@ -21,6 +21,7 @@
     <ProjectInfos 
       v-model:visible="projectInfosVisible" 
       :projectName="projectName"
+      :projectDescription="project_settings?.description"
     />
 
     <div 
@@ -111,9 +112,10 @@ const project_settings = ref(null);
 // dynamic infos
 const infosTabs = computed(() => {
   if(project_settings.value) {
-    
-    const accordions = project_settings.value?.pannels[selectedPanelName.value]?.accordions;
-    return accordions
+    const panels = project_settings.value?.pannels;
+    if (panels) {
+      return panels[selectedPanelName.value]?.accordions || [];
+    }
   }
   return [];
 });
@@ -122,10 +124,10 @@ const infosTabs = computed(() => {
 const infosDescription = computed(() => {
 
   if(project_settings.value) {
-    
-    const description = project_settings.value?.pannels[selectedPanelName.value]?.description;
-
-    return description;
+    const panels = project_settings.value?.pannels;
+    if (panels) {
+      return panels[selectedPanelName.value]?.description || '';
+    }
   }
   return '';
 });
@@ -144,10 +146,11 @@ async function getProject() {
   try {
     const {data} = await api.get(`projects/${projectId.value}`);
     projectName.value = data.project_name;
-    project_settings.value = data.settings || 
-      {'pannels': {'G-W1': {'description': 'This is a panel description', 'accordions' : [{'title': 'Accordion 1', 'content': 'This is the content of the accordion 1', 'image': 'https://via.placeholder.com/150'}, {'title': 'Accordion 2', 'content': 'This is the content of the accordion 2', 'image': 'https://via.placeholder.com/150'}]}}};
+    let dataHandled = data.settings || '{"description": "No description available", "pannels": {}}';
+ 
+    project_settings.value = JSON.parse(dataHandled);
+
     emit('project-settings', project_settings.value);
-    console.log('data', project_settings.value);
 
     const fileKey = data.file3d_link.split('amazonaws.com/')[1]
     // MyAssemblyDemoLIL.glb

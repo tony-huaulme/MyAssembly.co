@@ -6,9 +6,9 @@
         :dismissableMask="drawerLocked"
         class="!w-full md:!w-80 lg:!w-[30rem]">
         <template #header>
-                <ToggleButton v-model="drawerLocked" onLabel="Unclock Infos" offLabel="Lock Infos" onIcon="pi pi-lock" 
-                    offIcon="pi pi-lock-open"/>
-           <div style="font-size: x-large; font-weight: 800;"> {{selectedPanelName}} </div>
+            <div style="font-size: x-large; font-weight: 800;"> {{selectedPanelName}} </div>
+            <ToggleButton v-model="drawerLocked" onLabel="Unclock Infos" offLabel="Lock Infos" onIcon="pi pi-lock" 
+                offIcon="pi pi-lock-open"/>
         </template>
 
         <p style=" text-align: justify;">
