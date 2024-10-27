@@ -1,13 +1,13 @@
 <template>
     <!-- Full-screen container -->
-    <div class="flex h-screen justify-center md:p-0 w-fill">
+    <div class="flex h-screen justify-center md:align-items-center md:p-0 w-fill">
 
         <!-- Right Section: Placeholder for Login Form -->
                  <!-- other side 2/3 is an image -->
-        <div class="hidden md:flex md:w-2/3 h-fill">
+        <div class="hidden md:flex md:w-2/3 h-fill p-4">
             <img src="../assets/SignUpReAssurance.png" alt="App Features" class="object-cover w-full" style="opacity: 0.7;">
         </div>
-        <div class="md:w-1/3 h-fill flex flex-column relative grayBg">
+        <div class="md:w-1/3 h-fill flex flex-column relative">
 
             <div class="w-fill flex flex-column items-center">
                 <!-- Replace this with your login form -->
