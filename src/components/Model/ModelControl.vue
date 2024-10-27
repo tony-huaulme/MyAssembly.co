@@ -57,7 +57,7 @@
                                 <Button v-else
                                     class="button" 
                                     @click="$emit(
-                                        'control-model', { controleName: 'showOnlyPanelByName', arg: panel }); isDemo ? stopBlinking('clickPanelR1') : ''"
+                                        'control-model', { controleName: 'showOnlyPanelByName', arg: panel });"
                                     >
                                     {{ panel }}
                                 </Button>
@@ -93,6 +93,20 @@
         </div>
 
     </div>
+    <RouterLink v-show="showCreateCTA" 
+        :to="'/authenticate'" 
+        class="get-started-btn absolute opacity-0"
+        :class="{ 'top-5 left-5': isPortrait, 'bottom-5 right-5': !isPortrait }"
+        style=" border: none; z-index: 10001;"
+        id="smooth-appear-CTA"
+        @click="sendWebhookCTA_CREATE()"
+        >        
+        <Button style="border: none;">
+            <slot>
+                <p class="m-0" style="margin-right: 1ch;">{{ isPortrait ? '+ Create':'Create yours now !' }}</p>
+            </slot>
+        </Button>
+    </RouterLink>
 </template>
 
 
@@ -103,15 +117,16 @@ import AccordionPanel from 'primevue/accordionpanel';
 import AccordionHeader from 'primevue/accordionheader';
 import AccordionContent from 'primevue/accordioncontent';
 import OverlayBadge from 'primevue/overlaybadge';
-
-
 import Button from 'primevue/button';
+
+import { RouterLink } from 'vue-router'
 import { ref, defineEmits, onMounted, nextTick } from 'vue';
 
 
 import { useRoute } from 'vue-router';
 const route = useRoute();
 const isDemo = ref(route.query.projectId == '48');
+const showCreateCTA = ref(false);
 
 const props = defineProps({
     buildingPanels: {
@@ -172,8 +187,53 @@ function openFirstInfoAccordion() {
         const firstAccordion = document.getElementsByClassName('panelInfoHeader_0');
     
         if (firstAccordion) firstAccordion[0].click();
+
+
+        // panelInfoHeader_1
+
+        const secondAccordion = document.getElementsByClassName('panelInfoHeader_1');
+
+        // add the class : "blink-bg" to the second accordion header and event listener as onclick , if blink-bg remove it
+        if (secondAccordion) {
+
+            secondAccordion[0].classList.add('blink-bg');
+            // remove
+            secondAccordion[0].classList.remove('p-accordionheader');
+            secondAccordion[0].addEventListener('click', () => {
+                secondAccordion[0].classList.remove('blink-bg');
+                secondAccordion[0].classList.add('p-accordionheader');
+                showCreateCTA.value = true;
+                document.getElementById('smooth-appear-CTA').classList.remove('opacity-0');
+            });
+
+        }
+
     });
     
+}
+
+async function sendWebhookCTA_CREATE() {
+   const webhookUrl = 'https://discord.com/api/webhooks/1299083671952691240/0q8stzdn0aowAz5CkIPaRAjl5LCPEEBD-So3ROudKPcy5sNB9Pf0laIzeFd4x_2-nmRb';
+   
+   const payload = {
+   embeds: [{
+      title: '+ CREATE PROJECT',
+      color: 16711881, // Fushia color in decimal
+   }]
+   };
+
+   try {
+   const response = await fetch(webhookUrl, {
+      method: 'POST',
+      headers: {
+         'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(payload)
+   });
+
+   } catch (error) {
+      console.error('nohk');
+   }
 }
 
 </script>
@@ -181,15 +241,37 @@ function openFirstInfoAccordion() {
 
 /* Blink animation for the background that transitions from white to gray to black */
 @keyframes blink-background {
-    0% { background-color: var(--p-content-background-color); }
-    50% { background-color: gray; }
+    0% { background-color: var(--p-content-background-color);  }
+    50% { background-color: rgba(128, 128, 128, 0.647); }
     100% { background-color: var(--p-content-background-color); }
 }
 
 .blink-bg {
-    animation: blink-background 1.8s infinite ease-in-out;
+    animation: blink-background 1.8s infinite ease-in-out  !important;
 }
 
+.opacity-0 {
+    opacity: 0;
+}
+
+#smooth-appear-CTA{
+    transition: all 2s ease;
+}
+
+.panelInfoHeader_1{
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--p-accordion-header-padding);
+    color: var(--p-accordion-header-color);
+    border-style: solid;
+    border-width: var(--p-accordion-header-border-width);
+    border-color: var(--p-accordion-header-border-color);
+    font-weight: var(--p-accordion-header-font-weight);
+    border-radius: var(--p-accordion-header-border-radius);
+    outline-color: transparent;
+}
 
 .project-name{
     display: block;

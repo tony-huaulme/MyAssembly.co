@@ -118,11 +118,51 @@ const menu = ref();
 const itemsContextMenu = computed(() => {
   return [
     { label: `Edit ${activePanel.value}`, 
-      icon: 'pi pi-file', 
+      icon: 'pi pi-pencil', 
       command: () => { 
-        toast.add({ severity: 'success', summary: 'Success', detail: 'Invitation sent!', life: 3000 });
+        toast.add({ severity: 'success', summary: 'Edit', detail: 'Edit info', life: 3000 });
         editPanelDrawerVisible.value = true;
       } 
+    },
+
+    { label: `Open Info ${activePanel.value}`, 
+      icon: 'pi pi-file', 
+      command: () => { 
+        toast.add({ severity: 'warn', summary: 'Open Info', detail: "Panel's info", life: 3000 });
+      } 
+    },
+    { label: `Share ${activePanel.value}`, 
+      icon: 'pi pi-share-alt', 
+      command: () => { 
+        toast.add({ severity: 'info', summary: 'Share', detail: 'Share this panel', life: 3000 });
+      } 
+    },
+    {
+      separator: true
+    },
+    { label: 'Help', 
+      icon: 'pi pi-question', 
+      command: () => { 
+        toast.add({ severity: 'info', summary: 'Help', detail: 'Ask for Help', life: 3000 });
+      }
+    },
+    {
+      label: 'Comments',
+      icon: 'pi pi-comments',
+      items: [
+        { label: 'New', icon: 'pi pi-plus' },
+        { label: 'Delete', icon: 'pi pi-trash' },
+        { label: 'Export', icon: 'pi pi-upload' }
+      ]
+    },
+    {
+      separator: true
+    },
+    { label: 'Quit', 
+      icon: 'pi pi-times', 
+      command: () => { 
+        toast.add({ severity: 'error', summary: 'Quit', detail: 'Quit Button', life: 3000 });
+      }
     }
   ];
 });

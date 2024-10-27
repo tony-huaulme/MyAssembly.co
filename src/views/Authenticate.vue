@@ -3,14 +3,17 @@
     <div class="flex h-screen justify-center md:p-5 w-fill">
 
         <!-- Right Section: Placeholder for Login Form -->
-        <div class="md:w-1/2 h-fill w-fill md:max-w-xl flex flex-column relative">
+                 <!-- other side 2/3 is an image -->
+        <div class="hidden md:flex md:w-2/3 h-fill">
+            <img src="../assets/SignUpReAssurance.png" alt="App Features" class="object-cover w-full">
+        </div>
+        <div class="md:w-1/3 h-fill flex flex-column relative">
 
             <div class="w-fill flex flex-column items-center">
-
                 <!-- Replace this with your login form -->
-                <div class="w-2/3 max-w-md mt-10 flex flex-column justify-center ">
-                    <img v-if="isDarkMode" src="../assets/logo_darkmode.png" alt="MyAssembly.co Icon" class="p-3" style="width: 10rem; height: 10rem; align-self: center;">
-                    <img v-else src="../assets/logo_lightmode.png" alt="MyAssembly.co Icon" class="p-3" style="width: 10rem; height: 10rem; align-self: center;">   
+                <div class="md:w-2/3 max-w-md mt-10 flex flex-column justify-center w-100 pl-4 pr-4 md:pl-0 md:pr-0">
+                    <img v-if="isDarkMode" src="../assets/logo_darkmode.png" alt="MyAssembly.co Icon" class="p-3 w-[5rem] h-[5rem] md:w-[10rem] md:h-[10rem]" style="align-self: center;">
+                    <img v-else src="../assets/logo_lightmode.png" alt="MyAssembly.co Icon" class="p-3 w-[5rem] h-[5rem] md:w-[10rem] md:h-[10rem]" style="align-self: center;">   
 
                     <h1 class="text-2xl font-semibold text-gray-700 text-center mb-6">{{ signupPage ? 'Welcome to MyAssembly.co!' : 'Log into my account' }}</h1>
                     <Button iconPos="left" @click="googleAuth" class="w-fill" style="background-color: white; color: #3c4043; border: none;"> 
@@ -19,8 +22,8 @@
                         </Button>
 
 
-                        <Divider align="center" type="solid" style="margin: 48px 0px;">
-                            <p class="m-0 text-xl">or</p>
+                        <Divider align="center" type="solid" style="margin: 18px 0px;">
+                            <p class="m-0 text-l">or</p>
                         </Divider>
 
                     <div v-if="signupIndex == 0" class="flex flex-col gap-2">
@@ -51,11 +54,16 @@
 
 
                 </div>
+
+                <div class="md:hidden">
+                    <img src="../assets/SignUpReAssurance-Vertical.png" alt="App Features" class="object-cover w-full">
+                </div>
             </div>
 
 
 
         </div>
+
         <!-- Navigation -->
         <i class="pi pi-times absolute top-5 right-5 cursor-pointer text-xl" @click="$router.push('/')"></i>
         <i v-if="signupIndex > 0" @click="signupIndex = signupIndex - 1"

@@ -7,7 +7,7 @@ async function sendWebhookCTA() {
    
    const payload = {
    embeds: [{
-      title: 'Click !',
+      title: 'Start Demo',
       color: 51711, // Green color in decimal
    }]
    };
@@ -30,7 +30,7 @@ async function sendWebhookCTA() {
 <template>
 
 <!-- btn btn-primary d-flex flex-row -->
-    <RouterLink :to="'/authenticate'" class="get-started-btn" @click="sendWebhookCTA()">       
+    <RouterLink :to="'/ModelFromProjectId?projectId=48'" class="get-started-btn" @click="sendWebhookCTA()">       
         
             <Button>
                 <slot>
