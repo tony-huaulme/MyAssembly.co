@@ -86,7 +86,13 @@ const routes = [
         component : Statistics
       }
     ]
-  }
+  },
+  // /404
+  {
+    path: '/404',
+    name: '404',
+    component: () => import('../views/404.vue')
+  },
 //   { path: '/bars', component: Bars, name: 'Bars' },
 //   { path: '/references', component: References, name: 'Références' },
 //   { path: '/stocks', component: Stocks },

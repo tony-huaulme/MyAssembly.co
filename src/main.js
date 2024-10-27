@@ -68,7 +68,9 @@ app.use(PrimeVue, {
 app.use(ToastService);
 app.directive('ripple', Ripple);
 
-
+router.beforeEach(to => {
+if (!to.matched.length) window.location = "/404"
+})
 // Router
 app.use(router);
 
