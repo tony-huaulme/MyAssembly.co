@@ -43,7 +43,7 @@
         @mouseup.right="mouseUp"
         ref="modelContainer" 
         @click="threeJsOrbitControls.autoRotate = false;"
-        :class="{ 'h-2/3 w-screen': isPortrait, 'w-2/3 h-screen': !isPortrait }"
+        :class="{ 'h-[75vh] w-screen': isPortrait, 'w-[75vw] h-screen': !isPortrait }"
         class="canvas-container"
       >   
       <ModelViewer 
@@ -264,7 +264,7 @@ onMounted(() => {
 .canvas-container {
     position: relative;
     overflow: hidden;
-    width: 100%; /* Optional: Ensure full width if needed */
+    /* width: 100%; */
     height: 100vh; /* Ensure full height to match screen */
 }
 
