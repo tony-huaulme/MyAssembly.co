@@ -1,13 +1,13 @@
 <template>
     <!-- Full-screen container -->
-    <div class="flex h-screen justify-center md:p-5 w-fill">
+    <div class="flex h-screen justify-center md:p-0 w-fill">
 
         <!-- Right Section: Placeholder for Login Form -->
                  <!-- other side 2/3 is an image -->
         <div class="hidden md:flex md:w-2/3 h-fill">
-            <img src="../assets/SignUpReAssurance.png" alt="App Features" class="object-cover w-full">
+            <img src="../assets/SignUpReAssurance.png" alt="App Features" class="object-cover w-full" style="opacity: 0.7;">
         </div>
-        <div class="md:w-1/3 h-fill flex flex-column relative">
+        <div class="md:w-1/3 h-fill flex flex-column relative grayBg">
 
             <div class="w-fill flex flex-column items-center">
                 <!-- Replace this with your login form -->
@@ -22,8 +22,8 @@
                         </Button>
 
 
-                        <Divider align="center" type="solid" style="margin: 18px 0px;">
-                            <p class="m-0 text-l">or</p>
+                        <Divider align="center" type="solid" style="margin: 18px 0px; background-color: transparent" class="backgroundG">
+                            <p class="m-0 text-l backgroundG">or</p>
                         </Divider>
 
                     <div v-if="signupIndex == 0" class="flex flex-col gap-2">
@@ -56,7 +56,7 @@
                 </div>
 
                 <div class="md:hidden">
-                    <img src="../assets/SignUpReAssurance-Vertical.png" alt="App Features" class="object-cover w-full">
+                    <img src="../assets/SignUpReAssurance-Vertical.png" alt="App Features" class="object-cover w-full" style="opacity: 0.7;">
                 </div>
             </div>
 
@@ -235,4 +235,16 @@ const googleAuth = async () => {
 .p-divider-content {
     background-color: var(--p-content-background) !important;
 }
+
+
+
+@media screen and (min-width: 768px) {
+    .grayBg{
+        height: 100vh !important;
+    }
+
+
+
+}
+
 </style>
