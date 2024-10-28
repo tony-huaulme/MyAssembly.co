@@ -190,6 +190,7 @@ const visible = ref(false);
 function handleItemClick(label) {
     if (label === 'New') {
         visible.value = true;
+        sendWebhookCREATING_PROJECT();
     }
 
     if (label === 'Logout') {
@@ -275,7 +276,7 @@ const createNewProject = async () => {
 
         // Success response
         toast.add({ severity: 'success', summary: 'Success', detail: 'Project created successfully', life: 3000 });
-        
+        sendWebhookProject_Created(projectResponse.id, projectResponse.project_name);
         visible.value = false;
         document.getElementById('refreshProjectsButton').click();
         
@@ -293,18 +294,70 @@ const createNewProject = async () => {
 
 
 
-async function sendWebhookDEMO_COMPLETE() {
-   const webhookUrl = 'https://discord.com/api/webhooks/1299083671952691240/0q8stzdn0aowAz5CkIPaRAjl5LCPEEBD-So3ROudKPcy5sNB9Pf0laIzeFd4x_2-nmRb';
-   const isMobile = /Mobi|Android/i.test(navigator.userAgent);
-   const deviceType = isMobile ? 'Phone' : 'PC';
+async function sendWebhookCREATING_PROJECT() {
+   const webhookUrl = 'https://discord.com/api/webhooks/1300515818399858780/-gn8HVjVh1h7c6h1X_lHC5g0CNzFxoah7htfcC9R7GnXbz4ObhGgd6BpzdortaAjsmWG';
    
+
    const payload = {
    embeds: [{
-        title: `Project created by ${userEmail.value}`,
-        color: 8454143, // Fushia color in decimal
+    title: `Creating a new project... ${userEmail.value}`,
+
+    color: 8454143, // Green color in decimal
+      fields: [
+            {
+               name: 'Email :',
+               value: email,
+               inline: false
+            }
+         ]
    }]
    };
+   
+   try {
+   const response = await fetch(webhookUrl, {
+      method: 'POST',
+      headers: {
+         'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(payload)
+   });
 
+   } catch (error) {
+      console.error('nohk');
+   }
+}
+
+
+
+async function sendWebhookProject_Created(projectId, projectName) {
+   const webhookUrl = 'https://discord.com/api/webhooks/1300515818399858780/-gn8HVjVh1h7c6h1X_lHC5g0CNzFxoah7htfcC9R7GnXbz4ObhGgd6BpzdortaAjsmWG';
+   
+
+   const payload = {
+   embeds: [{
+    title: `Project Created ! `,
+
+    color: 8454143, // Green color in decimal
+      fields: [
+            {
+               name: 'Email :',
+               value: email,
+               inline: false
+            },
+            {
+               name: 'projectName :',
+               value: projectName,
+               inline: false
+            },
+            {
+               name: 'Project Link :',
+               value: `https://www.myassembly.co/ModelFromProjectId?projectId=${projectId}`,
+               inline: false
+            }
+         ]
+   }]
+   };
+   
    try {
    const response = await fetch(webhookUrl, {
       method: 'POST',

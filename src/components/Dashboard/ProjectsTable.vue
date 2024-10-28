@@ -115,7 +115,7 @@
 
                     <div class="flex flex-col gap-2">
                         <label for="projectName">Name</label>
-                        <InputText id="projectName"  v-model="activeProject.project_name" aria-describedby="name-help" />
+                        <InputText disabled id="projectName"  v-model="activeProject.project_name" aria-describedby="name-help" />
                         <!-- <small id="projectName-help">This is the name</small> -->
                     </div>
                     <!-- texte area for project description -->
