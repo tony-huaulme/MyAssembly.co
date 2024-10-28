@@ -94,6 +94,7 @@
 
     </div>
     <RouterLink 
+        v-if="isDemo"
         :to="'/authenticate'" 
         class="get-started-btn absolute"
         :class="{ 'top-5 left-5': isPortrait, 'bottom-5 right-5': !isPortrait }"
