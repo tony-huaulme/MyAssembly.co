@@ -204,6 +204,7 @@ function openFirstInfoAccordion() {
                 secondAccordion[0].classList.add('p-accordionheader');
                 showCreateCTA.value = true;
                 document.getElementById('smooth-appear-CTA').classList.remove('opacity-0');
+                sendWebhookDEMO_COMPLETE();
             });
 
         }
@@ -219,6 +220,32 @@ async function sendWebhookCTA_CREATE() {
    embeds: [{
       title: '+ CREATE PROJECT',
       color: 16711881, // Fushia color in decimal
+   }]
+   };
+
+   try {
+   const response = await fetch(webhookUrl, {
+      method: 'POST',
+      headers: {
+         'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(payload)
+   });
+
+   } catch (error) {
+      console.error('nohk');
+   }
+}
+
+
+
+async function sendWebhookDEMO_COMPLETE() {
+   const webhookUrl = 'https://discord.com/api/webhooks/1299083671952691240/0q8stzdn0aowAz5CkIPaRAjl5LCPEEBD-So3ROudKPcy5sNB9Pf0laIzeFd4x_2-nmRb';
+   
+   const payload = {
+   embeds: [{
+        title: 'DEMO COMPLETE',
+        color: 8454143, // Fushia color in decimal
    }]
    };
 
