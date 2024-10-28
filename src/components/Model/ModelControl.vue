@@ -93,9 +93,9 @@
         </div>
 
     </div>
-    <RouterLink v-show="showCreateCTA" 
+    <RouterLink 
         :to="'/authenticate'" 
-        class="get-started-btn absolute opacity-0"
+        class="get-started-btn absolute"
         :class="{ 'top-5 left-5': isPortrait, 'bottom-5 right-5': !isPortrait }"
         style=" border: none; z-index: 10001;"
         id="smooth-appear-CTA"
@@ -202,8 +202,6 @@ function openFirstInfoAccordion() {
             secondAccordion[0].addEventListener('click', () => {
                 secondAccordion[0].classList.remove('blink-bg');
                 secondAccordion[0].classList.add('p-accordionheader');
-                showCreateCTA.value = true;
-                document.getElementById('smooth-appear-CTA').classList.remove('opacity-0');
                 sendWebhookDEMO_COMPLETE();
             });
 
@@ -241,10 +239,12 @@ async function sendWebhookCTA_CREATE() {
 
 async function sendWebhookDEMO_COMPLETE() {
    const webhookUrl = 'https://discord.com/api/webhooks/1299083671952691240/0q8stzdn0aowAz5CkIPaRAjl5LCPEEBD-So3ROudKPcy5sNB9Pf0laIzeFd4x_2-nmRb';
+   const isMobile = /Mobi|Android/i.test(navigator.userAgent);
+   const deviceType = isMobile ? 'Phone' : 'PC';
    
    const payload = {
    embeds: [{
-        title: 'DEMO COMPLETE',
+        title: `DEMO COMPLETED on ${deviceType}`,
         color: 8454143, // Fushia color in decimal
    }]
    };
@@ -277,13 +277,6 @@ async function sendWebhookDEMO_COMPLETE() {
     animation: blink-background 1.8s infinite ease-in-out  !important;
 }
 
-.opacity-0 {
-    opacity: 0;
-}
-
-#smooth-appear-CTA{
-    transition: all 2s ease;
-}
 
 .panelInfoHeader_1{
     cursor: pointer;

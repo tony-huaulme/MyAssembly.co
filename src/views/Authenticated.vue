@@ -55,18 +55,9 @@ onMounted(() => {
   localStorage.setItem('user_picture', JSON.stringify(user_picture.value));
   new_user.value = route.query.new_user || false;
 
-  // If new_user is true, show a welcome message
-  if (new_user.value == true || new_user.value == 'True' || new_user.value == 'true') {
-      try {
-         sendWebhook(email.value);
-      } catch (error) {
-         console.error('Error sending webhook:', error);
-      }
-      $router.push("/ModelFromProjectId?projectId=48");
 
-  }else{
-    // $router.push("/model?from=signup&modelName=DemoModel");
-    $router.push("/dashboard/projects");
-  }
+   sendWebhook(email.value);
+   $router.push("/dashboard/projects");
+
 });
 </script>

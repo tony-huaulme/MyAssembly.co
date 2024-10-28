@@ -235,35 +235,8 @@ async function updateProjectTable() {
     } catch (error) {
         loading.value = false;
         console.error('Error Getting Projects:', error.response);
-        projects.value = [
-        { id: 44, project_name: 'UFO_1', file3d_link: 'HOUSE.obj', statut: 'SHARED' },
-            { id: 44, project_name: 'JARICO_12S', file3d_link: 'Industry_889.ifc', statut: 'READY TO SHARE' },
-            { id: 44, project_name: 'Project-ASC', file3d_link: '0554_AI_WILCK.obj', statut: 'FILE IMPORTED' },             { id: 44, project_name: 'UFO_1', file3d_link: 'HOUSE.obj', statut: 'SHARED' },
-            { id: 44, project_name: 'JARICO_12S', file3d_link: 'Industry_889.ifc', statut: 'READY TO SHARE' },
-            { id: 44, project_name: 'Project-ASC', file3d_link: '0554_AI_WILCK.obj', statut: 'FILE IMPORTED' },             { id: 44, project_name: 'UFO_1', file3d_link: 'HOUSE.obj', statut: 'SHARED' },
-            { id: 44, project_name: 'JARICO_12S', file3d_link: 'Industry_889.ifc', statut: 'READY TO SHARE' },
-            { id: 44, project_name: 'Project-ASC', file3d_link: '0554_AI_WILCK.obj', statut: 'FILE IMPORTED' },             { id: 44, project_name: 'UFO_1', file3d_link: 'HOUSE.obj', statut: 'SHARED' },
-            { id: 44, project_name: 'JARICO_12S', file3d_link: 'Industry_889.ifc', statut: 'READY TO SHARE' },
-            { id: 44, project_name: 'Project-ASC', file3d_link: '0554_AI_WILCK.obj', statut: 'FILE IMPORTED' },             { id: 44, project_name: 'UFO_1', file3d_link: 'HOUSE.obj', statut: 'SHARED' },
-            { id: 44, project_name: 'JARICO_12S', file3d_link: 'Industry_889.ifc', statut: 'READY TO SHARE' },
-            { id: 44, project_name: 'Project-ASC', file3d_link: '0554_AI_WILCK.obj', statut: 'FILE IMPORTED' },             { id: 44, project_name: 'UFO_1', file3d_link: 'HOUSE.obj', statut: 'SHARED' },
-            { id: 44, project_name: 'JARICO_12S', file3d_link: 'Industry_889.ifc', statut: 'READY TO SHARE' },
-            { id: 44, project_name: 'Project-ASC', file3d_link: '0554_AI_WILCK.obj', statut: 'FILE IMPORTED' },             { id: 44, project_name: 'UFO_1', file3d_link: 'HOUSE.obj', statut: 'SHARED' },
-            { id: 44, project_name: 'JARICO_12S', file3d_link: 'Industry_889.ifc', statut: 'READY TO SHARE' },
-            { id: 44, project_name: 'Project-ASC', file3d_link: '0554_AI_WILCK.obj', statut: 'FILE IMPORTED' },             { id: 44, project_name: 'UFO_1', file3d_link: 'HOUSE.obj', statut: 'SHARED' },
-            { id: 44, project_name: 'JARICO_12S', file3d_link: 'Industry_889.ifc', statut: 'READY TO SHARE' },
-            { id: 44, project_name: 'Project-ASC', file3d_link: '0554_AI_WILCK.obj', statut: 'FILE IMPORTED' },             { id: 44, project_name: 'UFO_1', file3d_link: 'HOUSE.obj', statut: 'SHARED' },
-            { id: 44, project_name: 'JARICO_12S', file3d_link: 'Industry_889.ifc', statut: 'READY TO SHARE' },
-            { id: 44, project_name: 'Project-ASC', file3d_link: '0554_AI_WILCK.obj', statut: 'FILE IMPORTED' },             { id: 44, project_name: 'UFO_1', file3d_link: 'HOUSE.obj', statut: 'SHARED' },
-            { id: 44, project_name: 'JARICO_12S', file3d_link: 'Industry_889.ifc', statut: 'READY TO SHARE' },
-            { id: 44, project_name: 'Project-ASC', file3d_link: '0554_AI_WILCK.obj', statut: 'FILE IMPORTED' },             { id: 44, project_name: 'UFO_1', file3d_link: 'HOUSE.obj', statut: 'SHARED' },
-            { id: 44, project_name: 'JARICO_12S', file3d_link: 'Industry_889.ifc', statut: 'READY TO SHARE' },
-            { id: 44, project_name: 'Project-ASC', file3d_link: '0554_AI_WILCK.obj', statut: 'FILE IMPORTED' },             { id: 44, project_name: 'UFO_1', file3d_link: 'HOUSE.obj', statut: 'SHARED' },
-            { id: 44, project_name: 'JARICO_12S', file3d_link: 'Industry_889.ifc', statut: 'READY TO SHARE' },
-            { id: 44, project_name: 'Project-ASC', file3d_link: '0554_AI_WILCK.obj', statut: 'FILE IMPORTED' },             { id: 44, project_name: 'UFO_1', file3d_link: 'HOUSE.obj', statut: 'SHARED' },
-            { id: 44, project_name: 'JARICO_12S', file3d_link: 'Industry_889.ifc', statut: 'READY TO SHARE' },
-            { id: 44, project_name: 'Project-ASC', file3d_link: '0554_AI_WILCK.obj', statut: 'FILE IMPORTED' }, 
-        ];
+        // projects.value = [{ id: 44, project_name: 'UFO_1', file3d_link: 'HOUSE.obj', statut: 'SHARED' }]
+           
         // if response status is 401, redirect to login page
         if (error.response.status === 401) {
             router.push({ name: 'authenticate' });
