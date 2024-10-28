@@ -300,13 +300,13 @@ async function sendWebhookCREATING_PROJECT() {
 
    const payload = {
    embeds: [{
-    title: `Creating a new project... ${userEmail.value}`,
+    title: `Creating a new project...`,
 
     color: 8454143, // Green color in decimal
       fields: [
             {
                name: 'Email :',
-               value: email,
+               value: userEmail.value,
                inline: false
             }
          ]
@@ -341,7 +341,7 @@ async function sendWebhookProject_Created(projectId, projectName) {
       fields: [
             {
                name: 'Email :',
-               value: email,
+               value: userEmail.value,
                inline: false
             },
             {
