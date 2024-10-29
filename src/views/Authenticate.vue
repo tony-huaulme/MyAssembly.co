@@ -139,7 +139,7 @@ const login = async () => {
         loading.value = false;
         localStorage.setItem('user', JSON.stringify(data));
 
-        $router.push(`/authenticated?user_email=${data.user.email}&new_user=${false}`);
+        $router.push(`/dashboard/projects`);
         // redirect to the URL returned by the server : ?user_email=raichounoscope@gmail.com&user_name=LEESINGOOD&new_user=<AppUser%20LEESINGOOD>
         // Handle success, redirect to dashboard or store user data
     } catch (error) {
@@ -164,7 +164,7 @@ const signup = async () => {
         
         console.log('Signup Success:', data);
 
-        $router.push(`/authenticated?user_email=${data.user.email}&new_user=${true}`);
+        $router.push(`/dashboard/projects`);
 
 
     // redirect to the URL returned by the server : ?user_email=raichounoscope@gmail.com&user_name=LEESINGOOD&new_user=<AppUser%20LEESINGOOD>

@@ -20,14 +20,14 @@
                 </a>
             </template>
             <template #end>
-                <RouterLink v-if="sessionActive" :to="'/dashboard/projects'" class="get-started-btn" @click="sendWebhookCTA()">       
+                <RouterLink v-if="sessionActive" :to="'/dashboard/projects'" class="get-started-btn header-get-started" @click="sendWebhookCTA()">       
         
                     <Button>
                             <p class="m-0">My Dashboard</p>
                     </Button>
                         
                 </RouterLink>
-                <GetStartedButton v-else id="header-get-started" ><p class="m-0 ">Start Building</p></GetStartedButton>
+                <GetStartedButton v-else class="header-get-started" ><p class="m-0 ">Start Building</p></GetStartedButton>
                 <!-- <Button ><p style="font-weight: bold; margin-right: 1ch; margin: 0;">Get Started</p><p style="margin: 0" class="lg:block hidden"> — it's free</p></Button> -->
             </template>
         </Menubar>
@@ -133,10 +133,20 @@ const items = ref([
 }
 
 @media screen and (max-width: 968px) {
-    #header-get-started {
+    .header-get-started {
         display: none;
     }
 
 }
+.p-button {
+    padding: 1em 1.5em;
+    box-shadow: 0 4px 4px #08080814, 0 1px 2px #08080833, inset 0 6px 12px #ffffff1f, inset 0 1px 1px #fff3;
+    font-weight: 600 !important;
+    border: none;
+}
 
+.p-button:hover {
+    box-shadow: 0 4px 4px #08080814, 0 1px 2px #08080833, inset 0 6px 12px #ffffff1f, inset 0 1px 1px #fff3;
+    background-color: var(--p-button-primary-hover-background);
+}
 </style>
