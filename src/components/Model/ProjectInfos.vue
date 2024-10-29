@@ -21,7 +21,8 @@ const props = defineProps({
     },
     projectDescription: {
         type: String,
-        required: true,
+        required: false,
+        default: '',
     },
 });
 

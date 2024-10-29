@@ -1,4 +1,5 @@
 <template>
+  <p class="absolute"> {{ project_settings?.test}}</p>
   <div v-if="noAccessToModel" class="h-screen w-screen flex flex-column items-center justify-center">
     <h1 class="text-3xl mb-5">No access to this model</h1>
     <!-- user pi-times in big size -->
@@ -87,8 +88,6 @@ const isPortrait =        ref(false);
 const modelInfosVisible = ref(false);
 const projectInfosVisible = ref(false);
 
-const noAccessToModel = ref(false);
-
 // Model control
 const selectedPanelName = ref('');
 const panelClicked = ref(null);
@@ -105,9 +104,7 @@ const route = useRoute();
 
 // Project INFOS
 const projectId = ref(route.query.projectId);
-const projectName = ref('');
-const modelUrl = ref('');
-const project_settings = ref(null);
+
 
 // dynamic infos
 const infosTabs = computed(() => {
@@ -132,11 +129,37 @@ const infosDescription = computed(() => {
   return '';
 });
 
+const projectName = ref('');
+const modelUrl = ref('');
+const noAccessToModel = ref(false);
+const project_settings = ref(null);
+
+
 const props = defineProps({
   editMode: {
     type: Boolean,
     required: false,
     default: false,
+  },
+  p_noAccessToModel: {
+    type: Boolean,
+    required: false,
+    default: false,
+  },
+  p_projectName: {
+    type: String,
+    required: false,
+    default: '',
+  },
+  p_modelUrl: {
+    type: String,
+    required: false,
+    default: '',
+  },
+  p_project_settings: {
+    type: Object,
+    required: false,
+    default: null,
   },
 });
 
@@ -150,7 +173,6 @@ async function getProject() {
  
     project_settings.value = JSON.parse(dataHandled);
 
-    emit('project-settings', project_settings.value);
 
     const fileKey = data.file3d_link.split('amazonaws.com/')[1]
     // MyAssemblyDemoLIL.glb
@@ -169,6 +191,7 @@ async function getProject() {
     }
 
   } catch (error) {
+    console.error('Error fetching project:', error);  
     noAccessToModel.value = true;
   }
 }
@@ -246,13 +269,19 @@ function mouseUp(event) {
 onMounted(() => {
   detectOrientation();
   window.addEventListener('resize', detectOrientation);
-  getProject();
+  if (!props.editMode) {
+    getProject();
+    
+  }
 
   if (props.editMode) {
     watch(() => selectedPanelName.value, (newVal) => {
       emit('newActivePanel', newVal);
     });
-
+    projectName.value = props.p_projectName;
+    modelUrl.value = props.p_modelUrl;
+    noAccessToModel.value = props.p_noAccessToModel;
+    project_settings.value = props.p_project_settings;
   }
 
 });

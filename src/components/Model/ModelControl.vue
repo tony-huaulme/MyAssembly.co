@@ -94,7 +94,7 @@
 
     </div>
     <RouterLink 
-        v-if="isDemo"
+        v-if="isDemo && !editMode"
         :to="'/authenticate'" 
         class="get-started-btn absolute"
         :class="{ 'top-5 left-5': isPortrait, 'bottom-5 right-5': !isPortrait }"
@@ -127,7 +127,8 @@ import { ref, defineEmits, onMounted, nextTick } from 'vue';
 import { useRoute } from 'vue-router';
 const route = useRoute();
 const isDemo = ref(route.query.projectId == '48');
-const showCreateCTA = ref(false);
+const editMode = ref(route.name == 'EditProject');
+
 
 const props = defineProps({
     buildingPanels: {
