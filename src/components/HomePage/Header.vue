@@ -20,7 +20,14 @@
                 </a>
             </template>
             <template #end>
-                <GetStartedButton id="header-get-started" ><p class="m-0 ">{{userEmail ? 'Dashboard' : 'Start Building'}}</p></GetStartedButton>
+                <RouterLink v-if="sessionActive" :to="'/dashboard/projects'" class="get-started-btn" @click="sendWebhookCTA()">       
+        
+                    <Button>
+                            <p class="m-0">My Dashboard</p>
+                    </Button>
+                        
+                </RouterLink>
+                <GetStartedButton v-else id="header-get-started" ><p class="m-0 ">Start Building</p></GetStartedButton>
                 <!-- <Button ><p style="font-weight: bold; margin-right: 1ch; margin: 0;">Get Started</p><p style="margin: 0" class="lg:block hidden"> — it's free</p></Button> -->
             </template>
         </Menubar>
