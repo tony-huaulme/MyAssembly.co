@@ -1,7 +1,10 @@
 <template>
-    <div ref="DashboardContainer" class="card flex dahsboardContainer h-screen w-fill" style="overflow-y: auto; overflow-x: hidden;" :class="isPortrait ? 'flex-column' : 'flex'">
+    <div ref="DashboardContainer" v-if="userAuthCheck" class="card flex dahsboardContainer h-screen w-fill" style="overflow-y: auto; overflow-x: hidden;" :class="isPortrait ? 'flex-column' : 'flex'">
         <SideMenue></SideMenue>
         <RouterView />
+    </div>
+    <div v-else>
+        <p>Loading...</p>
     </div>
 </template>
 <script setup>
@@ -17,7 +20,7 @@
     const DashboardContainer = ref(null);
     const isPortrait = ref(false);
 
-    const new_user = ref(false);
+    const userAuthCheck = ref(false);
 
 
     function detectOrientation() {
@@ -31,8 +34,10 @@
             if (!data.authenticated) {
                 $router.push('/authenticate');
             }
+            userAuthCheck.value = true;
         }).catch((error) => {
             console.error('Error:', error);
+            $router.push('/authenticate');
         });
 
         detectOrientation();
