@@ -6,6 +6,7 @@
     <i class="pi pi-times text-7xl"></i>
   </div>
   <div v-else>
+
     <FullScreenToggle v-if="!modelInfosVisible"/>
     <ModelInfos 
 
@@ -219,6 +220,10 @@ const handleControl = (arg) => {
   if(arg.controleName === 'showOnlyPanelByName') {
     ModelBuilding.value.showOnlyPanelByName(arg.arg);
     selectedPanelName.value = arg.arg;
+
+    console.log('addLabelToPanel', arg.arg);
+    addLabelToPanel(arg.arg, `This is the ${arg.arg} panel`);
+
   }
 
   if(arg.controleName === 'stopAutoRotate') {
@@ -231,7 +236,6 @@ const handleControl = (arg) => {
     selectedPanelName.value = '';
   }
 
-  modelViewerRef.value.handleControl(arg);
 };
 
 function setBuilding(model) {
@@ -245,6 +249,12 @@ function setBuilding(model) {
 function detectOrientation() {
   isPortrait.value = window.innerHeight > window.innerWidth;
   console.log("Screen Orientation :",isPortrait.value ? "Portrait" : "Landscape");
+}
+
+function addLabelToPanel(panelName, label) {
+  if(props.editMode) {
+    ModelBuilding.value.addLabelToGroup(panelName, label);
+  }
 }
 
 let mouseDownTime = 0;

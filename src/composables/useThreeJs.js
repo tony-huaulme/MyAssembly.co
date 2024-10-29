@@ -3,6 +3,8 @@ import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import { TG } from '../ThreeJs/building/ModelAnimation';
+import { CSS2DRenderer } from 'three/examples/jsm/renderers/CSS2DRenderer.js';
+
 
 export function useThreeJs() {
   let scene, camera, renderer, labelRenderer, orbitControls, animationFrameId, model, cameraLight;
@@ -29,6 +31,13 @@ export function useThreeJs() {
       renderer.domElement.style.opacity = 0;
       console.log('renderer.domElement:', container);
       container.appendChild(renderer.domElement);
+
+      // CSS2DRenderer (Label Renderer)
+      labelRenderer = new CSS2DRenderer();
+      labelRenderer.setSize(container.offsetWidth, container.offsetHeight);
+      labelRenderer.domElement.style.position = 'absolute';
+      labelRenderer.domElement.style.top = '0px';
+      container.appendChild(labelRenderer.domElement);
 
       // OrbitControls
       orbitControls = new OrbitControls(camera, renderer.domElement);
@@ -78,6 +87,7 @@ export function useThreeJs() {
               camera.aspect = width / height;
               camera.updateProjectionMatrix();
               renderer.setSize(width, height);
+              labelRenderer.setSize(width, height);
               model.scale.copy(originalScale);
             };
 
@@ -90,6 +100,8 @@ export function useThreeJs() {
               TG.update();
 
               renderer.render(scene, camera);
+              labelRenderer.render(scene, camera);
+
               orbitControls.update();
             };
 
@@ -106,6 +118,8 @@ export function useThreeJs() {
               container.removeChild(renderer.domElement);
               console.log('canceling all animations');
               TG.removeAll();
+              container.removeChild(labelRenderer.domElement);
+              console.log('removeChild labelRenderer.domElement');
             });
             loadingProgress.value = 100;
             let canvas = renderer.domElement;

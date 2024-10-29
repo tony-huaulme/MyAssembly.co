@@ -74,14 +74,6 @@ function runBuildProcess() {
 }
 
 
-function handleControl(control) {
-  console.log('control', control);
-}
-
-defineExpose({
-  handleControl,
-});
-
 </script>
 
 <style>

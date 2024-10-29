@@ -1,6 +1,7 @@
 import { Panel } from './Panel.js';
 import { isPanelName, isPanelPart, groupAndSort } from '../utils.js';
 import * as THREE from 'three';
+import { CSS2DObject } from 'three/examples/jsm/renderers/CSS2DRenderer.js';
 
 
 export class Building {
@@ -95,4 +96,28 @@ export class Building {
         return groupAndSort(allPanlesNames);
     }
 
+
+    
+
+    // WORKING stick to the elemnt
+    addLabelToGroup(panelName, labelText) {
+        const child = this.panels[panelName].getElements()[0];
+        if (!child) return;
+    
+        // Create the label element
+        const labelDiv = document.createElement('div');
+        labelDiv.innerHTML = `
+            <button class="p-button p-component p-button-icon-only" type="button">+</button>
+        `;
+    
+        // Set up the CSS2DObject for the label
+        const label = new CSS2DObject(labelDiv);
+        
+        // Attach the label directly to the child to match its position
+        child.add(label);
+    }
+
+    
+    
+    
 }
