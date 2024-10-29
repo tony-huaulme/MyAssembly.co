@@ -26,7 +26,7 @@
     function detectOrientation() {
         isPortrait.value = window.innerHeight > window.innerWidth;
     }
-
+    
     import api from '@/services/api';
     onMounted(() => {
 

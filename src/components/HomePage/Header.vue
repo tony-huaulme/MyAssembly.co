@@ -44,10 +44,18 @@ import { useRouter } from "vue-router";
 const router = useRouter();
 
 
-const userEmail = ref('');
+const sessionActive = ref(false);
 
+import api from '@/services/api';
 onMounted(() => {
-    userEmail.value = JSON.parse(localStorage.getItem('user_email'))
+
+    api.get('auth/check').then(({ data }) => {
+        if (!data.authenticated) {
+        }
+        sessionActive.value = true;
+    }).catch((error) => {
+        console.error('Error:', error);
+    });
 })
 
 
