@@ -20,7 +20,7 @@
                 </a>
             </template>
             <template #end>
-                <RouterLink v-if="sessionActive" :to="'/dashboard/projects'" class="get-started-btn header-get-started p-button" @click="sendWebhookCTA()">       
+                <RouterLink v-if="!sessionActive" :to="'/dashboard/projects'"  @click="sendWebhookCTA()">       
         
                     <Button>
                             <p class="m-0">My Dashboard</p>
