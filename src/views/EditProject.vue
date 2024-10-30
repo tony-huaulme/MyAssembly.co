@@ -259,7 +259,7 @@ const itemsContextMenu = computed(() => {
       label: `Edit ${activePanel.value}`,
       icon: 'pi pi-pencil',
       command: () => {
-        document.getElementById('selectedPanel').click();
+        // document.getElementById('selectedPanel').click();
         editPanelDrawerVisible.value = true;
       }
     },
