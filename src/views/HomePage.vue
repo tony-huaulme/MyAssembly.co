@@ -27,7 +27,7 @@
             </template>
             <template #description>
                 <span>Interact with building structures in a whole new way — with assembly instructions, detailed parts
-                    identification, and interactive, critical checkpoints — even from your phone.</span>
+                    identification, critical checkpoints — even from your phone.</span>
             </template>
             <GetStartedButton />
             <template #rightcolumn>

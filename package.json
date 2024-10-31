@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@floating-ui/vue": "^1.1.5",
     "@primevue/themes": "^4.0.5",
     "@tweenjs/tween.js": "^25.0.0",
     "axios": "^1.7.7",

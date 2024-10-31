@@ -126,7 +126,7 @@ import { ref, defineEmits, onMounted, nextTick } from 'vue';
 
 import { useRoute } from 'vue-router';
 const route = useRoute();
-const isDemo = ref(route.query.projectId == '48');
+const isDemo = ref(route.name == 'Demo');
 const editMode = ref(route.name == 'EditProject');
 
 

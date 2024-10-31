@@ -1,7 +1,3 @@
-<script setup lang="ts">
-import { link } from 'fs';
-</script>
-
 <template>
     <footer class="footer justify-center p-py-4" style="background-color: black !important; min-height: 65vh;">
          <!-- Left Section -->

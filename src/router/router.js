@@ -93,6 +93,13 @@ const routes = [
     name: '404',
     component: () => import('../views/404.vue')
   },
+
+  {
+    // DemoTest.vue
+    path: '/demo',
+    name: 'Demo',
+    component: () => import('../views/Demo.vue')
+  }
 //   { path: '/bars', component: Bars, name: 'Bars' },
 //   { path: '/references', component: References, name: 'Références' },
 //   { path: '/stocks', component: Stocks },
