@@ -1,6 +1,6 @@
 <template>
     <OverlayBadge 
-        v-if="selectedPanelName"
+        v-show="selectedPanelName"
         severity="info"
         :value="null" 
         id="selectedPanel" 
@@ -48,9 +48,14 @@
                                 <Button v-if="panel == 'R1'" 
                                     class="button" 
                                     :class="{'blink-bg': isDemo}"
-                                    id="clickPanelR1"
-                                    @click.stop="$emit(
-                                        'control-model', { controleName: 'showOnlyPanelByName', arg: panel }); isDemo ? stopBlinking('clickPanelR1') : ''"
+                                    id="demoShowPanelButton"
+                                    @click="
+                                    
+                                        $emit('control-model', { controleName: 'showOnlyPanelByName', arg: panel }); 
+                                        isDemo ? stopBlinking('clickPanelR1') : '';
+                                        isDemo ? emit('nextStepDemo') : ''
+                                        
+                                        "
                                     >
                                     {{ panel }}
                                 </Button>
@@ -93,12 +98,12 @@
         </div>
 
     </div>
-    <RouterLink 
+    <!-- <RouterLink 
         v-if="isDemo && !editMode"
         :to="'/authenticate'" 
         class="get-started-btn absolute"
         :class="{ 'top-5 left-5': isPortrait, 'bottom-5 right-5': !isPortrait }"
-        style=" border: none; z-index: 10001;"
+        style=" border: none; z-index: 1001;"
         id="smooth-appear-CTA"
         @click="sendWebhookCTA_CREATE()"
         >        
@@ -107,7 +112,7 @@
                 <p class="m-0" style="margin-right: 1ch;">{{ isPortrait ? '+ Create':'Create yours now !' }}</p>
             </slot>
         </Button>
-    </RouterLink>
+    </RouterLink> -->
 </template>
 
 
@@ -154,7 +159,7 @@ const activeIndex = ref(0);
 const isPortrait = ref(false);
 const clickedPanelCount = ref(0);
 
-const emit = defineEmits(['control-model', 'show-panel-info', 'show-project-info']);
+const emit = defineEmits(['control-model', 'show-panel-info', 'show-project-info', 'nextStepDemo', 'startDemo']);
 
 function detectOrientation() {
   isPortrait.value = window.innerHeight > window.innerWidth;
@@ -168,6 +173,9 @@ onMounted(() => {
     setTimeout(() => {
         try {
             document.getElementsByClassName('p-accordionheader')[0].click();
+            setTimeout(() => {
+                emit('startDemo');
+            }, 722);
         } catch (error) {
             console.error('Error clicking the first accordion header: ', error);
         }
@@ -277,6 +285,7 @@ async function sendWebhookDEMO_COMPLETE() {
 
 .blink-bg {
     animation: blink-background 1.8s infinite ease-in-out  !important;
+    z-index: 10001;
 }
 
 

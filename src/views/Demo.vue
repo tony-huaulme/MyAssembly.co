@@ -1,42 +1,67 @@
 <template>
-  <div class="p-4">
-    <!-- Trigger Button -->
-    <Button
-     
-      label="Show Tooltip via Button 1"
-      class="bg-green-600 text-white font-bold py-2 px-4 rounded ml-4"
-      @click="showOverlay"
-    />
+  <!-- <div class="absolute top-10 right-10">{{ reference }}</div> -->
+  <!-- <div 
+    v-if="isOpen"
+    class="h-screen w-screen absolute top-0 left-0"
+    style="z-index: 9999;  background: rgba(64, 64, 64, 0.5); /* Semi-transparent background */
+  backdrop-filter: blur(4px); /* Applies blur to everything behind */"
+    
+    ></div> -->
+  <div v-if="isOpen" ref="floating" :style="floatingStyles" class="p-3 popupContainer" style="z-index: 10001;">
+    <div class="popup p-4">
+      <div class="flex items-center justify-between mb-2">
+        <span class="font-semibold">{{ currentDemoPopupContent["title"] }}</span>
+        <span class="pi pi-times cursor-pointer" @click="isOpen = false"></span> 
+      </div>
+      
+      <div class="mb-4" v-html="currentDemoPopupContent['description']"></div>
+      <div class="flex justify-between items-center mt-4">
 
-    <!-- Overlay Tooltip -->
-    <div
-      ref="overlay"
-      v-show="isOverlayVisible"
-      class="absolute"
-    >
-      <div class="p-4 bg-purple-600 text-white rounded-lg shadow-lg text-sm leading-5">
-        <div class="flex items-center mb-2">
-          <span class="text-pink-300 text-lg mr-2">🚀</span>
-          <span class="font-semibold">See Flagsmith in action</span>
-        </div>
-        <p class="text-white mb-2">Click through this demo.</p>
-        <p class="text-white mb-4">
-          Manage feature deployments with confidence across any number of projects and environments.
-        </p>
-        <div class="flex justify-between items-center mt-4 border-t border-purple-500 pt-2">
-          <span class="text-purple-300 text-xs">1 / 2</span>
-          <Button
-            label="Feature Flags →"
-            icon="pi pi-arrow-right"
-            class="p-button-rounded p-button-sm p-button-success"
-            @click="onButtonClick"
-          />
-        </div>
+        <span > 
+          <i v-if="demoPopupIndex > 1" @click="demoPopupIndex --" class="pi pi-arrow-left cursor-pointer"></i>
+        </span>
+
+        <button
+          @click="demoPopupIndex ++"
+          v-if="demoPopupIndex < demoPopupContentLength"  
+          class="p-button p-component p-button-rounded p-button-sm p-button-success" 
+          type="button"
+          style="overflow: hidden; position: relative;">
+          <span class="p-button-icon p-button-icon-right pi pi-arrow-right"></span>
+          <span class="p-button-label">Next</span>
+        </button>
+        <button
+          v-else
+          @click="startAfterDemo"
+          class="p-button p-component p-button-rounded p-button-sm p-button-success" 
+          type="button"
+          style="overflow: hidden; position: relative;">
+          <span class="p-button-icon p-button-icon-right pi pi-arrow-right"></span>
+          <span class="p-button-label">Go Next</span>
+
+        </button>
+
+
+
+
       </div>
     </div>
   </div>
 
-  <p class="absolute"> {{ project_settings?.test}}</p>
+
+    <Button 
+        v-else
+        class="absolute"
+        :class="{ 'top-5 left-5': isPortrait, 'bottom-5 right-5': !isPortrait }"
+        style=" border: none; z-index: 10001;"
+        @click="togglePopup"
+        >        
+            <slot>
+                <p class="m-0">Resume Demo</p>
+            </slot>
+      </Button>
+  
+  <p class="absolute"> {{ project_settings?.test }}</p>
   <div v-if="noAccessToModel" class="h-screen w-screen flex flex-column items-center justify-center">
     <h1 class="text-3xl mb-5">No access to this model</h1>
     <!-- user pi-times in big size -->
@@ -44,70 +69,141 @@
   </div>
   <div v-else>
 
-    <FullScreenToggle v-if="!modelInfosVisible"/>
-    <ModelInfos 
+    <FullScreenToggle v-if="!modelInfosVisible" />
+    <ModelInfos v-if="project_settings && selectedPanelName != ''" v-model:visible="modelInfosVisible"
+      v-model:isPortrait="isPortrait" v-model:selectedPanelName="selectedPanelName" v-model:tabs="infosTabs"
+      v-model:panelDescription="infosDescription" />
 
-      v-if="project_settings && selectedPanelName != ''"
+    <ProjectInfos v-model:visible="projectInfosVisible" :projectName="projectName"
+      :projectDescription="project_settings?.description" />
 
-      v-model:visible="modelInfosVisible" 
-      v-model:isPortrait="isPortrait"
-      
-      v-model:selectedPanelName="selectedPanelName"
-      v-model:tabs="infosTabs"
-      v-model:panelDescription="infosDescription"
-    />
-
-    <ProjectInfos 
-      v-model:visible="projectInfosVisible" 
-      :projectName="projectName"
-      :projectDescription="project_settings?.description"
-    />
-
-    <div 
-      class="h-screen w-screen flex" 
-      :class="{ 'flex-col-reverse': isPortrait, 'flex-row': !isPortrait }" 
-    >
-      <ModelControl class="overflow-auto p-3" 
-        :class="{ 'h-1/3  w-screen': isPortrait, 'w-1/3 h-screen': !isPortrait }"
-        @control-model="handleControl"
-        @show-panel-info="modelInfosVisible=true"
-        @show-project-info="projectInfosVisible=true"
+    <div class="h-screen w-screen flex" :class="{ 'flex-col-reverse': isPortrait, 'flex-row': !isPortrait }">
+      <ModelControl class="overflow-auto p-3" :class="{ 'h-1/3  w-screen': isPortrait, 'w-1/3 h-screen': !isPortrait }"
+        @control-model="handleControl" 
+        @show-panel-info="modelInfosVisible = true"
+        @show-project-info="projectInfosVisible = true" 
+        @nextStepDemo="demoPopupIndex ++"
+        @startDemo="togglePopup"
         v-model:selectedPanelName="selectedPanelName"
-        :buildingPanels="buildingPanels" 
-        :panelBtnOnly="true"
-        :projectName="projectName"
-      />
-      <div 
-        @mousedown.right="mouseDown"
-        @mouseup.right="mouseUp"
-        ref="modelContainer" 
+        :buildingPanels="buildingPanels" :panelBtnOnly="true" :projectName="projectName" />
+      <div @mousedown.right="mouseDown" @mouseup.right="mouseUp" ref="modelContainer"
         @click="threeJsOrbitControls.autoRotate = false;"
-        :class="{ 'h-[75vh] w-screen': isPortrait, 'w-[75vw] h-screen': !isPortrait }"
-        class="canvas-container"
-      >   
-      <ModelViewer 
-        v-if="modelContainer && modelUrl" 
-        ref="modelViewerRef" 
-        :modelUrl="modelUrl" 
-        :modelContainer="modelContainer"
-        @model-loaded="setBuilding"
-        @renderer-loaded="threeJsRenderer = $event"
-        @orbitControls-loaded="threeJsOrbitControls = $event" 
-        @camera-loaded="threeJsModelCamera = $event"
-        @scene-loaded="threeJsScene = $event"
-        @element-clicked="panelClicked = $event"
-        
-      />
+        :class="{ 'h-[75vh] w-screen': isPortrait, 'w-[75vw] h-screen': !isPortrait }" class="canvas-container">
+        <ModelViewer v-if="modelContainer && modelUrl" ref="modelViewerRef" :modelUrl="modelUrl"
+          :modelContainer="modelContainer" @model-loaded="setBuilding" @renderer-loaded="threeJsRenderer = $event"
+          @orbitControls-loaded="threeJsOrbitControls = $event" @camera-loaded="threeJsModelCamera = $event"
+          @scene-loaded="threeJsScene = $event" @element-clicked="panelClicked = $event" />
       </div>
     </div>
   </div>
 
-
+  <FormDemo/>
 </template>
 
 <script setup>
 
-import { ref, computed, onMounted, watch } from 'vue';
+import { ref, computed, onMounted, watch, nextTick } from 'vue';
+// DEMO CODE STARTS HERE
+
+
+const demoPopupContent = ref({
+  1 : {
+    title: 'Show Panel',
+    description: `
+    
+    <p class=" mb-4"> Click on a button an see the panel showup on the model</p>`,
+    elementReferenceId : 'demoShowPanelButton',
+    alignment: 'left',
+  },
+  2 : {
+    title: 'Panel Details',
+    description: `
+    
+    <p class="mb-4">Discover panel details by clicking the active panel name that is blinking.</p>`,
+
+    elementReferenceId: 'selectedPanel',
+    alignment: 'left',
+  },
+  3 : {
+    title: 'Remote Config',
+    description: `
+    
+    <p class="mb-4"> Remote Config allows you to change the behavior and appearance of your app without publishing
+        an app update, at no cost, and across all platforms. </p>`,
+    elementReferenceId: 'remote-config',
+    alignment: 'left',
+    },
+  4 : {
+    title: 'A/B Testing',
+    description: `
+    
+    <p class="mb-4"> A/B testing is a way to compare two versions of a single variable, typically by testing a
+        subject's response to variant A against variant B, and determining which of the two variants is more
+        effective. </p> 
+        
+    <p class="mb-4"> A/B testing is essentially an experiment where two or more variants of a page are shown to
+        users at random, and statistical analysis is used to determine which variation performs better for a given
+        conversion goal. </p>
+
+    <p class="mb-4"> A/B testing is a fantastic method for figuring out the best online promotional and marketing
+        strategies for your business. </p>
+        
+    <p class="mb-4"> It can be used to test everything from website copy to sales emails to search ads. </p>
+
+        `,
+    elementReferenceId: 'ab-testing',
+    alignment: 'right',
+    },
+  
+});
+
+const currentDemoPopupContent = computed(() => demoPopupContent.value[demoPopupIndex.value]);
+
+
+const demoPopupIndex = ref(1);
+
+const demoPopupContentLength = Object.keys(demoPopupContent.value).length;
+
+import { useFloating, autoPlacement, flip, shift } from '@floating-ui/vue';
+
+const isOpen = ref(false);
+const reference = ref(null);
+const floating = ref(null);
+
+
+const { floatingStyles, update } = useFloating(reference, floating, {
+  placement: 'left',
+  middleware: [
+    autoPlacement({ alignment: 'center', padding: 8 }), // Tries to auto-place based on available space
+    flip(), // Flips the popup to opposite side if there's no space
+    shift({ padding: 8 }), // Shifts popup to stay within the viewport
+  ],
+});
+
+watch(demoPopupIndex , (newVal) => {
+  // changing the active reference for the popup to open it on the right place around the new active elemennt
+  reference.value = document.getElementById(currentDemoPopupContent.value.elementReferenceId);
+  nextTick(() => {
+    update();
+  });
+
+});
+
+
+function togglePopup() {
+  reference.value = document.getElementById(currentDemoPopupContent.value.elementReferenceId);
+  isOpen.value = !isOpen.value;
+}
+
+function startAfterDemo() {
+  isOpen.value = false;
+
+  alert("Demo is over, KEEP TESTING or IMPORT MY OWN MODEL");
+}
+
+// DEMO CODE ENDS HERE
+
+
 
 // MyAssembly.co Components
 import FullScreenToggle from '../components/FullScreenToggle.vue';
@@ -115,14 +211,15 @@ import ModelViewer from '../components/Model/ModelViewer.vue';
 import ModelControl from '../components/Model/ModelControl.vue';
 import ModelInfos from '../components/Model/ModelInfos.vue';
 import ProjectInfos from '../components/Model/ProjectInfos.vue';
+import FormDemo from '../components/Demo/FormDemo.vue';
 
 import { Building } from '../ThreeJs/building/Building.js';
 // Get the query params from the current route
-const modelViewerRef =    ref(null);
-const modelContainer =    ref(null);
-const ModelBuilding =     ref(null);
-const buildingPanels =    ref(null);
-const isPortrait =        ref(false);
+const modelViewerRef = ref(null);
+const modelContainer = ref(null);
+const ModelBuilding = ref(null);
+const buildingPanels = ref(null);
+const isPortrait = ref(false);
 const modelInfosVisible = ref(false);
 const projectInfosVisible = ref(false);
 
@@ -139,7 +236,7 @@ const threeJsScene = ref(null);
 
 // dynamic infos
 const infosTabs = computed(() => {
-  if(project_settings.value) {
+  if (project_settings.value) {
     const panels = project_settings.value?.pannels;
     if (panels) {
       return panels[selectedPanelName.value]?.accordions || [];
@@ -151,7 +248,7 @@ const infosTabs = computed(() => {
 
 const infosDescription = computed(() => {
 
-  if(project_settings.value) {
+  if (project_settings.value) {
     const panels = project_settings.value?.pannels;
     if (panels) {
       return panels[selectedPanelName.value]?.description || '';
@@ -195,40 +292,7 @@ const props = defineProps({
 });
 
 
-// DEMO CODE STARTS HERE
-import { computePosition, offset, flip, shift } from '@floating-ui/vue';
 
-// Refs for the overlay and button
-const overlay = ref(null);
-const demoBtn_1 = ref(null);
-const isOverlayVisible = ref(false);
-
-// Function to position the overlay relative to the button
-const showOverlay = async () => {
-  // Make the overlay visible
-  isOverlayVisible.value = true;
-  const btn = document.getElementById('clickPanelR1');
-
-  // Compute the position with Floating UI
-  const { x, y } = await computePosition(btn, overlay.value, {
-    placement: 'right',
-    middleware: [offset(8), flip(), shift()],
-  });
-
-  // Apply the computed position to the overlay
-  Object.assign(overlay.value.style, {
-    left: `${x}px`,
-    top: `${y}px`,
-  });
-};
-
-// Function to handle the button click within overlay
-const onButtonClick = () => {
-  // Logic for the button inside the overlay
-  alert('Feature Flags Clicked');
-};
-
-// DEMO CODE ENDS HERE
 
 
 
@@ -236,10 +300,10 @@ import api from '@/services/api';
 
 async function getProject() {
   try {
-    const {data} = await api.get(`projects/48`);
+    const { data } = await api.get(`projects/48`);
     projectName.value = data.project_name;
     let dataHandled = data.settings || '{"description": "No description available", "pannels": {}}';
- 
+
     project_settings.value = JSON.parse(dataHandled);
 
 
@@ -248,19 +312,19 @@ async function getProject() {
 
 
     const res = await api.get(`files/download`, {
-        params: {
-          file_key: fileKey // Pass file_key in the query string
-        }
-      });
+      params: {
+        file_key: fileKey // Pass file_key in the query string
+      }
+    });
 
     modelUrl.value = res["data"].presigned_url;
 
-    if(!modelUrl.value) {
+    if (!modelUrl.value) {
       noAccessToModel.value = true;
     }
 
   } catch (error) {
-    console.error('Error fetching project:', error);  
+    console.error('Error fetching project:', error);
     noAccessToModel.value = true;
   }
 }
@@ -271,11 +335,11 @@ async function getProject() {
 const emit = defineEmits(['model-loaded', 'newActivePanel', 'contextMenuTrigger', 'project-settings']);
 
 watch(() => panelClicked.value, (newVal) => {
-  if(newVal) {
+  if (newVal) {
 
     selectedPanelName.value = newVal;
     ModelBuilding.value.showOnlyPanelByName(newVal);
-    
+
   }
 });
 
@@ -284,21 +348,20 @@ watch(() => panelClicked.value, (newVal) => {
 // pass controle from ModelControl to ModelViewer
 const handleControl = (arg) => {
 
-  if(arg.controleName === 'showOnlyPanelByName') {
+  if (arg.controleName === 'showOnlyPanelByName') {
     ModelBuilding.value.showOnlyPanelByName(arg.arg);
     selectedPanelName.value = arg.arg;
 
-    console.log('addLabelToPanel', arg.arg);
     addLabelToPanel(arg.arg, `This is the ${arg.arg} panel`);
 
   }
 
-  if(arg.controleName === 'stopAutoRotate') {
+  if (arg.controleName === 'stopAutoRotate') {
     threeJsOrbitControls.value.autoRotate = false;
   }
 
   // showall panels
-  if(arg.controleName === 'showAllPanels') {
+  if (arg.controleName === 'showAllPanels') {
     ModelBuilding.value.showAllPanels();
     selectedPanelName.value = '';
   }
@@ -315,13 +378,10 @@ function setBuilding(model) {
 
 function detectOrientation() {
   isPortrait.value = window.innerHeight > window.innerWidth;
-  console.log("Screen Orientation :",isPortrait.value ? "Portrait" : "Landscape");
 }
 
 function addLabelToPanel(panelName, label) {
-  if(props.editMode) {
     ModelBuilding.value.addLabelToGroup(panelName, label);
-  }
 }
 
 let mouseDownTime = 0;
@@ -348,7 +408,7 @@ onMounted(() => {
   window.addEventListener('resize', detectOrientation);
   if (!props.editMode) {
     getProject();
-    
+
   }
 
   if (props.editMode) {
@@ -360,45 +420,60 @@ onMounted(() => {
     noAccessToModel.value = props.p_noAccessToModel;
     project_settings.value = props.p_project_settings;
   }
+
+
 });
 
 </script>
 
 <style>
 
-/* Custom styling to make OverlayPanel look like a tooltip */
-.p-overlaypanel {
-  width: 16rem;
-  background-color: #6b21a8; /* Customize background to purple */
-  color: white;
-  border-radius: 0.5rem;
+.popupContainer {
+  /* max-width: min(calc(100vw - 2rem), 400px);
+  max-height: 70vh; */
+  overflow: auto;
+  color: var(--p-content-background);
+ 
 }
+
+.arrow {
+  width: 10px;
+  height: 10px;
+  background: inherit;
+  clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+  background-color: aqua;
+}
+
+.popup {
+  background: var(--p-text-color);
+}
+
 .canvas-container {
-    position: relative;
-    overflow: hidden;
-    /* width: 100%; */
-    height: 100vh; /* Ensure full height to match screen */
+  position: relative;
+  overflow: hidden;
+  /* width: 100%; */
+  height: 100vh;
+  /* Ensure full height to match screen */
 }
 
 .canvas-container::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-image: url('https://www.myassembly.co/src/assets/logo_dass.png');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    opacity: 0.1;
-    z-index: 0;
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('https://www.myassembly.co/src/assets/logo_dass.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  opacity: 0.1;
+  z-index: 0;
 }
 
 canvas {
-    position: relative;
-    z-index: 1; /* Ensure the canvas stays on top */
+  position: relative;
+  z-index: 1;
+  /* Ensure the canvas stays on top */
 }
-
-
 </style>

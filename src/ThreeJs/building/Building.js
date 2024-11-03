@@ -101,13 +101,27 @@ export class Building {
 
     // WORKING stick to the elemnt
     addLabelToGroup(panelName, labelText) {
+
+        // delete labels of CSS2DObject instance
+
+
+        // delete element with class : panelLabelDemo
+        const existing_labels = document.getElementsByClassName('panelLabelDemo')
+
+        while(existing_labels.length > 0){
+            // delete the parent of the label
+            existing_labels[0].remove();
+        }
+
         const child = this.panels[panelName].getElements()[0];
         if (!child) return;
     
         // Create the label element
         const labelDiv = document.createElement('div');
+
+
         labelDiv.innerHTML = `
-            <button class="p-button p-component p-button-icon-only" type="button">+</button>
+            <button class="p-button p-component panelLabelDemo" type="button">${panelName}</button>
         `;
     
         // Set up the CSS2DObject for the label
