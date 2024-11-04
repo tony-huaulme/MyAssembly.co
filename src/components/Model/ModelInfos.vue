@@ -7,8 +7,17 @@
         class="!w-full md:!w-80 lg:!w-[30rem]">
         <template #header>
             <div style="font-size: x-large; font-weight: 800;"> {{selectedPanelName}} </div>
-            <ToggleButton v-if="!isPortrait" v-model="drawerLocked" onLabel="Unclock Infos" offLabel="Lock Infos" onIcon="pi pi-lock" 
-                offIcon="pi pi-lock-open"/>
+            <ToggleButton 
+                v-if="!isPortrait"
+                id="toggleDrawerLock"
+                v-model="drawerLocked"
+                onLabel="Unclock Infos"
+                offLabel="Lock Infos"
+                onIcon="pi pi-lock" 
+                offIcon="pi pi-lock-open"
+                @click="stopBlinking('toggleDrawerLock'); $emit('nextStepDemo', 5)"    
+            />
+
         </template>
 
         <p style=" text-align: justify;">
@@ -60,6 +69,17 @@ watch(drawerLocked, (newValue) => {
     });
   }
 });
+
+const emit = defineEmits(['nextStepDemo']);
+function stopBlinking(idToStop) {
+
+const blinkBg = document.getElementsByClassName('blink-bg');
+for (let i = 0; i < blinkBg.length; i++) {
+    if (blinkBg[i].id == idToStop) {
+        blinkBg[i].classList.remove('blink-bg');
+    }
+}
+}
 
 const props = defineProps({
     selectedPanelName: {

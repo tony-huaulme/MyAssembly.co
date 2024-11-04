@@ -70,9 +70,15 @@
   <div v-else>
 
     <FullScreenToggle v-if="!modelInfosVisible" />
-    <ModelInfos v-if="project_settings && selectedPanelName != ''" v-model:visible="modelInfosVisible"
-      v-model:isPortrait="isPortrait" v-model:selectedPanelName="selectedPanelName" v-model:tabs="infosTabs"
-      v-model:panelDescription="infosDescription" />
+    <ModelInfos 
+      v-if="project_settings && selectedPanelName != ''" 
+      v-model:visible="modelInfosVisible"
+      v-model:isPortrait="isPortrait" 
+      v-model:selectedPanelName="selectedPanelName" 
+      v-model:tabs="infosTabs"
+      v-model:panelDescription="infosDescription"
+      @nextStepDemo="nextStepDemo($event)"
+       />
 
     <ProjectInfos v-model:visible="projectInfosVisible" :projectName="projectName"
       :projectDescription="project_settings?.description" />
@@ -82,7 +88,7 @@
         @control-model="handleControl" 
         @show-panel-info="modelInfosVisible = true"
         @show-project-info="projectInfosVisible = true" 
-        @nextStepDemo="demoPopupIndex ++"
+        @nextStepDemo="nextStepDemo($event)"
         @startDemo="togglePopup"
         v-model:selectedPanelName="selectedPanelName"
         :buildingPanels="buildingPanels" :panelBtnOnly="true" :projectName="projectName" />
@@ -105,6 +111,11 @@
 import { ref, computed, onMounted, watch, nextTick } from 'vue';
 // DEMO CODE STARTS HERE
 
+function nextStepDemo(stepToSet) {
+  if (demoPopupIndex.value == stepToSet-1 && demoPopupContentLength > stepToSet) {
+    demoPopupIndex.value = stepToSet;
+  }
+}
 
 const demoPopupContent = ref({
   1 : {
@@ -116,44 +127,53 @@ const demoPopupContent = ref({
     alignment: 'left',
   },
   2 : {
-    title: 'Panel Details',
+    title: 'Get Details',
     description: `
     
-    <p class="mb-4">Discover panel details by clicking the active panel name that is blinking.</p>`,
+    <p class="mb-4">Discover panel details by clicking the active panel name that is bouncing.</p>`,
 
     elementReferenceId: 'selectedPanel',
     alignment: 'left',
   },
   3 : {
-    title: 'Remote Config',
+    title: 'Panel Details Tab',
     description: `
     
-    <p class="mb-4"> Remote Config allows you to change the behavior and appearance of your app without publishing
-        an app update, at no cost, and across all platforms. </p>`,
+    <p class="mb-4">1. Here you can find general description of the active panel.</p>
+    <p class="mb-4">2. Then Assembly creator could add information with image / video / GIF to describe panel specifications.</p>
+    `
+    ,
     elementReferenceId: 'remote-config',
     alignment: 'left',
     },
   4 : {
-    title: 'A/B Testing',
+    title: 'Lock Details Tab',
     description: `
     
-    <p class="mb-4"> A/B testing is a way to compare two versions of a single variable, typically by testing a
-        subject's response to variant A against variant B, and determining which of the two variants is more
-        effective. </p> 
-        
-    <p class="mb-4"> A/B testing is essentially an experiment where two or more variants of a page are shown to
-        users at random, and statistical analysis is used to determine which variation performs better for a given
-        conversion goal. </p>
-
-    <p class="mb-4"> A/B testing is a fantastic method for figuring out the best online promotional and marketing
-        strategies for your business. </p>
-        
-    <p class="mb-4"> It can be used to test everything from website copy to sales emails to search ads. </p>
-
+    <p class="mb-6">You can now lock the left tab, and interact with the model as you need</p> 
+    
         `,
-    elementReferenceId: 'ab-testing',
+    elementReferenceId: 'toggleDrawerLock',
     alignment: 'right',
     },
+
+  5 : {
+    title: 'Interact with the model',
+    description: `
+    <p class="mb-4">1. Click any panel on the model to active it.</p>
+      <img src="https://www.myassembly.co/src/assets/ClickModel.gif" alt="Image for tab n°0" class="w-full mt-2">`,
+    elementReferenceId: 'toggleDrawerLock',
+    alignment: 'right',
+  },
+
+  6 : {
+    title: 'End of Demo',
+    description: `
+    
+    <p class="mb-4">You can now interact with the model as you need</p>`,
+    elementReferenceId: 'toggleDrawerLock',
+    alignment: 'right',
+  },
   
 });
 
@@ -340,6 +360,9 @@ watch(() => panelClicked.value, (newVal) => {
     selectedPanelName.value = newVal;
     ModelBuilding.value.showOnlyPanelByName(newVal);
 
+    addLabelToPanel(newVal, `This is the ${newVal} panel`);
+
+
   }
 });
 
@@ -381,7 +404,7 @@ function detectOrientation() {
 }
 
 function addLabelToPanel(panelName, label) {
-    ModelBuilding.value.addLabelToGroup(panelName, label);
+  ModelBuilding.value.addLabelToGroup(panelName, label);
 }
 
 let mouseDownTime = 0;
@@ -433,6 +456,7 @@ onMounted(() => {
   max-height: 70vh; */
   overflow: auto;
   color: var(--p-content-background);
+  max-width: 555px;
  
 }
 

@@ -208,6 +208,8 @@ watch(() => panelClicked.value, (newVal) => {
 
     selectedPanelName.value = newVal;
     ModelBuilding.value.showOnlyPanelByName(newVal);
+    addLabelToPanel(newVal, `This is the ${newVal} panel`);
+
     
   }
 });

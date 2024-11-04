@@ -14,27 +14,27 @@ export function useHomePageAnimation(camera, model, assemblyBuilding, animationT
   // Define the steps with their corresponding animations
   const steps = {
     0: () => {
-      setCameraPosition(camera, {  "x": -10.349590810671197, "y": 1.1734950219156364, "z": 18.603326770502212}, animationTime);
+      setCameraPosition(camera, {  "x": -10.349590810671197, "y": 1.1734950219156364, "z": 8.603326770502212}, animationTime);
       setModelPosition(model,  { "x": 3, "y": -3.5, "z": 0 }, animationTime);
       assemblyBuilding.showAllPanels();
       document.getElementById("HomePageModelContainer").style.opacity = 1;
 
     },
     1: () => {
-      // setCameraPosition(camera, { "x": -12.729960454702217, "y": 4.253643292056286, "z": 8.197330870006944 }, animationTime);
-      // setModelPosition(model, { "x": 3, "y": -3.5, "z": 0 }, animationTime);
-      document.getElementById("HomePageModelContainer").style.opacity = 0;
+      setCameraPosition(camera, { "x": -12.729960454702217, "y": 4.253643292056286, "z": 8.197330870006944 }, animationTime);
+      setModelPosition(model, { "x": 3, "y": -3.5, "z": 0 }, animationTime);
+      document.getElementById("HomePageModelContainer").style.opacity = 1;
       
       
     },
     2: () => {
-      // setCameraPosition(camera, {  "x": -10.349590810671197, "y": 1.1734950219156364, "z": 8.603326770502212}, animationTime);
-      // setModelPosition(model, { "x": 3, "y": -3.5, "z": 0 }, animationTime);
-      document.getElementById("HomePageModelContainer").style.opacity = 0;
+      setCameraPosition(camera, {  "x": -10.349590810671197, "y": 1.1734950219156364, "z": 8.603326770502212}, animationTime);
+      setModelPosition(model, { "x": 3, "y": -3.5, "z": 0 }, animationTime);
+      document.getElementById("HomePageModelContainer").style.opacity = 1;
     },
     3: () => {
       document.getElementById("HomePageModelContainer").style.opacity = 0;
-      // setModelPosition(model, { "x": 20, "y": -3.5, "z": 0 }, animationTime);
+      setModelPosition(model, { "x": 20, "y": -3.5, "z": 0 }, animationTime);
       // add spinning and camrea movement
     },
     4: () => {

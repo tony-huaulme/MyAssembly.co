@@ -7,7 +7,7 @@
         class="button"
         style="z-index: 1001"
         :class="{'blink-bg': isDemo}"
-        @click="$emit('show-panel-info', true); isDemo ? stopBlinking('selectedPanel') : ''; openFirstInfoAccordion()" >
+        @click="$emit('show-panel-info', true); isDemo ? stopBlinking('selectedPanel') : ''; openFirstInfoAccordion(); isDemo ? $emit('nextStepDemo', 3) : ''" >
         {{ selectedPanelName }}
     </OverlayBadge>
     <div style="overflow: auto;" :style="isPortrait ? '': 'width: 25vw;'">
@@ -50,11 +50,9 @@
                                     :class="{'blink-bg': isDemo}"
                                     id="demoShowPanelButton"
                                     @click="
-                                    
                                         $emit('control-model', { controleName: 'showOnlyPanelByName', arg: panel }); 
-                                        isDemo ? stopBlinking('clickPanelR1') : '';
-                                        isDemo ? emit('nextStepDemo') : ''
-                                        
+                                        isDemo ? stopBlinking('demoShowPanelButton') : '';
+                                        isDemo ? $emit('nextStepDemo', 2) : ''
                                         "
                                     >
                                     {{ panel }}
@@ -175,7 +173,7 @@ onMounted(() => {
             document.getElementsByClassName('p-accordionheader')[0].click();
             setTimeout(() => {
                 emit('startDemo');
-            }, 722);
+            }, 522);
         } catch (error) {
             console.error('Error clicking the first accordion header: ', error);
         }
@@ -183,6 +181,7 @@ onMounted(() => {
 });
 
 function stopBlinking(idToStop) {
+
     clickedPanelCount.value ++
     const blinkBg = document.getElementsByClassName('blink-bg');
     for (let i = 0; i < blinkBg.length; i++) {
@@ -212,7 +211,8 @@ function openFirstInfoAccordion() {
             secondAccordion[0].addEventListener('click', () => {
                 secondAccordion[0].classList.remove('blink-bg');
                 secondAccordion[0].classList.add('p-accordionheader');
-                sendWebhookDEMO_COMPLETE();
+                emit('nextStepDemo', 4);
+                document.getElementById('toggleDrawerLock').classList.add('blink-bg');
             });
 
         }
@@ -288,6 +288,20 @@ async function sendWebhookDEMO_COMPLETE() {
     z-index: 10001;
 }
 
+.panelLabelDemo {
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  border-radius: 4px;
+  animation: blink-border 2.5s ease-in-out infinite, bounce-border 1s ease-in-out infinite;
+}
+/* Bouncing Effect */
+@keyframes bounce-border {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+}
 
 .panelInfoHeader_1{
     cursor: pointer;
@@ -354,6 +368,7 @@ async function sendWebhookDEMO_COMPLETE() {
 }
 
 #selectedPanel{
+    opacity: 0;
     border-bottom: 1px solid var(--p-button-primary-hover-border-color);
     width: auto;
     color: var(--p-text-color);

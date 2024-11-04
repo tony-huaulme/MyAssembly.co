@@ -121,7 +121,7 @@ export class Building {
 
 
         labelDiv.innerHTML = `
-            <button class="p-button p-component panelLabelDemo" type="button">${panelName}</button>
+            <button class="p-button p-component panelLabelDemo running-border" type="button">${panelName}</button>
         `;
     
         // Set up the CSS2DObject for the label
@@ -129,6 +129,9 @@ export class Building {
         
         // Attach the label directly to the child to match its position
         child.add(label);
+        labelDiv.addEventListener('click', () => {
+            document.getElementById('selectedPanel').click();   
+        });
     }
 
     

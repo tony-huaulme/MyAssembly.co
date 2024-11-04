@@ -9,19 +9,20 @@
         <Header></Header>
     </div>
 
-    <div class="container position-relative">
-        <div ref="modelContainer" class="h-screen w-1/2 h-screen" id="HomePageModelContainer">
+    <div class="container position-relative ">
+        <div ref="modelContainer" class="h-screen w-1/2 h-screen hidden xl:flex" id="HomePageModelContainer" style="margin-top: -10vh;">
             <ModelViewer v-if="modelContainer" ref="modelViewerRef"
                 modelUrl="https://www.myassembly.co/src/assets/models/DemoModel.glb" 
                 :controle="false"
                 :modelContainer="modelContainer" 
                 @model-loaded="ModelBuilding = $event"
                 @camera-loaded="ModelCamera = $event" 
+                @orbitControls-loaded="threeJsOrbitControls = $event" 
             />
         </div>
 
         <!-- Section 1: More than just 3D visualization -->
-        <SideSection side="left" id="section1" class="md:mt-20">
+        <SideSection side="left" style="height: auto;">
             <template #title>
                 More than a<br>3D visualization
             </template>
@@ -34,9 +35,9 @@
 
             </template>
         </SideSection>
-
+ 
         <!-- Section 2: A platform designed for builders -->
-        <SideSection side="left" style="min-height: auto;" >
+        <!-- <SideSection side="left" style="min-height: auto;" >
             <template #title>
                 <span>Designed for builders</span>
             </template>
@@ -53,7 +54,7 @@
 
                         <div class="flex flex-row items-baseline">
                             <Button @click="BuildingAssembly.showOnlyPanelByName('G-W1');" outlined
-                                class="panelButton font-semibold" :class="blinking ? 'blink' : ''">G-W1</Button>
+                                class="panelButton font-semibold" :class="blinking ? 'blink-bg' : ''"><p class="m-0"> G-W1</p></Button>
                             <Button @click="BuildingAssembly.showOnlyPanelByName('G-W2');" outlined
                                 class="panelButton font-semibold ">G-W2</Button>
                             <Button @click="BuildingAssembly.showOnlyPanelByName('G-W3');" outlined
@@ -87,7 +88,7 @@
         </SideSection>
 
         
-        <!-- Section 3: More than just 3D visualization -->
+       Section 3: More than just 3D visualization 
         <SideSection side="left" class="md:mt-20">
             <template #title>
                 Even from a Phone
@@ -100,11 +101,85 @@
             <template #rightcolumn>
 
             </template>
-        </SideSection>
+        </SideSection> -->
+
+         <!-- Section 4: IMPORT SECTION -->
+            <!-- IMPORT on phone -->
+            <HeroSection class=" md:hidden flex"  style="z-index: 99999;">
+                <template #title>
+                    <span class="md:mt-20">Import your own models</span>
+                </template>
+                <template #description>
+                    <!-- description of the dashboard -->
+                    <span>
+                        Drag and drop your 3D file and start adding information on your project. <br> Or share it directly !
+                    </span>
+                </template>
+            </HeroSection>
+            <div class="md:hidden flex" style="background-color: #18181b !important;">
+                <img src="../assets/UPLOAD_IFC.jpg" class="max-w-full">
+            </div>
+
+            <!-- IMPORT on wide screen -->
+            <section class="hidden md:flex h-screen w-fill" style="z-index: 99999;">
+                <div data-hero-content-wrap="" pointer-auto="" class="flex w-fill flex-row" style="align-items: center; justify-content: space-between;">
+                    <div class="w-1/2 mt-20 flex flex-column justify-center">
+                        <div class="hl_headline-w">
+                            <h1 class="h1 hero-title">
+                               Import your own models
+                            </h1>
+                        </div>
+                        <div class="hl_subheadline-w is--hero">
+                            <p class="paragraph-l text-secondary">
+                                Drag and drop your 3D file and start adding information on your project. <br> Or share it directly !
+                            </p>
+                        </div>
+                        <GetStartedButton/>
+                    </div>
+                    <div class="flex flex-row justify-center" style="align-items: center; height: fit-content">
+                        <img src="../assets/UPLOAD_IFC.jpg" class="" style="border-radius: 25px; max-height: 60vh;">
+                    </div>
+                </div>
+
+            </section>
 
 
     </div>
     <div class="container">
+        <HeroSection>
+            <template #title>
+                <span>Manage your Models</span>
+            </template>
+            <template #description>
+                <!-- description of the dashboard -->
+                <span>
+                    Our dashboard provides a comprehensive overview of your projects: <br> <b>filter</b>, <b>edit</b>, and <b>share</b> them as you want.
+                </span>
+            </template>
+        </HeroSection>
+        <div class="w-fill flex flex-row justify-center mb-20 mt-20">
+            <img src="../assets/DASHBOARD_PROJECT.jpg" class="max-w-full" style="border-radius: 20px;">
+        </div>
+        <GetStartedButton/>
+
+
+        
+        <HeroSection>
+            <template #title>
+                <span>Dive in the edit mode</span>
+            </template>
+            <template #description>
+                <!-- description of the dashboard -->
+                <span>
+                    Edit your project with our intuitive interface. <br> Add information, instruction and more to your model.
+                </span>
+            </template>
+        </HeroSection>
+        <div class="w-fill flex justify-center mb-4">
+            <img src="../assets/EDIT_DEMO.gif"  alt="" class="w-fill" style="max-width: 853px;  border-radius: 3px;">
+        </div>
+        <GetStartedButton/>
+
 
         <!-- Section 5: SHARE SECTION -->
             <!-- share on phone -->
@@ -119,8 +194,8 @@
                     </span>
                 </template>
             </HeroSection>
-            <div class="p-10 md:hidden flex card" style="background-color: #18181b !important;">
-                <img src="../assets/shareDemoPopUp.png" class="max-w-full">
+            <div class="md:hidden flex" style="background-color: #18181b !important;">
+                <img src="../assets/SHARE_PROJECT.jpg" class="max-w-full">
             </div>
 
             <!-- Share on wide screen -->
@@ -144,32 +219,27 @@
                         </div>
                         <GetStartedButton/>
                     </div>
-                    <div class="flex flex-row justify-center card" style="align-items: center; height: fit-content">
-                        <img src="../assets/shareDemoPopUp.png" class="p-3" style="border-radius: 5px; max-height: 60vh;">
+                    <div class="flex flex-row justify-center" style="align-items: center; height: fit-content">
+                        <img src="../assets/SHARE_PROJECT.jpg" style="border-radius: 25px; max-height: 60vh;">
                     </div>
                 </div>
 
             </section>
 
 
-        <HeroSection>
-            <template #title>
-                <span>Manage your Models</span>
-            </template>
-            <template #description>
-                <!-- description of the dashboard -->
-                <span>
-                    Our dashboard provides a comprehensive overview of your projects: <br> <b>filter</b>, <b>edit</b>, and <b>share</b> them as you want.
-                </span>
-            </template>
-        </HeroSection>
-        <div class="w-fill flex flex-row justify-center mb-20 mt-20">
-            <img src="../assets/dashboard_picture.png" class="max-w-full">
-        </div>
-        <GetStartedButton/>
+        
 
     </div>
-
+    <HeroSection>
+            <template #title>
+                <span>Made with MyAssembly.co</span>
+            </template>
+            
+        </HeroSection>
+        <div class="w-fill flex justify-center mb-4">
+            <img src="../assets/MADE_BY_MACO.gif"  alt="" class="w-fill" style="max-width: 853px;  border-radius: 3px;">
+        </div>
+        <GetStartedButton/>
     <!-- <HeroSection>
         <template #title>
             <span>Try it now or contact us !</span>
@@ -207,6 +277,7 @@ const modelContainer = ref(null);
 const ModelBuilding = ref(null);
 const ModelCamera = ref(null);
 
+const threeJsOrbitControls = ref(null);
 const scrollPositionStep = ref(0);
 const stepSetter = ref(null);
 
@@ -220,9 +291,11 @@ watch(ModelCamera, (camera) => {
     if (camera) {
         cameraPosition.value = camera.position;
 
-        OpeningAnimation(camera, ModelBuilding.value, { "x": -9.349590810671197, "y": 1.1734950219156364, "z": 6.603326770502212 }, 1500);
-        setModelPosition(ModelBuilding.value, { "x": 3, "y": -3.5, "z": 0 }, 1500);
+        OpeningAnimation(camera, ModelBuilding.value, { "x": -9.349590810671197, "y": 2.1734950219156364, "z": 16.603326770502212 }, 1500);
+        setModelPosition(ModelBuilding.value, { "x": 3, "y": -3.5, "z": 3 }, 1500);
         
+        threeJsOrbitControls.value.autoRotate = true;
+
         const { setStep } = useHomePageAnimation(ModelCamera.value, ModelBuilding.value, BuildingAssembly.value, 1200);
         stepSetter.value = setStep;
 
@@ -275,7 +348,7 @@ const handleScroll = debounce(() => {
     let viewportHeight = window.innerHeight;
 
     let currentScrollStep = scrollPositionStep.value;
-    scrollPositionStep.value = Math.floor((window.scrollY + (0.6 * viewportHeight)) / viewportHeight);
+    scrollPositionStep.value = Math.floor((window.scrollY + (0.8 * viewportHeight)) / viewportHeight);
 
     if (scrollPositionStep.value !== currentScrollStep) {
         stepSetter.value(scrollPositionStep.value);
@@ -323,6 +396,16 @@ onUnmounted(() => {
 }
 
 
+/* Bouncing Effect */
+@keyframes bounce-size {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
 .container {
     width: 90%;
     max-width: 1380px;
@@ -359,9 +442,6 @@ onUnmounted(() => {
     }
     section {
       height: webkit-fill-available;
-    }
-    #section1 {
-        padding-top: 30vh;
     }
     .h-container {
         padding-left: 5%;
