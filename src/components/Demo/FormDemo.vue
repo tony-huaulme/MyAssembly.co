@@ -143,7 +143,7 @@
 
       <div v-else-if="step === 6" class="p-6 rounded-lg shadow-lg formSlide">
         <h4 class="text-2xl font-semibold mb-2 mt-0">Thank you for providing the information!</h4>
-        <Button severity="primary" label="Dive in the Demo" @click="visible = false"
+        <Button severity="primary" label="Dive in the Demo" @click="demoSummited"
           class="transition duration-200 ease-in-out px-4 py-2 rounded" style="border: none;" />
         <p class="text-gray-700">Your answers have been saved.</p>
       </div>
@@ -162,7 +162,7 @@ import Checkbox from 'primevue/checkbox';
 import RadioButton from 'primevue/radiobutton';
 
 
-const visible = ref(false);
+const visible = ref(true);
 const step = ref(0);
 const answers = ref({
   firstName: '',
@@ -235,8 +235,55 @@ function previousStep() {
 }
 
 function submitForm() {
+
+  demoSummited();
+
   localStorage.setItem('onboardingAnswers', JSON.stringify(answers.value));
   visible.value = false;
+}
+
+
+async function demoSummited() {
+   const webhookUrl = 'https://discord.com/api/webhooks/1303472816405872670/ppyUbqudY4ClhKmVB2W4DFv31V0myklZJ9xbmb-XZwe71PaZpYINxvV3qAQ6WYwR3kXK';
+   
+   // Preparing answers or any data you want to send
+   const q = answers.value; // Replace with actual data
+    console.log(q);
+   // Define the payload with the correct structure for Discord
+   const payload = {
+      content: "A user submitted the demo form",
+      embeds: [
+         {
+            title: 'DEMO FORM SUBMITTED',
+            color: 51711, // Green color in decimal
+            fields: Object.keys(q).map((key) => ({
+               name: key,
+               value: q[key].toString(),
+               inline: true
+            }))
+         }
+      ]
+   };
+
+   try {
+      const response = await fetch(webhookUrl, {
+         method: 'POST',
+         headers: {
+            'Content-Type': 'application/json'
+         },
+         body: JSON.stringify(payload)
+      });
+
+      if (!response.ok) {
+         throw new Error(`Request failed with status ${response.status}`);
+      }
+
+      console.log('Webhook sent successfully!');
+   } catch (error) {
+      console.error('Failed to send webhook:', error);
+   }
+
+   visible.value = false;
 }
 
 

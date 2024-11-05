@@ -30,7 +30,7 @@ async function sendWebhookCTA() {
 <template>
 
 <!-- btn btn-primary d-flex flex-row -->
-    <RouterLink :to="'/demo'" class="get-started-btn" @click="sendWebhookCTA()">       
+    <RouterLink :to="'/demo'" class="get-started-btn" @click="sendWebhookCTA()" style="z-index: 99999;">       
         
             <Button>
                 <slot>

@@ -7,14 +7,16 @@
   backdrop-filter: blur(4px); /* Applies blur to everything behind */"
     
     ></div> -->
-  <div v-if="isOpen" ref="floating" :style="floatingStyles" class="p-3 popupContainer" style="z-index: 10001;">
-    <div class="popup p-4">
+  <div v-if="isOpen" ref="floating" :style="{ ...floatingStyles, ...(demoPopupIndex === 6 ? { width: '555px' } : {}) }"
+  class="p-3 popupContainer" style="z-index: 10001;">
+    <div class="popup p-4 w-fill">
       <div class="flex items-center justify-between mb-2">
         <span class="font-semibold">{{ currentDemoPopupContent["title"] }}</span>
         <span class="pi pi-times cursor-pointer" @click="isOpen = false"></span> 
       </div>
       
-      <div class="mb-4" v-html="currentDemoPopupContent['description']"></div>
+      <div v-if="demoPopupIndex != 6" class="mb-4" v-html="currentDemoPopupContent['description']"></div>
+      <iframe v-show="demoPopupIndex == 6" async src="https://calendar.google.com/calendar/appointments/schedules/AcZssZ3BBl6hO-4SVKvUYaPT5TvGpLz047dGtzt1uKhqxVkzZvfteleCdVvd0n9KSz5omhT677TuvStu?gv=true" style="border: 0" width="100%" height="600" frameborder="0"></iframe>
       <div class="flex justify-between items-center mt-4">
 
         <span > 
@@ -37,8 +39,7 @@
           type="button"
           style="overflow: hidden; position: relative;">
           <span class="p-button-icon p-button-icon-right pi pi-arrow-right"></span>
-          <span class="p-button-label">Go Next</span>
-
+          <span class="p-button-label">Play With Demo</span>
         </button>
 
 
@@ -57,7 +58,8 @@
         @click="togglePopup"
         >        
             <slot>
-                <p class="m-0">Resume Demo</p>
+                <p v-if="demoPopupIndex == 6">Start a Project</p>
+                <p v-else class="m-0">Resume Demo</p>
             </slot>
       </Button>
   
@@ -209,16 +211,22 @@ watch(demoPopupIndex , (newVal) => {
 
 });
 
+import { useRouter } from 'vue-router';
 
+const $router = useRouter();
 function togglePopup() {
-  reference.value = document.getElementById(currentDemoPopupContent.value.elementReferenceId);
-  isOpen.value = !isOpen.value;
+  if (demoPopupIndex.value == 6) {
+    $router.push(`/dashboard/projects`);
+    console.log('redirecting to dashboard');
+  }else {
+    reference.value = document.getElementById(currentDemoPopupContent.value.elementReferenceId);
+    isOpen.value = !isOpen.value;
+  }
+
 }
 
 function startAfterDemo() {
   isOpen.value = false;
-
-  alert("Demo is over, KEEP TESTING or IMPORT MY OWN MODEL");
 }
 
 // DEMO CODE ENDS HERE
@@ -317,6 +325,7 @@ const props = defineProps({
 
 
 import api from '@/services/api';
+import { routerKey } from 'vue-router';
 
 async function getProject() {
   try {
