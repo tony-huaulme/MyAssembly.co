@@ -54,6 +54,9 @@
             </Button>
             
         </RouterLink>
+        <Button @click="visibleBookDemo = true">
+            
+        </Button>
     </div>
 
     <Dialog v-model:visible="visible" modal header="Create a project" :style="{ width: '45rem' }">
@@ -128,6 +131,14 @@
         </div> -->
     </Dialog>
 
+
+    <Dialog v-model:visible="visibleBookDemo" modal header="Book a meeting !">
+        <iframe async
+        src="https://calendar.google.com/calendar/appointments/schedules/AcZssZ3BBl6hO-4SVKvUYaPT5TvGpLz047dGtzt1uKhqxVkzZvfteleCdVvd0n9KSz5omhT677TuvStu?gv=true"
+        style="border: 0" width="100%" height="600" frameborder="0"></iframe>
+    </Dialog>
+
+
 </template>
 
 <script setup>
@@ -186,7 +197,7 @@ const items = ref([
 ]);
 
 const visible = ref(false);
-
+const visibleBookDemo = ref(false);
 function handleItemClick(label) {
     if (label === 'New') {
         visible.value = true;

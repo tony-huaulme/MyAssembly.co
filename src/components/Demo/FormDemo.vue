@@ -52,7 +52,6 @@
       </div>
 
       <div v-else-if="step === 2" class="p-6 rounded-lg shadow-lg formSlide">
-        {{ answers, step }}
         <h4 v-if="answers.assemblyFor.includes('Company')" class="text-2xl font-semibold mb-6 mt-0">What best describes
           your workplace?</h4>
         <h4 v-else-if="answers.assemblyFor.includes('Myself')" class="text-2xl font-semibold mb-6 mt-0">Are you a
@@ -163,7 +162,7 @@ import RadioButton from 'primevue/radiobutton';
 import { styleText } from 'util';
 
 
-const visible = ref(false);
+const visible = ref(true);
 const step = ref(0);
 const answers = ref({
   firstName: '',
@@ -323,6 +322,7 @@ const emit = defineEmits(['formFilled']);
 
 .answerContainer {
   width: -webkit-fill-available;
+  flex-wrap: wrap;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -350,5 +350,15 @@ label {
   max-height: 405px;
   background-color: var(--p-content-background);
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+@media screen and (max-width: 768px) {
+  .onboarding-form {
+    max-width: 100vw;
+    max-height: 100vh;
+    width: 100vw;
+    height: 100vh;
+  }
+  
 }
 </style>

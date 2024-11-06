@@ -25,13 +25,13 @@
           <i v-if="demoPopupIndex > 1" @click="demoPopupIndex--" class="pi pi-arrow-left cursor-pointer"></i>
         </span>
 
-        <button @click="demoPopupIndex++" v-if="demoPopupIndex < demoPopupContentLength"
+        <button @click="demoPopupIndex++" v-if="demoPopupIndex == 5"
           class="p-button p-component p-button-rounded p-button-sm p-button-success" type="button"
           style="overflow: hidden; position: relative;">
           <span class="p-button-icon p-button-icon-right pi pi-arrow-right"></span>
-          <span class="p-button-label">Next</span>
+          <span v-if="demoPopupIndex == 5" class="p-button-label">Next</span>
         </button>
-        <button v-else @click="startAfterDemo"
+        <button v-else-if="demoPopupIndex == 6" @click="startAfterDemo"
           class="p-button p-component p-button-rounded p-button-sm p-button-success" type="button"
           style="overflow: hidden; position: relative;">
           <span class="p-button-icon p-button-icon-right pi pi-arrow-right"></span>
@@ -41,13 +41,20 @@
       </div>
     </div>
   </div>
-  <Button v-else class="absolute" :class="{ 'top-5 left-5': isPortrait, 'bottom-5 right-5': !isPortrait }"
+  <Button v-else-if="!isPortrait" class="absolute" :class="{ 'top-5 left-5': isPortrait, 'bottom-5 right-5': !isPortrait }"
     style=" border: none; z-index: 10001;" @click="togglePopup">
     <slot>
-      <p v-if="demoPopupIndex == 6 || isPortrait" class="m-0">Start a Project</p>
-      <p v-else class="m-0">Resume Demo</p>
+      <p class="m-0">Resume Demo</p>
     </slot>
   </Button>
+
+  <Button class="absolute" :class="{ 'top-5 left-5': isPortrait, 'bottom-5 left-5': !isPortrait }"
+    style=" border: none; z-index: 10001;" @click="createProject">
+    <slot>
+      <p class="m-0">Start a Project</p>
+    </slot>
+  </Button>
+
 
   <div v-if="noAccessToModel" class="h-screen w-screen flex flex-column items-center justify-center">
     <h1 class="text-3xl mb-5">No access to this model</h1>
@@ -151,7 +158,7 @@ const demoPopupContent = ref({
   },
 
   6: {
-    title: 'End of Demo',
+    title: 'Book a meeting with us !',
     description: `
     
     <p class="mb-4">You can now interact with the model as you need</p>`,
@@ -197,14 +204,15 @@ import { useRouter } from 'vue-router';
 
 const $router = useRouter();
 function togglePopup() {
-  if (demoPopupIndex == 6 || isPortrait.value) {
-    $router.push(`/dashboard/projects`);
-    console.log('redirecting to dashboard');
-  } else {
+
     reference.value = document.getElementById(currentDemoPopupContent.value.elementReferenceId);
     isOpen.value = !isOpen.value;
-  }
 
+
+}
+
+function createProject() {
+    $router.push(`/dashboard/projects`);
 }
 
 function startAfterDemo() {
@@ -307,7 +315,6 @@ const props = defineProps({
 
 
 import api from '@/services/api';
-import { routerKey } from 'vue-router';
 
 async function getProject() {
   try {
