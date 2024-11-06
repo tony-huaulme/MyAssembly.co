@@ -7,7 +7,7 @@
   ></div>
   <div class="h-screen w-screen absolute top-0 left-0 flex justify-center items-center" style="z-index: 10005; "
     v-if="visible">
-    <div class="onboarding-form" style="width: 60vw; height: 80vh; background-color: var(--p-content-background)">
+    <div class="onboarding-form" style="width: 60vw; height: 80vh; background-color: var(--p-content-background)" :class="{'w-screen' : mobile}">
       <div v-if="step === 0" class="p-6 rounded-lg shadow-lg formSlide">
         <div>
           <h4 class="text-2xl font-semibold mb-2">What’s your name?</h4>
@@ -160,9 +160,10 @@ import InputText from 'primevue/inputtext';
 import Button from 'primevue/button';
 import Checkbox from 'primevue/checkbox';
 import RadioButton from 'primevue/radiobutton';
+import { styleText } from 'util';
 
 
-const visible = ref(true);
+const visible = ref(false);
 const step = ref(0);
 const answers = ref({
   firstName: '',
@@ -227,7 +228,6 @@ const getOptionsForStep2 = computed(() => {
 
 function nextStep() {
   if( ["Yes", "No"].includes(answers.value.step2[0]) && step.value == 2) {
-
     step.value+=2;
     localStorage.setItem('onboardingAnswers', JSON.stringify(answers.value));
 
@@ -294,6 +294,9 @@ async function demoSummited() {
    visible.value = false;
 }
 
+const props = defineProps({
+  mobile: Boolean,
+});
 
 const emit = defineEmits(['formFilled']);
 </script>
@@ -346,7 +349,6 @@ label {
   max-width: 650px;
   max-height: 405px;
   background-color: var(--p-content-background);
-  border-radius: 0.5rem;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 </style>
