@@ -54,8 +54,10 @@
             </Button>
             
         </RouterLink>
-        <Button @click="visibleBookDemo = true">
-            
+        <Button @click="visibleBookDemo = true" style="position: absolute;
+    bottom: 32px;
+    left: 32px;">
+            <p>Book Full Demo</p>
         </Button>
     </div>
 
@@ -135,7 +137,7 @@
     <Dialog v-model:visible="visibleBookDemo" modal header="Book a meeting !">
         <iframe async
         src="https://calendar.google.com/calendar/appointments/schedules/AcZssZ3BBl6hO-4SVKvUYaPT5TvGpLz047dGtzt1uKhqxVkzZvfteleCdVvd0n9KSz5omhT677TuvStu?gv=true"
-        style="border: 0" width="100%" height="600" frameborder="0"></iframe>
+        style="border: 0; width: 80vw !important;" height="600" frameborder="0"></iframe>
     </Dialog>
 
 
