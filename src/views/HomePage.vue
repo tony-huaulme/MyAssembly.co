@@ -146,24 +146,7 @@
 
     </div>
     <div class="container">
-        <HeroSection>
-            <template #title>
-                <span>Manage your Models</span>
-            </template>
-            <template #description>
-                <!-- description of the dashboard -->
-                <span>
-                    Our dashboard provides a comprehensive overview of your projects: <br> <b>filter</b>, <b>edit</b>, and <b>share</b> them as you want.
-                </span>
-            </template>
-        </HeroSection>
-        <div class="w-fill flex flex-row justify-center mb-20 mt-20">
-            <img src="../assets/DASHBOARD_PROJECT.jpg" class="max-w-full" style="border-radius: 20px;">
-        </div>
-        <GetStartedButton/>
-
-
-        
+       
         <HeroSection>
             <template #title>
                 <span>Dive in the edit mode</span>
@@ -225,7 +208,21 @@
                 </div>
 
             </section>
-
+            <HeroSection>
+            <template #title>
+                <span>Manage your Models</span>
+            </template>
+            <template #description>
+                <!-- description of the dashboard -->
+                <span>
+                    Our dashboard provides a comprehensive overview of your projects: <br> <b>filter</b>, <b>edit</b>, and <b>share</b> them as you want.
+                </span>
+            </template>
+        </HeroSection>
+        <div class="w-fill flex flex-row justify-center mb-20 mt-20">
+            <img src="../assets/DASHBOARD_PROJECT.jpg" class="max-w-full" style="border-radius: 20px;">
+        </div>
+        <GetStartedButton/>
 
         
 

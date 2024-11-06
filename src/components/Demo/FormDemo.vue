@@ -52,7 +52,7 @@
       </div>
 
       <div v-else-if="step === 2" class="p-6 rounded-lg shadow-lg formSlide">
-
+        {{ answers, step }}
         <h4 v-if="answers.assemblyFor.includes('Company')" class="text-2xl font-semibold mb-6 mt-0">What best describes
           your workplace?</h4>
         <h4 v-else-if="answers.assemblyFor.includes('Myself')" class="text-2xl font-semibold mb-6 mt-0">Are you a
@@ -226,8 +226,16 @@ const getOptionsForStep2 = computed(() => {
 });
 
 function nextStep() {
-  step.value++;
+  if( ["Yes", "No"].includes(answers.value.step2[0]) && step.value == 2) {
+
+    step.value+=2;
+    localStorage.setItem('onboardingAnswers', JSON.stringify(answers.value));
+
+  } else {
+    step.value++;
   localStorage.setItem('onboardingAnswers', JSON.stringify(answers.value));
+
+  }
 }
 
 function previousStep() {
