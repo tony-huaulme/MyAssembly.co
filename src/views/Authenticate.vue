@@ -164,7 +164,7 @@ const signup = async () => {
         
         console.log('Signup Success:', data);
 
-        $router.push(`/dashboard/projects`);
+        $router.push(`/demo`);
 
 
     // redirect to the URL returned by the server : ?user_email=raichounoscope@gmail.com&user_name=LEESINGOOD&new_user=<AppUser%20LEESINGOOD>

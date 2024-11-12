@@ -15,10 +15,20 @@ async function sendWebhook() {
     const isMobile = /Mobi|Android/i.test(navigator.userAgent);
     const deviceType = isMobile ? 'Phone' : 'PC';
 
+
+    const userAgent = navigator.userAgent;
+    const screenResolution = `${screen.width}x${screen.height}`;
+    const colorDepth = screen.colorDepth;
+    const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+    const language = navigator.language;
+    
+    const fingerprint = `${userAgent}-\n${screenResolution}-${colorDepth}-${timezone}-${language}`;
+    
+
     const payload = {
         embeds: [{
-            title: 'New Visitor!',
-            description: `Visitor is using a ${deviceType}.`, // Include device type in the message
+            title: `New Visitor on ${deviceType}.`,
+            description: fingerprint, // Include device type in the message
             color: 3066993, // Green color in decimal
         }]
     };

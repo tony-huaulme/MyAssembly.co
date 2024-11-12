@@ -57,7 +57,11 @@ onMounted(() => {
 
 
    sendWebhook(email.value);
-   $router.push("/dashboard/projects");
+   if (new_user.value) {
+      $router.push("/demo");
+   }else {
+      $router.push("/dashboard/projects");
+   }
 
 });
 </script>

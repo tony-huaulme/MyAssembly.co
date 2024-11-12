@@ -241,27 +241,21 @@ function previousStep() {
   if (step.value > 0) step.value--;
 }
 
-function submitForm() {
-
-  demoSummited();
-
-  localStorage.setItem('onboardingAnswers', JSON.stringify(answers.value));
-  visible.value = false;
-}
 
 
 async function demoSummited() {
    const webhookUrl = 'https://discord.com/api/webhooks/1303472816405872670/ppyUbqudY4ClhKmVB2W4DFv31V0myklZJ9xbmb-XZwe71PaZpYINxvV3qAQ6WYwR3kXK';
    
+    const email = localStorage.getItem('user_email');
+
    // Preparing answers or any data you want to send
    const q = answers.value; // Replace with actual data
-    console.log(q);
    // Define the payload with the correct structure for Discord
    const payload = {
       content: "A user submitted the demo form",
       embeds: [
          {
-            title: 'DEMO FORM SUBMITTED',
+            title: `DEMO FORM ${email}`,
             color: 51711, // Green color in decimal
             fields: Object.keys(q).map((key) => ({
                name: key,
@@ -290,7 +284,14 @@ async function demoSummited() {
       console.error('Failed to send webhook:', error);
    }
 
-   visible.value = false;
+  localStorage.setItem('onboardingAnswers', JSON.stringify(answers.value));
+
+   if (props.mobile) {
+    window.location.href = '/demo';
+  } else {
+    visible.value = false;
+  }
+
 }
 
 const props = defineProps({
