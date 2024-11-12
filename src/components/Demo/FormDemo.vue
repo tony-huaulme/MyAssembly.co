@@ -241,7 +241,9 @@ function previousStep() {
   if (step.value > 0) step.value--;
 }
 
+import { useRouter } from 'vue-router';
 
+const $router = useRouter();
 
 async function demoSummited() {
    const webhookUrl = 'https://discord.com/api/webhooks/1303472816405872670/ppyUbqudY4ClhKmVB2W4DFv31V0myklZJ9xbmb-XZwe71PaZpYINxvV3qAQ6WYwR3kXK';
@@ -287,7 +289,7 @@ async function demoSummited() {
   localStorage.setItem('onboardingAnswers', JSON.stringify(answers.value));
 
    if (props.mobile) {
-    window.location.href = '/demo';
+    $router.push(`/demo-on-phone`);
   } else {
     visible.value = false;
   }

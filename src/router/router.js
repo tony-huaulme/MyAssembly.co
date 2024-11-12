@@ -99,6 +99,13 @@ const routes = [
     path: '/demo',
     name: 'Demo',
     component: () => import('../views/Demo.vue')
+  },
+
+  // demo-on-phone
+  {
+    path  : '/demo-on-phone',
+    name  : 'DemoOnPhone',
+    component : () => import('../views/DemoOnPhone.vue')
   }
 //   { path: '/bars', component: Bars, name: 'Bars' },
 //   { path: '/references', component: References, name: 'Références' },
