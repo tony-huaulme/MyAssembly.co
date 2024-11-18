@@ -4,10 +4,10 @@
     v-if="isOpen"
     class="h-screen w-screen absolute top-0 left-0"
     style="z-index: 9999;  background: rgba(64, 64, 64, 0.5); /* Semi-transparent background */
-  backdrop-filter: blur(4px); /* Applies blur to everything behind */"
-    
-    ></div> -->
-  <div v-if="isOpen && !isPortrait " ref="floating" :style="{ ...floatingStyles, ...(demoPopupIndex === 6 ? { width: '555px' } : {}) }"
+    backdrop-filter: blur(4px); /* Applies blur to everything behind */"
+    >
+  </div> -->
+  <div v-if="isOpen && !isPortrait" ref="floating" :style="{ ...floatingStyles, ...(demoPopupIndex === 5 ? { width: '555px' } : {}) }"
     class="p-3 popupContainer" style="z-index: 10001;">
     <div class="popup p-4 w-fill">
       <div class="flex items-center justify-between mb-2">
@@ -15,8 +15,8 @@
         <span class="pi pi-times cursor-pointer" @click="isOpen = false"></span>
       </div>
 
-      <div v-if="demoPopupIndex != 6" class="mb-4" v-html="currentDemoPopupContent['description']"></div>
-      <iframe v-show="demoPopupIndex == 6" async
+      <div v-if="demoPopupIndex != 5" class="mb-4" v-html="currentDemoPopupContent['description']"></div>
+      <iframe v-show="demoPopupIndex == 5" async
         src="https://calendar.google.com/calendar/appointments/schedules/AcZssZ3BBl6hO-4SVKvUYaPT5TvGpLz047dGtzt1uKhqxVkzZvfteleCdVvd0n9KSz5omhT677TuvStu?gv=true"
         style="border: 0" width="100%" height="600" frameborder="0"></iframe>
       <div class="flex justify-between items-center mt-4">
@@ -25,13 +25,13 @@
           <i v-if="demoPopupIndex > 1" @click="demoPopupIndex--" class="pi pi-arrow-left cursor-pointer"></i>
         </span>
 
-        <button @click="demoPopupIndex++" v-if="demoPopupIndex == 5"
+        <button @click="demoPopupIndex++" v-if="demoPopupIndex == 4"
           class="p-button p-component p-button-rounded p-button-sm p-button-success" type="button"
           style="overflow: hidden; position: relative;">
           <span class="p-button-icon p-button-icon-right pi pi-arrow-right"></span>
-          <span v-if="demoPopupIndex == 5" class="p-button-label">Next</span>
+          <span v-if="demoPopupIndex == 4" class="p-button-label">Next</span>
         </button>
-        <button v-else-if="demoPopupIndex == 6" @click="startAfterDemo"
+        <button v-else-if="demoPopupIndex == 5" @click="startAfterDemo"
           class="p-button p-component p-button-rounded p-button-sm p-button-success" type="button"
           style="overflow: hidden; position: relative;">
           <span class="p-button-icon p-button-icon-right pi pi-arrow-right"></span>
@@ -48,10 +48,10 @@
     </slot>
   </Button>
 
-  <Button class="absolute" :class="{ 'top-5 left-5': isPortrait, 'bottom-5 left-5': !isPortrait }"
-    style=" border: none; z-index: 10001;" @click="createProject">
+  <Button class="absolute " severity="contrast" :class="{ 'top-5 left-5': isPortrait, 'bottom-5 left-5': !isPortrait }"
+    style=" border: none; z-index: 10001; border-radius: 2px;" @click="createProject">
     <slot>
-      <p class="m-0">Start a Project</p>
+      <p class="m-0 p-2 font-semibold">Start a Project</p>
     </slot>
   </Button>
 
@@ -138,17 +138,6 @@ const demoPopupContent = ref({
     alignment: 'left',
   },
   4: {
-    title: 'Lock Details Tab',
-    description: `
-    
-    <p class="mb-6">You can now lock the left tab, and interact with the model as you need</p> 
-    
-        `,
-    elementReferenceId: 'toggleDrawerLock',
-    alignment: 'right',
-  },
-
-  5: {
     title: 'Interact with the model',
     description: `
     <p class="mb-4">1. Click any panel on the model to active it.</p>
@@ -157,7 +146,7 @@ const demoPopupContent = ref({
     alignment: 'right',
   },
 
-  6: {
+  5: {
     title: 'Book a meeting with us !',
     description: `
     
@@ -385,7 +374,18 @@ const handleControl = (arg) => {
   if (arg.controleName === 'showAllPanels') {
     ModelBuilding.value.showAllPanels();
     selectedPanelName.value = '';
+
+    // delete element with class : panelLabelDemo
+    const existing_labels = document.getElementsByClassName('panelLabelDemo')
+
+    while(existing_labels.length > 0){
+        // delete the parent of the label
+        existing_labels[0].remove();
+    }
+
   }
+
+
 
 };
 

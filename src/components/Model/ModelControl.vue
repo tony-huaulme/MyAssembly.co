@@ -1,5 +1,5 @@
 <template>
-    <OverlayBadge 
+    <!-- <OverlayBadge 
         v-show="selectedPanelName"
         severity="info"
         :value="null" 
@@ -9,92 +9,96 @@
         :class="{'blink-bg': isDemo}"
         @click="$emit('show-panel-info', true); isDemo ? stopBlinking('selectedPanel') : ''; openFirstInfoAccordion(); isDemo ? $emit('nextStepDemo', 3) : ''" >
         {{ selectedPanelName }}
-    </OverlayBadge>
-    <div style="overflow: auto;" :style="isPortrait ? '': 'width: 25vw;'">
-        <div class="flex flex-row p-3">
-            <h1 class="project-name ps-3" :class="{'portraitPorjectName':isPortrait, 'notPortraitProjectName' : !isPortrait}">{{ props.projectName }}</h1>
-            <Button 
-                @click="$emit('show-project-info', true)"
-                class="pi pi-info-circle h-fill info-button" 
-                severity="success" 
-                aria-label="Info"
-                style="padding: .35rem;"
-            ></Button>
-        </div>
-        <div v-if="buildingPanels">
-            <div 
-                v-if="(selectedPanelName != '' && !isDemo) || (selectedPanelName != ''  && clickedPanelCount > 2)"
-                class="p-3 w-50"
-                >
+    </OverlayBadge> -->
+    <span v-if="!isPortrait" @click="toggleSideBar" id="toggle-control-panel" class="p-3 cursor-pointer">
+        <i class="pi pi-chevron-left" id="toggle-control-panel-icon" style="font-size: 1rem"></i>
+    </span>
+    <div :style="isPortraitStyle" style="overflow: auto;" id="control-panel-container">
+        <div class="control-panel-content-container">
+            <div class="flex flex-row p-3">
+                <h1 class="project-name ps-3" :class="{'portraitPorjectName':isPortrait, 'notPortraitProjectName' : !isPortrait}">{{ props.projectName }}</h1>
                 <Button 
-                    class="button" 
-                    @click="$emit('control-model', { controleName: 'showAllPanels' })"
-                >
-                    Show All Panels
-                </Button>
+                    @click="$emit('show-project-info', true)"
+                    class="pi pi-info-circle h-fill info-button" 
+                    severity="success" 
+                    aria-label="Info"
+                    style="padding: .35rem;"
+                ></Button>
             </div>
-            <Accordion v-model="activeIndex">
-                <AccordionPanel 
-                    v-for="( [group, items], index ) in Object.entries(props.buildingPanels)" 
-                    :key="group" 
-                    :header="group"
-                    :value="index"
-                >
-                <AccordionHeader >{{ group }}</AccordionHeader>
-                    <AccordionContent>
-                        <div class="containerPanelName">
-                            <div v-for="panel in items" :key="panel">
-                            
-                                <Button v-if="panel == 'R1'" 
-                                    class="button" 
-                                    :class="{'blink-bg': isDemo}"
-                                    id="demoShowPanelButton"
-                                    @click="
-                                        $emit('control-model', { controleName: 'showOnlyPanelByName', arg: panel }); 
-                                        isDemo ? stopBlinking('demoShowPanelButton') : '';
-                                        isDemo ? $emit('nextStepDemo', 2) : ''
-                                        "
-                                    >
-                                    {{ panel }}
-                                </Button>
-                                <Button v-else
-                                    class="button" 
-                                    @click="$emit(
-                                        'control-model', { controleName: 'showOnlyPanelByName', arg: panel });"
-                                    >
-                                    {{ panel }}
-                                </Button>
+            <div v-if="buildingPanels">
+                <div 
+                    v-if="(selectedPanelName != '' && !isDemo) || (selectedPanelName != ''  && clickedPanelCount > 2)"
+                    class="p-3 w-50"
+                    >
+                    <Button 
+                        class="button" 
+                        @click="$emit('control-model', { controleName: 'showAllPanels' })"
+                    >
+                        Show All Panels
+                    </Button>
+                </div>
+                <Accordion v-model="activeIndex">
+                    <AccordionPanel 
+                        v-for="( [group, items], index ) in Object.entries(props.buildingPanels)" 
+                        :key="group" 
+                        :header="group"
+                        :value="index"
+                    >
+                    <AccordionHeader >{{ group }}</AccordionHeader>
+                        <AccordionContent>
+                            <div class="containerPanelName">
+                                <div v-for="panel in items" :key="panel">
+                                
+                                    <Button v-if="panel == 'R1'" 
+                                        class="button" 
+                                        :class="{'blink-bg': isDemo}"
+                                        id="demoShowPanelButton"
+                                        @click="
+                                            $emit('control-model', { controleName: 'showOnlyPanelByName', arg: panel }); 
+                                            isDemo ? stopBlinking('demoShowPanelButton') : '';
+                                            isDemo ? $emit('nextStepDemo', 2) : ''
+                                            "
+                                        >
+                                        {{ panel }}
+                                    </Button>
+                                    <Button v-else
+                                        class="button" 
+                                        @click="$emit(
+                                            'control-model', { controleName: 'showOnlyPanelByName', arg: panel });"
+                                        >
+                                        {{ panel }}
+                                    </Button>
+                                </div>
                             </div>
-                        </div>
-                    </AccordionContent>
-                </AccordionPanel>
-            </Accordion>
+                        </AccordionContent>
+                    </AccordionPanel>
+                </Accordion>
 
+            </div>
+            <div v-else class="p-3">
+                <Skeleton class="mb-1"/>
+                <Skeleton class="mb-1"/>
+                <br>
+                <Skeleton class="mb-1"/>
+                <Skeleton class="mb-1"/>
+                <Skeleton class="mb-1"/>
+                <Skeleton class="mb-1"/>
+                <Skeleton class="mb-1"/>
+                <Skeleton class="mb-1"/>
+                <br>
+                <Skeleton class="mb-1"/>
+                <Skeleton class="mb-1"/>
+                <Skeleton class="mb-1"/>
+                <Skeleton class="mb-1"/>
+                <br>
+                <Skeleton class="mb-1"/>
+                <Skeleton class="mb-1"/>
+                <Skeleton class="mb-1"/>
+                <Skeleton class="mb-1"/>
+                <br>
+    
+            </div>
         </div>
-        <div v-else class="p-3">
-            <Skeleton class="mb-1"/>
-            <Skeleton class="mb-1"/>
-            <br>
-            <Skeleton class="mb-1"/>
-            <Skeleton class="mb-1"/>
-            <Skeleton class="mb-1"/>
-            <Skeleton class="mb-1"/>
-            <Skeleton class="mb-1"/>
-            <Skeleton class="mb-1"/>
-            <br>
-            <Skeleton class="mb-1"/>
-            <Skeleton class="mb-1"/>
-            <Skeleton class="mb-1"/>
-            <Skeleton class="mb-1"/>
-            <br>
-            <Skeleton class="mb-1"/>
-            <Skeleton class="mb-1"/>
-            <Skeleton class="mb-1"/>
-            <Skeleton class="mb-1"/>
-            <br>
-   
-        </div>
-
     </div>
     <!-- <RouterLink 
         v-if="isDemo && !editMode"
@@ -124,7 +128,7 @@ import OverlayBadge from 'primevue/overlaybadge';
 import Button from 'primevue/button';
 
 import { RouterLink } from 'vue-router'
-import { ref, defineEmits, onMounted, nextTick } from 'vue';
+import { ref, defineEmits, onMounted, nextTick, computed } from 'vue';
 
 
 import { useRoute } from 'vue-router';
@@ -159,10 +163,26 @@ const clickedPanelCount = ref(0);
 
 const emit = defineEmits(['control-model', 'show-panel-info', 'show-project-info', 'nextStepDemo', 'startDemo']);
 
+
 function detectOrientation() {
   isPortrait.value = window.innerHeight > window.innerWidth;
 }
 
+const isPortraitStyle = computed(() => {
+    return isPortrait.value ? '' : `
+    width: 25vw; 
+    overflow: auto;
+    width: 25vw;
+    height: 100vh;
+    position: absolute;
+    z-index: 10000;
+   `
+});
+
+function toggleSideBar() {
+    document.getElementById('control-panel-container').classList.toggle('h-sidebar');
+    document.getElementById('toggle-control-panel-icon').classList.toggle('flip-r');
+}
 
 onMounted(() => {
   detectOrientation();
@@ -195,7 +215,7 @@ function openFirstInfoAccordion() {
     nextTick(() => {
         const firstAccordion = document.getElementsByClassName('panelInfoHeader_0');
     
-        if (firstAccordion) firstAccordion[0].click();
+        // if (firstAccordion) firstAccordion[0].click();
 
 
         // panelInfoHeader_1
@@ -275,6 +295,47 @@ async function sendWebhookDEMO_COMPLETE() {
 
 </script>
 <style>
+
+.control-panel-content-container {
+    padding: 3px; 
+    border-radius: 25px; 
+    height: 100%;
+
+    /* box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 ); */
+    backdrop-filter: blur( 7px ) saturate(200%);
+    -webkit-backdrop-filter: blur( 10px );
+    border-radius: 10px;
+    height: fit-content;
+
+}
+.flip-r {
+    transform: scaleX(-1);
+}
+
+#toggle-control-panel-icon{
+    transition: all 0.5s;
+}
+
+#toggle-control-panel{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    top: 20px;
+    left: 20px;
+    border-radius: 100%;
+    background-color: #0f0f11;
+    position: absolute;
+    z-index: 20000;
+}
+
+.h-sidebar{
+    left: -25vw !important;
+}
+
+#control-panel-container {
+    overflow: auto;
+}
 
 /* Blink animation for the background that transitions from white to gray to black */
 @keyframes blink-background {
@@ -377,6 +438,4 @@ async function sendWebhookDEMO_COMPLETE() {
     left: 50%;
     transform: translate(-50%, -50%); 
 }
-
-
 </style>

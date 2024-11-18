@@ -47,7 +47,7 @@
         </RouterLink>
         <RouterLink :to="'/contact'" class="get-started-btn" style="border: none;">       
             
-            <Button class="mt-2 w-full  mb-5" style="background-color: var(--p-content-color); border: none; ">
+            <Button class="mt-2 w-full mb-5" style="background-color: var(--p-content-color); border: none; ">
                 <slot>
                     <p class="m-0" style=" margin-right: 1ch; color: var(--p-content-background);"><b>Contact Us</b></p>
                 </slot>
@@ -56,7 +56,7 @@
         </RouterLink>
         <div style="position: absolute !important; bottom: 32px; left: 32px;">
             <Button @click="visibleBookDemo = true">
-                <p>Book Full Demo</p>
+                <p class="p-0">Book Full Demo</p>
             </Button>
         </div>
     </div>

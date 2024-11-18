@@ -1,4 +1,6 @@
 <template>
+  <div class="viewer-background">
+
   <p class="absolute"> {{ project_settings?.test}}</p>
   <div v-if="noAccessToModel" class="h-screen w-screen flex flex-column items-center justify-center">
     <h1 class="text-3xl mb-5">No access to this model</h1>
@@ -8,17 +10,7 @@
   <div v-else>
 
     <FullScreenToggle v-if="!modelInfosVisible"/>
-    <ModelInfos 
 
-      v-if="project_settings && selectedPanelName != ''"
-
-      v-model:visible="modelInfosVisible" 
-      v-model:isPortrait="isPortrait"
-      
-      v-model:selectedPanelName="selectedPanelName"
-      v-model:tabs="infosTabs"
-      v-model:panelDescription="infosDescription"
-    />
 
     <ProjectInfos 
       v-model:visible="projectInfosVisible" 
@@ -40,14 +32,26 @@
         :panelBtnOnly="true"
         :projectName="projectName"
       />
+      <ModelInfos 
+
+        v-if="project_settings && selectedPanelName != ''"
+
+        v-model:visible="modelInfosVisible" 
+        v-model:isPortrait="isPortrait"
+
+        v-model:selectedPanelName="selectedPanelName"
+        v-model:tabs="infosTabs"
+        v-model:panelDescription="infosDescription"
+        />
       <div 
         @mousedown.right="mouseDown"
         @mouseup.right="mouseUp"
         ref="modelContainer" 
         @click="threeJsOrbitControls.autoRotate = false;"
-        :class="{ 'h-[75vh] w-screen': isPortrait, 'w-[75vw] h-screen': !isPortrait }"
-        class="canvas-container"
+        class="canvas-container w-screen h-screen"
       >   
+      <!-- :class="{ 'h-[75vh] w-screen': isPortrait, 'w-[75vw] h-screen': !isPortrait }" -->
+
       <ModelViewer 
         v-if="modelContainer && modelUrl" 
         ref="modelViewerRef" 
@@ -64,6 +68,7 @@
       </div>
     </div>
   </div>
+</div>
  
 </template>
 
@@ -171,9 +176,9 @@ async function getProject() {
     const {data} = await api.get(`projects/${projectId.value}`);
     projectName.value = data.project_name;
     let dataHandled = data.settings || '{"description": "No description available", "pannels": {}}';
- 
+    
     project_settings.value = JSON.parse(dataHandled);
-
+    console.log('project_settings', data);
 
     const fileKey = data.file3d_link.split('amazonaws.com/')[1]
     // MyAssemblyDemoLIL.glb
@@ -209,7 +214,6 @@ watch(() => panelClicked.value, (newVal) => {
     selectedPanelName.value = newVal;
     ModelBuilding.value.showOnlyPanelByName(newVal);
     addLabelToPanel(newVal, `This is the ${newVal} panel`);
-
     
   }
 });
@@ -236,6 +240,14 @@ const handleControl = (arg) => {
   if(arg.controleName === 'showAllPanels') {
     ModelBuilding.value.showAllPanels();
     selectedPanelName.value = '';
+
+    // delete element with class : panelLabelDemo
+    const existing_labels = document.getElementsByClassName('panelLabelDemo')
+
+    while(existing_labels.length > 0){
+        // delete the parent of the label
+        existing_labels[0].remove();
+    }
   }
 
 };
@@ -253,11 +265,11 @@ function detectOrientation() {
   console.log("Screen Orientation :",isPortrait.value ? "Portrait" : "Landscape");
 }
 
+
 function addLabelToPanel(panelName, label) {
-  if(props.editMode) {
-    ModelBuilding.value.addLabelToGroup(panelName, label);
-  }
+  ModelBuilding.value.addLabelToGroup(panelName, label);
 }
+
 
 let mouseDownTime = 0;
 let startX = 0, startY = 0;
@@ -301,6 +313,19 @@ onMounted(() => {
 </script>
 
 <style>
+
+.viewer-background {
+    /* Grid pattern layer */
+    /* background-image: 
+      linear-gradient(rgba(67, 73, 92, 0.379) 1.5px, transparent 1.5px),
+      linear-gradient(to right, rgba(67, 73, 92, 0.206) 1.5px, transparent 1.5px),
+       */
+      /* Gradient layer */
+      /* linear-gradient(90deg, rgba(27, 32, 46, 1) 0%, rgba(33, 41, 64, 1) 35%, rgba(8, 14, 28, 1) 100%); */
+      
+    /* Grid size */
+    /* background-size: 44px 44px, 44px 44px, cover; */
+}
 
 .canvas-container {
     position: relative;

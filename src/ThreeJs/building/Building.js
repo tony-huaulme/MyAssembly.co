@@ -112,10 +112,11 @@ export class Building {
             // delete the parent of the label
             existing_labels[0].remove();
         }
+        console.log("STEP 1", panelName);
 
         const child = this.panels[panelName].getElements()[0];
         if (!child) return;
-    
+        console.log("adding label to: ", panelName);
         // Create the label element
         const labelDiv = document.createElement('div');
 

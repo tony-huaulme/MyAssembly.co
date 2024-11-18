@@ -193,6 +193,10 @@ const newTab = ref({
 
 
 async function saveSetting() {
+  if(!projectSettings.value) {
+    toast.add({ severity: 'error', summary: 'Error', detail: 'No settings available', life: 3000 });
+    return;
+  }
   try {
     const response = await api.put(`projects/${48}`, {
       settings: JSON.stringify(projectSettings.value) // Convert settings to JSON string if necessary
@@ -319,9 +323,8 @@ async function getProject() {
   try {
     const { data } = await api.get(`projects/${projectId.value}`);
     projectName.value = data.project_name;
-    let dataHandled = data.settings || '{"description": "No description available", "pannels": {}}';
-
-    projectSettings.value = JSON.parse(dataHandled);
+ 
+    projectSettings.value = JSON.parse(data.settings);
 
 
     const fileKey = data.file3d_link.split('amazonaws.com/')[1]
