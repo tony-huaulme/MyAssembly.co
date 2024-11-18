@@ -54,11 +54,11 @@
             </Button>
             
         </RouterLink>
-        <Button @click="visibleBookDemo = true" style="position: absolute;
-    bottom: 32px;
-    left: 32px;">
-            <p>Book Full Demo</p>
-        </Button>
+        <div style="position: absolute !important; bottom: 32px; left: 32px;">
+            <Button @click="visibleBookDemo = true">
+                <p>Book Full Demo</p>
+            </Button>
+        </div>
     </div>
 
     <Dialog v-model:visible="visible" modal header="Create a project" :style="{ width: '45rem' }">
