@@ -55,9 +55,9 @@ onMounted(() => {
   localStorage.setItem('user_picture', JSON.stringify(user_picture.value));
   new_user.value = route.query.new_user || false;
 
-   alert(new_user.value);
-   // alert the type of new_user.value
-   alert(typeof new_user.value);
+   // alert(new_user.value);
+   // // alert the type of new_user.value
+   // alert(typeof new_user.value);
 
   if (new_user.value == 'False') {
      $router.push("/dashboard/projects");
