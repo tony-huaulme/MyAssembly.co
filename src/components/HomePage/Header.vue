@@ -20,7 +20,7 @@
                 </a>
             </template>
             <template #end>
-                <RouterLink v-if="!sessionActive" :to="'/dashboard/projects'"  @click="sendWebhookCTA()">       
+                <RouterLink v-if="sessionActive" :to="'/dashboard/projects'"  @click="sendWebhookCTA()">       
         
                     <Button>
                             <p class="m-0">My Dashboard</p>
@@ -119,6 +119,14 @@ const items = ref([
         icon: 'pi pi-envelope',
         command: () => {
             router.push('/contact');
+        }
+        // badge: 3
+    },
+    {
+        label: 'Login',
+        icon: 'pi pi-user',
+        command: () => {
+            router.push('/authenticate?signup=false');
         }
         // badge: 3
     }

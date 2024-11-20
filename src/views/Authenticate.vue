@@ -1,7 +1,6 @@
 <template>
     <!-- Full-screen container -->
     <div class="flex h-screen justify-center md:align-items-center md:p-0 w-fill">
-
         <!-- Right Section: Placeholder for Login Form -->
                  <!-- other side 2/3 is an image -->
         <div class="hidden md:flex md:w-2/3 h-fill p-4">
@@ -82,8 +81,9 @@ import { useRouter } from 'vue-router';
 
 const $router = useRouter();
 
+// get in the url /authenticate?signup=false the sign up
 const toast = useToast();
-const signupPage = ref(1);
+const signupPage = ref($router.currentRoute.value.query.signup == 'true' || false);
 const email = ref('');
 const password = ref('');
 const signupIndex = ref(0);
