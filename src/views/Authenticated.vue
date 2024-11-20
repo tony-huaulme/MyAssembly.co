@@ -63,7 +63,7 @@ onMounted(() => {
      $router.push("/dashboard/projects");
    }else {
       sendWebhook(email.value);
-      $router.push("/demo");
+      $router.push("/dashboard/projects");
    }
 
 });

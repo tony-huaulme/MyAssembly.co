@@ -43,6 +43,7 @@
                         :key="group" 
                         :header="group"
                         :value="index"
+                        :id="`accordion_n_${index}`"
                     >
                     <AccordionHeader >{{ group }}</AccordionHeader>
                         <AccordionContent>
@@ -215,7 +216,7 @@ function openFirstInfoAccordion() {
     nextTick(() => {
         const firstAccordion = document.getElementsByClassName('panelInfoHeader_0');
     
-        // if (firstAccordion) firstAccordion[0].click();
+        if (firstAccordion) firstAccordion[0].click();
 
 
         // panelInfoHeader_1

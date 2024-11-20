@@ -248,8 +248,6 @@ const $router = useRouter();
 async function demoSummited() {
    const webhookUrl = 'https://discord.com/api/webhooks/1303472816405872670/ppyUbqudY4ClhKmVB2W4DFv31V0myklZJ9xbmb-XZwe71PaZpYINxvV3qAQ6WYwR3kXK';
    
-    const email = localStorage.getItem('user_email');
-
    // Preparing answers or any data you want to send
    const q = answers.value; // Replace with actual data
    // Define the payload with the correct structure for Discord
@@ -257,7 +255,7 @@ async function demoSummited() {
       content: "A user submitted the demo form",
       embeds: [
          {
-            title: `DEMO FORM ${email}`,
+            title: `DEMO FORM `,
             color: 51711, // Green color in decimal
             fields: Object.keys(q).map((key) => ({
                name: key,
@@ -288,11 +286,8 @@ async function demoSummited() {
 
   localStorage.setItem('onboardingAnswers', JSON.stringify(answers.value));
 
-   if (props.mobile) {
-    $router.push(`/demo-on-phone`);
-  } else {
-    visible.value = false;
-  }
+
+  visible.value = false;
 
 }
 
