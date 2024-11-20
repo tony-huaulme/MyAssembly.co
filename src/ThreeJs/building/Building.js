@@ -131,7 +131,11 @@ export class Building {
         // Attach the label directly to the child to match its position
         child.add(label);
         labelDiv.addEventListener('click', () => {
-            document.getElementById('selectedPanel').click();   
+            // if element info-panel-container class containe h-sidebar
+            let infoPanel = document.getElementById('info-panel-container');
+            if (infoPanel.classList.contains('h-sidebar')) {
+                document.getElementById('toggle-info-panel').click();
+            }
         });
     }
 

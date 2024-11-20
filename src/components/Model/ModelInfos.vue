@@ -1,9 +1,9 @@
 
 <template>
-    <span  @click="toggleSideBar" id="toggle-info-panel" class="p-3 cursor-pointer">
-        <i class="pi pi-chevron-left flip-r" id="toggle-info-panel-icon" style="font-size: 1rem"></i>
+    <span @click="toggleSideBar" id="toggle-info-panel" class="p-3 cursor-pointer h-sidebar-toggle">
+        <i class="pi flip-r" :class="isPortrait ? 'pi-times' :'pi-chevron-right' " id="toggle-info-panel-icon" style="font-size: 1rem"></i>
     </span>
-<div :style="isPortraitStyle" style="overflow: auto;" id="info-panel-container" >
+<div :style="isPortraitStyle" style="overflow: auto;" id="info-panel-container" class="h-sidebar">
     <div class="info-panel-content-container">
         <div>
             <div style="font-size: x-large; font-weight: 800;" class="p-3"> {{ selectedPanelName }} </div>
@@ -113,6 +113,7 @@ watch(visible, (newValue) => {
 
 function toggleSideBar() {
     document.getElementById('info-panel-container').classList.toggle('h-sidebar');
+    document.getElementById('toggle-info-panel').classList.toggle('h-sidebar-toggle');
     document.getElementById('toggle-info-panel-icon').classList.toggle('flip-r');
 }
 
@@ -180,6 +181,13 @@ const isPortraitStyle = computed(() => {
     right: -25vw !important;
     display: none;
 }
+
+@media screen and (max-width: 768px) {
+    .h-sidebar-toggle{
+        display: none !important;
+    }
+}
+
 
 #info-panel-container {
     overflow: auto;
