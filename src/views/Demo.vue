@@ -201,7 +201,7 @@ function togglePopup() {
 }
 
 function createProject() {
-    $router.push(`/dashboard/projects`);
+    $router.push(`/authenticate?signup=true`);
 }
 
 function startAfterDemo() {
