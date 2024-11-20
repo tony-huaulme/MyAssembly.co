@@ -50,9 +50,9 @@ import api from '@/services/api';
 onMounted(() => {
 
     api.get('auth/check').then(({ data }) => {
-        if (!data.authenticated) {
+        if (data.authenticated) {
+            sessionActive.value = true;
         }
-        sessionActive.value = true;
     }).catch((error) => {
         console.error('Error:', error);
     });
