@@ -21,6 +21,7 @@
             <Column field="actions" header="Actions">
                 <template #body="{ data }">
                     <Button icon="pi pi-trash" class="p-button-rounded p-button-danger" @click="deleteProject(data)"></Button>
+                    <Button icon="pi pi-eye" class="p-button-rounded p-button-info" :href="'https://www.myassembly.co/ModelFromProjectId?projectId=' + data.id" target="_blank"></Button>
                 </template>
             </Column>
         </DataTable>
