@@ -9,7 +9,7 @@
   </div> -->
   <div v-if="isOpen && !isPortrait" ref="floating" :style="{ ...floatingStyles, ...(demoPopupIndex === 5 ? { width: '555px' } : {}) }"
     class="p-3 popupContainer" style="z-index: 10001;">
-    <div class="popup p-4 w-fill">
+    <!-- <div class="popup p-4 w-fill">
       <div class="flex items-center justify-between mb-2">
         <span class="font-semibold">{{ currentDemoPopupContent["title"] }}</span>
         <span class="pi pi-times cursor-pointer" @click="isOpen = false"></span>
@@ -39,14 +39,14 @@
         </button>
 
       </div>
-    </div>
+    </div> -->
   </div>
-  <Button v-else-if="!isPortrait" class="absolute" :class="{ 'top-5 left-5': isPortrait, 'bottom-5 right-5': !isPortrait }"
+  <!-- <Button v-else-if="!isPortrait" class="absolute" :class="{ 'top-5 left-5': isPortrait, 'bottom-5 right-5': !isPortrait }"
     style=" border: none; z-index: 10001;" @click="togglePopup">
     <slot>
       <p class="m-0">Resume Demo</p>
     </slot>
-  </Button>
+  </Button> -->
 
   <Button class="absolute " severity="contrast" :class="{ 'top-5 left-5': isPortrait, 'bottom-5 left-5': !isPortrait }"
     style=" border: none; z-index: 10001; border-radius: 2px;" @click="createProject">
@@ -74,8 +74,11 @@
       v-model:isPortrait="isPortrait" v-model:selectedPanelName="selectedPanelName" v-model:tabs="infosTabs"
       v-model:panelDescription="infosDescription" @nextStepDemo="nextStepDemo($event)" />
 
-    <ProjectInfos v-model:visible="projectInfosVisible" :projectName="projectName"
-      :projectDescription="project_settings?.description" />
+    <ProjectInfos 
+      v-model:visible="projectInfosVisible" 
+      :projectName="projectName"
+      :projectDescription="project_settings?.description" 
+    />
 
     <div class="h-screen w-screen flex" :class="{ 'flex-col-reverse': isPortrait, 'flex-row': !isPortrait }">
       <ModelControl class="overflow-auto p-3" :class="{ 'h-1/3  w-screen': isPortrait, 'w-1/3 h-screen': !isPortrait }"
@@ -83,13 +86,25 @@
         @show-project-info="projectInfosVisible = true" @nextStepDemo="nextStepDemo($event)" @startDemo="togglePopup"
         v-model:selectedPanelName="selectedPanelName" :buildingPanels="buildingPanels" :panelBtnOnly="true"
         :projectName="projectName" />
-      <div @mousedown.right="mouseDown" @mouseup.right="mouseUp" ref="modelContainer"
+
+      <div 
+        @mousedown.right="mouseDown" 
+        @mouseup.right="mouseUp" 
+        ref="modelContainer"
         @click="threeJsOrbitControls.autoRotate = false;"
-        :class="{ 'h-[75vh] w-screen': isPortrait, 'w-[75vw] h-screen': !isPortrait }" class="canvas-container">
-        <ModelViewer v-if="modelContainer && modelUrl" ref="modelViewerRef" :modelUrl="modelUrl"
-          :modelContainer="modelContainer" @model-loaded="setBuilding" @renderer-loaded="threeJsRenderer = $event"
-          @orbitControls-loaded="threeJsOrbitControls = $event" @camera-loaded="threeJsModelCamera = $event"
-          @scene-loaded="threeJsScene = $event" @element-clicked="panelClicked = $event" />
+        class="canvas-container w-screen h-screen"
+        >
+        <ModelViewer 
+          v-if="modelContainer && modelUrl" 
+          ref="modelViewerRef" 
+          :modelUrl="modelUrl"
+          :modelContainer="modelContainer" 
+          @model-loaded="setBuilding" 
+          @renderer-loaded="threeJsRenderer = $event"
+          @orbitControls-loaded="threeJsOrbitControls = $event" 
+          @camera-loaded="threeJsModelCamera = $event"
+          @scene-loaded="threeJsScene = $event" 
+          @element-clicked="panelClicked = $event" />
       </div>
     </div>
   </div>
@@ -201,7 +216,37 @@ function togglePopup() {
 }
 
 function createProject() {
-    $router.push(`/authenticate?signup=true`);
+  ctaStartAproject();
+  $router.push(`/authenticate?signup=true`);
+
+}
+
+
+
+async function ctaStartAproject() {
+   const webhookUrl = 'https://discord.com/api/webhooks/1303472816405872670/ppyUbqudY4ClhKmVB2W4DFv31V0myklZJ9xbmb-XZwe71PaZpYINxvV3qAQ6WYwR3kXK';
+   
+   const payload = {
+      content: "CTA Start a Project clicked",
+   };
+
+   try {
+      const response = await fetch(webhookUrl, {
+         method: 'POST',
+         headers: {
+            'Content-Type': 'application/json'
+         },
+         body: JSON.stringify(payload)
+      });
+
+      if (!response.ok) {
+         throw new Error(`Request failed with status ${response.status}`);
+      }
+
+      console.log('Webhook sent successfully!');
+   } catch (error) {
+      console.error('Failed to send webhook:', error);
+   }
 }
 
 function startAfterDemo() {
@@ -227,7 +272,7 @@ const modelContainer = ref(null);
 const ModelBuilding = ref(null);
 const buildingPanels = ref(null);
 const isPortrait = ref(false);
-const modelInfosVisible = ref(false);
+const modelInfosVisible = ref(true);
 const projectInfosVisible = ref(false);
 
 // Model control

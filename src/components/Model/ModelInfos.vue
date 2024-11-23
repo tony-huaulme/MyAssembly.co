@@ -101,7 +101,7 @@ const props = defineProps({
 });
 
 
-const visible = ref(false);
+const visible = ref(true);
 
 // watch visible, on change do toggleSideBar stuff
 watch(visible, (newValue) => {
@@ -132,7 +132,7 @@ const isPortraitStyle = computed(() => {
     ` : `
     width: 25vw; 
     overflow: auto;
-    height: 100vh;
+    height: auto;
     position: absolute;
     z-index: 10000;
     right:0px;

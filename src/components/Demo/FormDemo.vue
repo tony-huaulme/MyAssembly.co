@@ -159,10 +159,10 @@ import InputText from 'primevue/inputtext';
 import Button from 'primevue/button';
 import Checkbox from 'primevue/checkbox';
 import RadioButton from 'primevue/radiobutton';
-import { styleText } from 'util';
 
 
-const visible = ref(true);
+
+const visible = ref(false);//localStorage.getItem("onboardingAnswers") == null
 const step = ref(0);
 const answers = ref({
   firstName: '',
