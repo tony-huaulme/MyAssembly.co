@@ -22,13 +22,21 @@ async function sendWebhook() {
     const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
     const language = navigator.language;
     
-    const fingerprint = `${userAgent}-\n${screenResolution}-${colorDepth}-${timezone}-${language}`;
+    const fingerprint = `${screenResolution}-${colorDepth}-${timezone}-${language}`;
     
 
     const payload = {
         embeds: [{
             title: `New Visitor on ${deviceType}.`,
             description: fingerprint, // Include device type in the message
+            // add a field for the the url where user landed
+            fields: [
+                {
+                    name: 'Landing URL',
+                    value: window.location.href,
+                    inline: true
+                },
+            ],
             color: 3066993, // Green color in decimal
         }]
     };

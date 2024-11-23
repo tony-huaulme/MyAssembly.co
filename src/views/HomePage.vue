@@ -22,7 +22,7 @@
         </div>
 
         <!-- Section 1: More than just 3D visualization -->
-        <SideSection side="left" style="height: auto;">
+        <SideSection side="left" style="height: 80vh;">
             <template #title>
                 More than a<br>3D visualization
             </template>
@@ -102,7 +102,13 @@
 
             </template>
         </SideSection> -->
-
+        <div class="w-fill flex justify-center mb-5" style="padding: 30px 30px;
+        max-width: 913px;
+    border-radius: 25px;
+    box-shadow: rgba(227, 227, 227, 0.92) 1px 0px 2px 1px;
+    margin: auto;">
+            <img src="../assets/MADE_BY_MACO.gif"  alt="" class="w-fill" style="border-radius: 25px; max-width: 853px;  border-radius: 3px;">
+        </div>
          <!-- Section 4: IMPORT SECTION -->
             <!-- IMPORT on phone -->
             <HeroSection class=" md:hidden flex"  style="z-index: 99999;">
@@ -227,16 +233,14 @@
         
 
     </div>
-    <HeroSection>
+    <!-- <HeroSection>
             <template #title>
                 <span>Made with MyAssembly.co</span>
             </template>
             
-        </HeroSection>
-        <div class="w-fill flex justify-center mb-4">
-            <img src="../assets/MADE_BY_MACO.gif"  alt="" class="w-fill" style="max-width: 853px;  border-radius: 3px;">
-        </div>
-        <GetStartedButton/>
+        </HeroSection> -->
+
+        <!-- <GetStartedButton/> -->
     <!-- <HeroSection>
         <template #title>
             <span>Try it now or contact us !</span>
