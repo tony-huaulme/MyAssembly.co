@@ -22,7 +22,7 @@
                     class="pi pi-info-circle h-fill info-button" 
                     severity="success" 
                     aria-label="Info"
-                    style="padding: .35rem;"
+                    style="padding: .35rem; height: 30px;"
                 ></Button>
             </div>
             <div v-if="buildingPanels">
