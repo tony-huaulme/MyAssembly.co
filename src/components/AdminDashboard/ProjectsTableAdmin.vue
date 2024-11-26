@@ -20,8 +20,10 @@
             </Column>
             <Column field="actions" header="Actions">
                 <template #body="{ data }">
-                    <Button icon="pi pi-trash" class="p-button-rounded p-button-danger" @click="deleteProject(data)"></Button>
-                    <Button icon="pi pi-eye" class="p-button-rounded p-button-info" :href="'https://www.myassembly.co/ModelFromProjectId?projectId=' + data.id" target="_blank"></Button>
+                    <Button icon="pi pi-trash" class="p-button-rounded p-button-danger ml-5" @click="deleteProject(data)"></Button>
+                    
+                        
+                    <Button icon="pi pi-eye" class="p-button-rounded p-button-info" @click="openProject(data.id)" target="_blank"></Button>
                 </template>
             </Column>
         </DataTable>
@@ -47,6 +49,18 @@ onMounted(() => {
     });
 });
 
+
+import { useRouter } from 'vue-router';
+const router = useRouter();
+
+const openProject = (project) => {
+    const url = router.resolve({
+        name: 'ModelFromProjectId',
+        query: { projectId: project.id }
+    }).href;
+
+    window.open(url, '_blank');
+};
 function deleteProject(data) {
     try {
         api.delete(`/projects/${data.id}`).then((res) => {

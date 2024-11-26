@@ -49,13 +49,21 @@ export class Building {
         
         if (child.isMesh) {
 
-            const metalMaterial = new THREE.MeshStandardMaterial({
-                color: 0xAEB3B8, // steel gray
-                transparent: true,
-                opacity: 1
-            });
+            // const metalMaterial = new THREE.MeshStandardMaterial({
+            //     color: 0xAEB3B8, // steel gray
+            //     transparent: true,
+            //     opacity: 1
+            // });
         
-            child.material = metalMaterial;
+            // child.material = metalMaterial;
+
+            // try catch set material. transparent = true and opacity = 1
+            try {
+                child.material.transparent = true;
+                child.material.opacity = 1;
+            } catch (error) {
+                console.log("Error: ", error);
+            }
 
         }
     }
