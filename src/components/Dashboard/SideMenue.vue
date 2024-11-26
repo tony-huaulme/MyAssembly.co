@@ -36,7 +36,7 @@
                 </button>
             </template>
         </Menu>
-        <RouterLink :to="'/ModelFromProjectId?projectId=48'" class="get-started-btn" style="border: none; ">       
+        <RouterLink :to="'/demo'" class="get-started-btn" style="border: none; ">       
         
             <Button class="mt-2 w-full" outlined severity="contrast">
                 <slot>

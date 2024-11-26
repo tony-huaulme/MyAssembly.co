@@ -6,10 +6,12 @@ import { CSS2DObject } from 'three/examples/jsm/renderers/CSS2DRenderer.js';
 
 export class Building {
 
-    constructor(model, config) {
+    constructor(model, config=false) {
         this.model = model;
         this.panels = {};
+        this.config = config;
         this.init();
+
     }
 
     init() {
@@ -49,22 +51,32 @@ export class Building {
         
         if (child.isMesh) {
 
-            // const metalMaterial = new THREE.MeshStandardMaterial({
-            //     color: 0xAEB3B8, // steel gray
-            //     transparent: true,
-            //     opacity: 1
-            // });
-        
-            // child.material = metalMaterial;
+            if (this.config) {
 
-            // try catch set material. transparent = true and opacity = 1
-            try {
-                child.material.transparent = true;
-                child.material.opacity = 1;
-            } catch (error) {
-                console.log("Error: ", error);
+                const metalMaterial = new THREE.MeshStandardMaterial({
+                    color: 0xAEB3B8, // steel gray
+                    transparent: true,
+                    opacity: 1
+                });
+
+                child.material = metalMaterial;
+
+            }else {
+                
+                // try catch set material. transparent = true and opacity = 1
+                try {
+                    child.material.transparent = true;
+                    child.material.opacity = 1;
+                    console.log("Child Material set");
+                    if (this.config) {
+                        child.material.color = 0xAEB3B8;
+                    }
+                } catch (error) {
+                    console.log("Error: ", error);
+                }
+
             }
-
+        
         }
     }
 
