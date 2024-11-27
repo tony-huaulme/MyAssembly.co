@@ -26,22 +26,49 @@ export class Building {
 
         let currentPanelName = null
   
-        this.model.traverse((child) => {
-            const name = child.name;
+        if (this.config['elementIdentification'] == 'IfcElementAssembly') {
 
-            let panelName = isPanelName(name)
-            if (panelName) {
-                currentPanelName = panelName;
-                this.panels[currentPanelName] = new Panel(currentPanelName);
+            this.model.traverse((child) => {
+                const name = child.name;
 
-            } else if (currentPanelName && isPanelPart(name)) {
-                this.allowTransprencyOnChild(child);
-                this.panels[currentPanelName].addElement(child);
-                child.myassemblyPanelName = currentPanelName;
-            }
-  
-        });
+                let panelName = isPanelName(name)
+                if (panelName) {
+                    currentPanelName = panelName;
+                    this.panels[currentPanelName] = new Panel(currentPanelName);
 
+                } else if (currentPanelName && isPanelPart(name)) {
+                    this.allowTransprencyOnChild(child);
+                    this.panels[currentPanelName].addElement(child);
+                    child.myassemblyPanelName = currentPanelName;
+                }
+    
+            });
+
+        }else {
+
+            this.model.traverse((child) => {
+
+                if(child.children.length > 0) {
+                    console.log("Child has children: ", child.children);
+                }
+
+                console.log(child);
+
+                // const name = child.name;
+
+                // let panelName = isPanelName(name)
+                // if (panelName) {
+                //     currentPanelName = panelName;
+                //     this.panels[currentPanelName] = new Panel(currentPanelName);
+
+                // } else if (currentPanelName && isPanelPart(name)) {
+                //     this.allowTransprencyOnChild(child);
+                //     this.panels[currentPanelName].addElement(child);
+                //     child.myassemblyPanelName = currentPanelName;
+                // }
+    
+            });
+        }
 
         console.log("Panels Defined: \n",this.panels);
 
