@@ -165,7 +165,7 @@
             
             </div>
             <div class="flex justify-end gap-5 ">
-                <Button disabled label="Delete Project" icon="pi pi-trash" class="p-button-danger" @click="deleteProject(activeProject)" />
+                <Button label="Delete Project" icon="pi pi-trash" class="p-button-danger" @click="deleteProject(activeProject)" />
                 <Button disabled label="Save" icon="pi pi-check" class="p-button-success" @click="projectSettingDrawerVisible = false" />
             </div>
         </div>
