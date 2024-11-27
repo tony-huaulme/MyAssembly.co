@@ -125,7 +125,7 @@
                             <!-- preview the description -->
                             <!-- <Button type="button" icon="pi pi-eye" label="Preview" @click="togglePreview" class="ml-3"/> -->
                         </label>
-                        <Editor v-model="activeProject.settings" editorStyle="height: 320px" />
+                        <Editor v-model="activeProject.project_description" editorStyle="height: 320px" />
                         <!-- <small id="projectDescription-help">Here can go general information</small> -->
                     </div>
 
@@ -165,7 +165,7 @@
             
             </div>
             <div class="flex justify-end gap-5 ">
-                <Button disabled label="Delete Project" icon="pi pi-times" class="p-button-danger" @click="deleteProject(activeProject)" />
+                <Button disabled label="Cancel" icon="pi pi-times" class="p-button-danger" @click="projectSettingDrawerVisible = false" />
                 <Button disabled label="Save" icon="pi pi-check" class="p-button-success" @click="projectSettingDrawerVisible = false" />
             </div>
         </div>
