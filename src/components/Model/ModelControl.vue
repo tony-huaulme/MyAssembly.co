@@ -128,7 +128,6 @@ import AccordionContent from 'primevue/accordioncontent';
 import OverlayBadge from 'primevue/overlaybadge';
 import Button from 'primevue/button';
 
-import { RouterLink } from 'vue-router'
 import { ref, defineEmits, onMounted, nextTick, computed, watch } from 'vue';
 
 import { useRoute } from 'vue-router';

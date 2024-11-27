@@ -9,7 +9,7 @@ export class Building {
     constructor(model, config=false) {
         this.model = model;
         this.panels = {};
-        this.config = config;
+        this.config = config || false;
         this.init();
 
     }
