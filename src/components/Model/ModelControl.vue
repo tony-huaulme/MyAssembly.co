@@ -129,8 +129,7 @@ import OverlayBadge from 'primevue/overlaybadge';
 import Button from 'primevue/button';
 
 import { RouterLink } from 'vue-router'
-import { ref, defineEmits, onMounted, nextTick, computed } from 'vue';
-
+import { ref, defineEmits, onMounted, nextTick, computed, watch } from 'vue';
 
 import { useRoute } from 'vue-router';
 const route = useRoute();
@@ -164,6 +163,14 @@ const clickedPanelCount = ref(0);
 
 const emit = defineEmits(['control-model', 'show-panel-info', 'show-project-info', 'nextStepDemo', 'startDemo']);
 
+// watch the props.buildingPanels, every time it's updated, trigger a resize event
+watch(() => props.buildingPanels, () => {
+    console.log('buildingPanels updated');
+    // next tick to allow the DOM to update
+    nextTick(() =>
+        window.dispatchEvent(new Event('resize'))
+    );
+});
 
 function detectOrientation() {
   isPortrait.value = window.innerHeight > window.innerWidth;
