@@ -198,7 +198,7 @@ async function saveSetting() {
     return;
   }
   try {
-    const response = await api.put(`projects/${48}`, {
+    const response = await api.put(`projects/${projectId.value}`, {
       settings: JSON.stringify(projectSettings.value) // Convert settings to JSON string if necessary
     }, {
       headers: {
