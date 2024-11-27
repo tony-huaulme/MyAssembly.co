@@ -125,7 +125,7 @@
                             <!-- preview the description -->
                             <!-- <Button type="button" icon="pi pi-eye" label="Preview" @click="togglePreview" class="ml-3"/> -->
                         </label>
-                        <Editor v-model="activeProject.settings.description" editorStyle="height: 320px" />
+                        <Editor v-model="activeProject.settings" editorStyle="height: 320px" />
                         <!-- <small id="projectDescription-help">Here can go general information</small> -->
                     </div>
 
