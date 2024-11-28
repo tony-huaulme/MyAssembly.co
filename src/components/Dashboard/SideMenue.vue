@@ -272,6 +272,7 @@ const createNewProject = async () => {
         const file3dLink = fileUploadResponse.file_url;
         console.log('File uploadeResponse:', fileUploadResponse);
         console.log('File uploaded:', file3dLink);
+        console.log('ModelStructure:', fileUploadResponse.extracted_data);
         // 2. Create the project by sending the project name and file3D link to '/projects'
 
         const payload = new URLSearchParams();  // Using URLSearchParams to simulate form encoding
