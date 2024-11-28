@@ -67,7 +67,8 @@
         <div class="flex items-center gap-4">
             <InputText v-model="projectName" id="project_name" class="flex-auto" autocomplete="off" />
         </div>
-        <h4 class="mb-1">3D Model ( .glb format ) : <a href="https://imagetostl.com/convert/file/ifc/to/glb#convert" target="_blank" >Convert 3D File</a></h4>
+        <h4 class="mb-1">3D Model ( .ifc format ) : </h4>
+        <!-- <a href="https://imagetostl.com/convert/file/ifc/to/glb#convert" target="_blank" >Convert 3D File</a> -->
         <FileUpload 
             name="demo[]" 
             url="/api/upload" 
@@ -76,7 +77,7 @@
             :maxFileSize="1000000000000" 
             @select="onSelectedFiles" 
             class="border-dashed"
-            accept=".glb"    
+            accept=".ifc"    
         >
             <template #header="{ chooseCallback }">
                 <Button v-show="files.length < 1" @click="chooseCallback()" label="Chose File" icon="pi pi-plus"/>
