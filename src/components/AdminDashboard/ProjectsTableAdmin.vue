@@ -51,13 +51,9 @@ onMounted(() => {
 
 
 import { useRouter } from 'vue-router';
-const router = useRouter();
 
 const openProject = (project) => {
-    const url = router.resolve({
-        name: 'ModelFromProjectId',
-        query: { projectId: project.id }
-    }).href;
+    const url = `https://www.myassembly.co/ModelFromProjectId?projectId=${project.id}`;
 
     window.open(url, '_blank');
 };
