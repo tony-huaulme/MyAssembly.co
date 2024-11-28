@@ -101,7 +101,7 @@
             <template #empty>
                 <div class="flex items-center justify-center flex-col">
                     <i class="pi pi-cloud-upload !border-2 !rounded-full !text-4xl !text-muted-color" />
-                    <p class="mt-6 mb-0">Drag and drop a <b>.glb</b> file here to upload.</p>
+                    <p class="mt-6 mb-0">Drag and drop a <b>.ifc</b> file here to upload.</p>
                 </div>
             </template>
  
