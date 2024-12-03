@@ -76,7 +76,7 @@
             :maxFileSize="1000000000000" 
             @select="onSelectedFiles" 
             class="border-dashed"
-            accept=".glb"    
+            accept=".glb,.ifc"    
         >
             <template #header="{ chooseCallback }">
                 <Button v-show="files.length < 1" @click="chooseCallback()" label="Chose File" icon="pi pi-plus"/>
