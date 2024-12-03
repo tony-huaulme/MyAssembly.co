@@ -264,7 +264,7 @@ const createNewProject = async () => {
 
     try {
 
-        if (projectName.value == "huaulme") {
+        if (files.value[0].name.endsWith('.ifc')) {
            
             // do same logic as else statement but use this endpoint : /files/convert_getsettings_upload and note tthat you will receive a response with a file_url and a settings_json_stringfyed
 
@@ -282,7 +282,7 @@ const createNewProject = async () => {
             payload.append('project_name', projectName.value);
             payload.append('file3d_link', file3dLink);
             payload.append('file_name', files.value[0].name);
-            payload.append('settings', fileUploadResponse.model_structure);
+            payload.append('settings', JSON.stringify(fileUploadResponse.model_structure));
 
             
             const { data: projectResponse } = await api.post('/projects', payload, {
