@@ -67,7 +67,7 @@
         <div class="flex items-center gap-4">
             <InputText v-model="projectName" id="project_name" class="flex-auto" autocomplete="off" />
         </div>
-        <h4 class="mb-1">3D Model ( .glb format ) : <a href="https://imagetostl.com/convert/file/ifc/to/glb#convert" target="_blank" >Convert 3D File</a></h4>
+        <h4 class="mb-1">3D Model ( .glb or .ifc ) : <a href="https://imagetostl.com/convert/file/ifc/to/glb#convert" target="_blank" >Convert 3D File</a></h4>
         <FileUpload 
             name="demo[]" 
             url="/api/upload" 
