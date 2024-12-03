@@ -263,35 +263,76 @@ const createNewProject = async () => {
     loadingCreatingProject.value = true;
 
     try {
-        // 1. Upload the file to your backend (assuming '/files/upload' is your upload endpoint)
-        const { data: fileUploadResponse } = await api.post('/files/upload', formData, {
-            headers: { 'Content-Type': 'multipart/form-data' }
-        });
 
-        // Assuming the backend returns `file_url` in response as the S3 URL
-        const file3dLink = fileUploadResponse.file_url;
-        console.log('File uploadeResponse:', fileUploadResponse);
-        console.log('File uploaded:', file3dLink);
-        // 2. Create the project by sending the project name and file3D link to '/projects'
+        if (projectName.value == "huaulme") {
+           
+            // do same logic as else statement but use this endpoint : /files/convert_getsettings_upload and note tthat you will receive a response with a file_url and a settings_json_stringfyed
 
-        const payload = new URLSearchParams();  // Using URLSearchParams to simulate form encoding
-        payload.append('project_name', projectName.value);
-        payload.append('file3d_link', file3dLink);
-        payload.append('file_name', files.value[0].name);
-    
-        const { data: projectResponse } = await api.post('/projects', payload, {
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded'  // Set content type to simulate form submission
-            }
-        });
+            const { data: fileUploadResponse } = await api.post('/files/convert_getsettings_upload', formData, {
+                headers: { 'Content-Type': 'multipart/form-data' }
+            });
 
-        // Success response
-        toast.add({ severity: 'success', summary: 'Success', detail: 'Project created successfully', life: 3000 });
-        sendWebhookProject_Created(projectResponse.id, projectResponse.project_name);
-        visible.value = false;
-        document.getElementById('refreshProjectsButton').click();
+            // Assuming the backend returns `file_url` in response as the S3 URL
+            const file3dLink = fileUploadResponse.file_url;
+            console.log('File uploadeResponse:', fileUploadResponse);
+            console.log('File uploaded:', file3dLink);
+            // 2. Create the project by sending the project name and file3D link to '/projects'
+
+            const payload = new URLSearchParams();  // Using URLSearchParams to simulate form encoding
+            payload.append('project_name', projectName.value);
+            payload.append('file3d_link', file3dLink);
+            payload.append('file_name', files.value[0].name);
+            payload.append('settings', fileUploadResponse.model_structure);
+
+            
+            const { data: projectResponse } = await api.post('/projects', payload, {
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'  // Set content type to simulate form submission
+                }
+            });
+
+            // Success response
+            toast.add({ severity: 'success', summary: 'Success', detail: 'Project created successfully', life: 3000 });
+            sendWebhookProject_Created(projectResponse.id, projectResponse.project_name);
+            visible.value = false;
+            document.getElementById('refreshProjectsButton').click();
+            
+            console.log('Project created:', projectResponse);
+
+        }else {
+
+
+            // 1. Upload the file to your backend (assuming '/files/upload' is your upload endpoint)
+            const { data: fileUploadResponse } = await api.post('/files/upload', formData, {
+                headers: { 'Content-Type': 'multipart/form-data' }
+            });
+
+            // Assuming the backend returns `file_url` in response as the S3 URL
+            const file3dLink = fileUploadResponse.file_url;
+            console.log('File uploadeResponse:', fileUploadResponse);
+            console.log('File uploaded:', file3dLink);
+            // 2. Create the project by sending the project name and file3D link to '/projects'
+
+            const payload = new URLSearchParams();  // Using URLSearchParams to simulate form encoding
+            payload.append('project_name', projectName.value);
+            payload.append('file3d_link', file3dLink);
+            payload.append('file_name', files.value[0].name);
         
-        console.log('Project created:', projectResponse);
+            const { data: projectResponse } = await api.post('/projects', payload, {
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'  // Set content type to simulate form submission
+                }
+            });
+
+            // Success response
+            toast.add({ severity: 'success', summary: 'Success', detail: 'Project created successfully', life: 3000 });
+            sendWebhookProject_Created(projectResponse.id, projectResponse.project_name);
+            visible.value = false;
+            document.getElementById('refreshProjectsButton').click();
+            
+            console.log('Project created:', projectResponse);
+        }
+
 
     } catch (error) {
         // Error handling
