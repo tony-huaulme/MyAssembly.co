@@ -177,8 +177,8 @@ async function getProject() {
     projectName.value = data.project_name;
     let dataHandled = data.settings || '{"description": "No description available", "pannels": {}}';
     
-    project_settings.value = JSON.parse(dataHandled);
     console.log('project_settings', data);
+    project_settings.value = JSON.parse(dataHandled);
 
     const fileKey = data.file3d_link.split('amazonaws.com/')[1]
     // MyAssemblyDemoLIL.glb
