@@ -138,7 +138,7 @@ const infosDescription = computed(() => {
 const projectName = ref('');
 const modelUrl = ref('');
 const noAccessToModel = ref(false);
-const project_settings = ref(null);
+const project_settings = ref({});
 
 
 const props = defineProps({
