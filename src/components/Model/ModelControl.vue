@@ -180,7 +180,7 @@ const isPortraitStyle = computed(() => {
     width: 25vw; 
     overflow: auto;
     width: 25vw;
-    height: auto;
+    max-height: 100vh;
     position: absolute;
     z-index: 10000;
    `

@@ -25,28 +25,89 @@ export class Building {
     }
 
     definePanels() {
+        let testMode = false;
 
-        let currentPanelName = null
-  
-        this.model.traverse((child) => {
-            const name = child.name;
+        try {
+            testMode = this.settings["pannels"]["B1"] == "ssNXdCCATbrmjzsvnOU65M"
+        } catch (error) {
+            console.log("Error: ", error);
+        }
 
-            let panelName = isPanelName(name)
-            if (panelName) {
-                currentPanelName = panelName;
-                this.panels[currentPanelName] = new Panel(currentPanelName);
+        if (testMode) {
 
-            } else if (currentPanelName && isPanelPart(name)) {
-                this.allowTransprencyOnChild(child);
-                this.panels[currentPanelName].addElement(child);
-                child.myassemblyPanelName = currentPanelName;
-            }
-  
-        });
+        // itterate trhought a json that have string as key and array of string as value
+
+            Object.entries(this.settings["pannels"]).forEach(([panelName, elements]) => {
+                this.panels[panelName] = new Panel(panelName);
+                elements.forEach((elementName) => {
+                    let element = this.model.getObjectByName(elementName);
+                    if (element) {
+                        this.allowTransprencyOnChild(element);
+                        this.panels[panelName].addElement(element);
+                        element.myassemblyPanelName = panelName;
+                    }
+                });
+            });
+            
+
+        // Traverse the model
+        // this.model.traverse((child) => {
+        //     const name = child.name;
+
+        //     // Check if it's a panel
+        //     if (panelData.panels.includes(name)) {
+        //         currentPanelName = name;
+        //         this.panels[currentPanelName] = new Panel(currentPanelName);
+
+        //     // Check if it's a panel part
+        //     } else if (currentPanelName && panelPieces.includes(name)) {
+        //         this.allowTransprencyOnChild(child);
+        //         this.panels[currentPanelName].addElement(child);
+        //         child.myassemblyPanelName = currentPanelName;
+        //     }
+
+        //     console.log("Panels Defined: \n",this.panels);
 
 
-        console.log("Panels Defined: \n",this.panels);
+        // });
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        }else{
+            let currentPanelName = null
+    
+            this.model.traverse((child) => {
+                const name = child.name;
+                
+                let panelName = isPanelName(name)
+                if (panelName) {
+                    currentPanelName = panelName;
+                    this.panels[currentPanelName] = new Panel(currentPanelName);
+
+                } else if (currentPanelName && isPanelPart(name)) {
+                    this.allowTransprencyOnChild(child);
+                    this.panels[currentPanelName].addElement(child);
+                    child.myassemblyPanelName = currentPanelName;
+                }
+            });
+
+
+            console.log("Panels Defined: \n",this.panels);
+        }
     }
 
     async allowTransprencyOnChild(child) {
@@ -114,7 +175,10 @@ export class Building {
             }
           });
         console.log("All Panels Names: ", allPanlesNames);  
-        return groupAndSort(allPanlesNames);
+        const groups = groupAndSort(allPanlesNames);
+        console.log("Groups: ", groups);
+
+        return groups
     }
 
 
