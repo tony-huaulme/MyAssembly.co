@@ -6,11 +6,13 @@ import { CSS2DObject } from 'three/examples/jsm/renderers/CSS2DRenderer.js';
 
 export class Building {
 
-    constructor(model, config=false) {
+    constructor(model, settings) {
         this.model = model;
         this.panels = {};
-        this.config = config || false;
+        this.settings = settings;
         this.init();
+
+        console.log("Builing Initialized with SETTINGS: ", this.settings);
 
     }
 
@@ -51,7 +53,7 @@ export class Building {
         
         if (child.isMesh) {
 
-            if (this.config) {
+            // if (this.settings) {
 
                 const metalMaterial = new THREE.MeshStandardMaterial({
                     color: 0xAEB3B8, // steel gray
@@ -61,21 +63,20 @@ export class Building {
 
                 child.material = metalMaterial;
 
-            }else {
+            // }else {
                 
-                // try catch set material. transparent = true and opacity = 1
-                try {
-                    child.material.transparent = true;
-                    child.material.opacity = 1;
-                    console.log("Child Material set");
-                    if (this.config) {
-                        child.material.color = 0xAEB3B8;
-                    }
-                } catch (error) {
-                    console.log("Error: ", error);
-                }
+            //     // try catch set material. transparent = true and opacity = 1
+            //     try {
+            //         child.material.transparent = true;
+            //         child.material.opacity = 1;
+            //         if (this.settings) {
+            //             child.material.color = 0xAEB3B8;
+            //         }
+            //     } catch (error) {
+            //         console.log("Error: ", error);
+            //     }
 
-            }
+            // }
         
         }
     }

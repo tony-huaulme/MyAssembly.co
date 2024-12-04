@@ -275,7 +275,6 @@ const createNewProject = async () => {
             // Assuming the backend returns `file_url` in response as the S3 URL
             const file3dLink = fileUploadResponse.file_url;
             console.log('File uploadeResponse:', fileUploadResponse);
-            console.log('File uploaded:', file3dLink);
             // 2. Create the project by sending the project name and file3D link to '/projects'
 
             const payload = new URLSearchParams();  // Using URLSearchParams to simulate form encoding
@@ -310,7 +309,6 @@ const createNewProject = async () => {
             // Assuming the backend returns `file_url` in response as the S3 URL
             const file3dLink = fileUploadResponse.file_url;
             console.log('File uploadeResponse:', fileUploadResponse);
-            console.log('File uploaded:', file3dLink);
             // 2. Create the project by sending the project name and file3D link to '/projects'
 
             const payload = new URLSearchParams();  // Using URLSearchParams to simulate form encoding

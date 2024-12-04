@@ -175,10 +175,10 @@ async function getProject() {
   try {
     const {data} = await api.get(`projects/${projectId.value}`);
     projectName.value = data.project_name;
-    let dataHandled = data.settings || '{"description": "No description available", "pannels": {}}';
+    let dataHandled = data.settings;
     
-    console.log('project_settings', data);
     project_settings.value = JSON.parse(dataHandled);
+    console.log("LoadedSettings :", project_settings.value);
 
     const fileKey = data.file3d_link.split('amazonaws.com/')[1]
     // MyAssemblyDemoLIL.glb
@@ -255,7 +255,7 @@ const handleControl = (arg) => {
 function setBuilding(model) {
   // B.value = new Building(model);
   threeJsModel.value = model;
-  ModelBuilding.value = new Building(model);
+  ModelBuilding.value = new Building(model, project_settings.value);
   buildingPanels.value = ModelBuilding.value.getPanelsByGroupsDict();
 }
 
