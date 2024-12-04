@@ -29,6 +29,16 @@ export function groupAndSort (arr) {
       }
     });
 
+
+    // Sort each group based on the numeric part at the end of each item
+    Object.keys(result).forEach(prefix => {
+      result[prefix].sort((a, b) => {
+        const numA = parseInt(a.match(/\d+$/)[0]);  // Match and extract the number at the end of the string
+        const numB = parseInt(b.match(/\d+$/)[0]);
+        return numA - numB;
+      });
+    });
+
     const sortedData = Object.keys(result)
     .sort((a, b) => a.length - b.length)
     .reduce((acc, key) => {
@@ -36,17 +46,10 @@ export function groupAndSort (arr) {
         return acc;
     }, {});
 
-    // remove the key 'B' from the object
     delete sortedData['B'];
+    // remove the key 'B' from the object
 
-    // // Sort each group based on the numeric part at the end of each item
-    // Object.keys(result).forEach(prefix => {
-    //   result[prefix].sort((a, b) => {
-    //     const numA = parseInt(a.match(/\d+$/)[0]);  // Match and extract the number at the end of the string
-    //     const numB = parseInt(b.match(/\d+$/)[0]);
-    //     return numA - numB;
-    //   });
-    // });
+
   
     return sortedData;
   };
