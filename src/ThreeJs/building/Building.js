@@ -37,7 +37,7 @@ export class Building {
 
         // itterate trhought a json that have string as key and array of string as value
 
-            Object.entries(this.settings["pannels"]).forEach(([panelName, elements]) => {
+            Object.entries(this.settings["panel_structure"]).forEach(([panelName, elements]) => {
                 this.panels[panelName] = new Panel(panelName);
                 elements.forEach((elementName) => {
                     let element = this.model.getObjectByName(elementName);
