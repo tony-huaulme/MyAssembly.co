@@ -162,11 +162,7 @@ const userImageUrl = ref('');
 const loadingCreatingProject = ref(false);
 
 const model_structure_identification = ref('No Identification');
-const model_structure_identification_options = [
-    { label: 'Description', value: 'description' },
-    { label: 'No Identification', value: 'noidentification' },
-    // { label: 'IfcElementAssembly', value: 'ifcelementassembly' },
-];
+const model_structure_identification_options = [ 'description' , 'NA' , 'ifcelementassembly' ];
 
 const projectName = ref('');
 
@@ -275,7 +271,7 @@ const createNewProject = async () => {
         if (files.value[0].name.endsWith('.ifc')) {
            
             // do same logic as else statement but use this endpoint : /files/convert_getsettings_upload and note tthat you will receive a response with a file_url and a settings_json_stringfyed
-            if(model_structure_identification.value == 'description' || model_structure_identification.value == 'noidentification') {
+            if(model_structure_identification.value == 'description' || model_structure_identification.value == 'NA') {
                 const { data: fileUploadResponse } = await api.post('/files/convert_getsettings_upload', formData, {
                     headers: { 'Content-Type': 'multipart/form-data' }
                 });
