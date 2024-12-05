@@ -100,7 +100,7 @@
                 <template #empty>
                     <div class="flex items-center justify-center flex-col">
                         <i class="pi pi-cloud-upload !border-2 !rounded-full !text-4xl !text-muted-color" />
-                        <p class="mt-6 mb-0">Drag and drop a <b>.glb</b> file here to upload.</p>
+                        <p class="mt-6 mb-0">Drag and drop your model here to upload.</p>
                     </div>
                 </template>
     
@@ -119,8 +119,7 @@
 
                 <div v-if="loadingCreatingProject">
                     <div class="flex justify-center mt-5">
-                        <p>{{ getWaitingMessage(files[0].size) }}</p>
-                        <i class="pi pi-spin pi-spinner text-4xl text-primary"></i>
+                        <p><b>{{ getWaitingMessage(files[0].size) }}</b></p>
                     </div>
                 </div>
 
@@ -128,7 +127,7 @@
 
             <div class="flex justify-end gap-2 mt-5">
                     <Button type="button" label="Cancel" severity="secondary" @click="visible = false"></Button>
-                    <Button type="button" label="Create" @click="createNewProject" :loading="loadingCreatingProject"></Button>
+                    <Button type="button" :label="loadingCreatingProject ? 'Creating':'Create'" @click="createNewProject" :loading="loadingCreatingProject"></Button>
                 </div>
         </div>
 
@@ -161,8 +160,8 @@ const userEmail = ref('');
 const userImageUrl = ref('');
 const loadingCreatingProject = ref(false);
 
-const model_structure_identification = ref('No Identification');
-const model_structure_identification_options = [ 'description' , 'NA' , 'ifcelementassembly' ];
+const model_structure_identification = ref('description');
+const model_structure_identification_options = [ 'description' , 'NA' ]; //, 'ifcelementassembly' 
 
 const projectName = ref('');
 
@@ -487,15 +486,13 @@ const formatSize = (bytes) => {
 
 const getWaitingMessage = (bytes) => {
     const k = 1024;
-    const dm = 2;
     const sizes = $primevue.config.locale.fileSizeTypes;
 
     if (bytes === 0) {
-        return `0 ${sizes[0]}`;
+        return `Estimated time for file processing: 0s ( No File )`;
     }
 
     const i = Math.floor(Math.log(bytes) / Math.log(k));
-    const formattedSize = parseFloat((bytes / Math.pow(k, i)).toFixed(dm));
 
     // Static reference: 2MB = 4 seconds
     const referenceBytes = 2 * k * k; // 2MB in bytes
@@ -504,7 +501,11 @@ const getWaitingMessage = (bytes) => {
     const minutes = Math.floor(timeInSeconds / 60);
     const seconds = timeInSeconds % 60;
 
-    return `Convert, Optimise and Identify Element may take around ${minutes} min and ${seconds} sec. (${formattedSize} ${sizes[i]})`;
+    if (minutes > 0) {
+        return `Estimated time for file processing: ${minutes}:${seconds < 10 ? '0' : ''}${seconds} min.`;
+    } else {
+        return `Estimated time for file processing:  ${seconds} s.`;
+    }
 };
 
 </script>
