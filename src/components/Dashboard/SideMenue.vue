@@ -61,74 +61,77 @@
 
     <Dialog v-model:visible="visible" modal header="Create a project" :style="{ width: '45rem' }">
         <div class="card border-none mb-0">
-        <!-- <Toast /> -->
-        <h4 class="mt-0 mb-1">Project Name :</h4>
+            <!-- <Toast /> -->
+            <h4 class="mt-0 mb-1">Project Name :</h4>
 
-        <div class="flex items-center gap-4">
-            <InputText v-model="projectName" id="project_name" class="flex-auto" autocomplete="off" />
-        </div>
-        <h4 class="mb-1">3D Model ( .glb or .ifc ) : <a href="https://imagetostl.com/convert/file/ifc/to/glb#convert" target="_blank" >Convert 3D File</a></h4>
-        <FileUpload 
-            name="demo[]" 
-            url="/api/upload" 
-            @upload="onTemplatedUpload($event)" 
-            :multiple="false"  
-            :maxFileSize="1000000000000" 
-            @select="onSelectedFiles" 
-            class="border-dashed"
-            accept=".glb,.ifc"    
-        >
-            <template #header="{ chooseCallback }">
-                <Button v-show="files.length < 1" @click="chooseCallback()" label="Chose File" icon="pi pi-plus"/>
-            </template>
-            <template #content="{ files, removeFileCallback }">
-                <div class="flex flex-col">
-                    <div v-if="files.length > 0">
-                        <div class="flex flex-row justify-center">
-                            <div v-for="(file, index) of files" :key="file.name + file.type + file.size" class=" rounded-border flex flex-col border border-surface items-center gap-4">
-                                <div>
-                                    <span class="pi pi-file text-7xl"></span>
+            <div class="flex items-center gap-4">
+                <InputText v-model="projectName" id="project_name" class="flex-auto" autocomplete="off" />
+            </div>
+            <h4 class="mb-1">3D Model ( .glb or .ifc ) : <a href="https://imagetostl.com/convert/file/ifc/to/glb#convert" target="_blank" >Convert 3D File</a></h4>
+            <FileUpload 
+                name="demo[]" 
+                url="/api/upload" 
+                @upload="onTemplatedUpload($event)" 
+                :multiple="false"  
+                :maxFileSize="1000000000000" 
+                @select="onSelectedFiles" 
+                class="border-dashed"
+                accept=".glb,.ifc"    
+            >
+                <template #header="{ chooseCallback }">
+                    <Button v-show="files.length < 1" @click="chooseCallback()" label="Chose File" icon="pi pi-plus"/>
+                </template>
+                <template #content="{ files, removeFileCallback }">
+                    <div class="flex flex-col">
+                        <div v-if="files.length > 0">
+                            <div class="flex flex-row justify-center">
+                                <div v-for="(file, index) of files" :key="file.name + file.type + file.size" class=" rounded-border flex flex-col border border-surface items-center gap-4">
+                                    <div>
+                                        <span class="pi pi-file text-7xl"></span>
+                                    </div>
+                                    <span class="font-semibold text-ellipsis max-w-60 whitespace-nowrap overflow-hidden">{{ file.name }}</span>
+                                    <div>{{ formatSize(file.size) }}</div>
+                                    <Button icon="pi pi-times" @click="onRemoveTemplatingFile(file, removeFileCallback, index)" outlined rounded severity="danger" />
                                 </div>
-                                <span class="font-semibold text-ellipsis max-w-60 whitespace-nowrap overflow-hidden">{{ file.name }}</span>
-                                <div>{{ formatSize(file.size) }}</div>
-                                <Button icon="pi pi-times" @click="onRemoveTemplatingFile(file, removeFileCallback, index)" outlined rounded severity="danger" />
                             </div>
                         </div>
                     </div>
+                </template>
+                <template #empty>
+                    <div class="flex items-center justify-center flex-col">
+                        <i class="pi pi-cloud-upload !border-2 !rounded-full !text-4xl !text-muted-color" />
+                        <p class="mt-6 mb-0">Drag and drop a <b>.glb</b> file here to upload.</p>
+                    </div>
+                </template>
+    
+            </FileUpload>
+
+            <div v-if="files.length">
+                <!-- using prime vue, make a drop down for model_structure_identification with choice "Piece Description" "IfcElementAssembly" "No Identification" -->
+                
+                <h4 class="mb-1">Identify Model Structure by :</h4>
+                <Dropdown 
+                    v-model="model_structure_identification" 
+                    :options="model_structure_identification_options" 
+                    placeholder="Select a Model Structure Identification" 
+                    class="w-full" 
+                />
+
+                <div v-if="loadingCreatingProject">
+                    <div class="flex justify-center mt-5">
+                        <p>{{ getWaitingMessage(files[0].size) }}</p>
+                        <i class="pi pi-spin pi-spinner text-4xl text-primary"></i>
+                    </div>
                 </div>
-            </template>
-            <template #empty>
-                <div class="flex items-center justify-center flex-col">
-                    <i class="pi pi-cloud-upload !border-2 !rounded-full !text-4xl !text-muted-color" />
-                    <p class="mt-6 mb-0">Drag and drop a <b>.glb</b> file here to upload.</p>
-                </div>
-            </template>
- 
-        </FileUpload>
-        <div class="flex justify-end gap-2 mt-5">
-                <Button type="button" label="Cancel" severity="secondary" @click="visible = false"></Button>
-                <Button type="button" label="Create" @click="createNewProject" :loading="loadingCreatingProject"></Button>
+
             </div>
-    </div>
 
-        <!-- <slot name="header">
-            <h1 class="mb-7">Create a new preject</h1>
-        </slot>
-
-        <div class="card flex flex-col gap-6 items-center justify-center">
-            <Toast />
-            <FileUpload ref="fileupload" mode="basic" name="demo[]" :maxFileSize="100000000" @input="onUpload" />
+            <div class="flex justify-end gap-2 mt-5">
+                    <Button type="button" label="Cancel" severity="secondary" @click="visible = false"></Button>
+                    <Button type="button" label="Create" @click="createNewProject" :loading="loadingCreatingProject"></Button>
+                </div>
         </div>
 
-        <div class="flex items-center gap-4 mb-4">
-            <label for="project_name" class="font-semibold w-35">Project Name :</label>
-            <InputText id="project_name" class="flex-auto" autocomplete="off" />
-        </div>
-        
-        <div class="flex justify-end gap-2">
-            <Button type="button" label="Cancel" severity="secondary" @click="visible = false"></Button>
-            <Button type="button" label="Create" ></Button>
-        </div> -->
     </Dialog>
 
 
@@ -152,11 +155,18 @@ import Dialog from "primevue/dialog";
 import InputText from "primevue/inputtext";
 import Button from "primevue/button";
 import FileUpload from "primevue/fileupload";
-
+import Dropdown from "primevue/dropdown";
 
 const userEmail = ref('');
 const userImageUrl = ref('');
 const loadingCreatingProject = ref(false);
+
+const model_structure_identification = ref('No Identification');
+const model_structure_identification_options = [
+    { label: 'Description', value: 'description' },
+    { label: 'No Identification', value: 'noidentification' },
+    // { label: 'IfcElementAssembly', value: 'ifcelementassembly' },
+];
 
 const projectName = ref('');
 
@@ -255,9 +265,7 @@ const createNewProject = async () => {
 
     // Prepare form data for file upload
     const formData = new FormData();
-    console.log('files:', files.value);
     formData.append('file', files.value[0]);  // Attach the first file (files[0])
-    console.log('FILE NAME :', files.value[0].name);
     // Display loading message
     toast.add({ severity: 'info', summary: 'Loading...', detail: 'Creating your project', life: 3000 });
     loadingCreatingProject.value = true;
@@ -267,36 +275,39 @@ const createNewProject = async () => {
         if (files.value[0].name.endsWith('.ifc')) {
            
             // do same logic as else statement but use this endpoint : /files/convert_getsettings_upload and note tthat you will receive a response with a file_url and a settings_json_stringfyed
+            if(model_structure_identification.value == 'description' || model_structure_identification.value == 'noidentification') {
+                const { data: fileUploadResponse } = await api.post('/files/convert_getsettings_upload', formData, {
+                    headers: { 'Content-Type': 'multipart/form-data' }
+                });
 
-            const { data: fileUploadResponse } = await api.post('/files/convert_getsettings_upload', formData, {
-                headers: { 'Content-Type': 'multipart/form-data' }
-            });
+                // Assuming the backend returns `file_url` in response as the S3 URL
+                const file3dLink = fileUploadResponse.file_url;
+                console.log('File uploadeResponse:', fileUploadResponse);
+                // 2. Create the project by sending the project name and file3D link to '/projects'
 
-            // Assuming the backend returns `file_url` in response as the S3 URL
-            const file3dLink = fileUploadResponse.file_url;
-            console.log('File uploadeResponse:', fileUploadResponse);
-            // 2. Create the project by sending the project name and file3D link to '/projects'
+                const payload = new URLSearchParams();  // Using URLSearchParams to simulate form encoding
+                payload.append('project_name', projectName.value);
+                payload.append('file3d_link', file3dLink);
+                payload.append('file_name', files.value[0].name);
+                payload.append('model_structure', JSON.stringify(fileUploadResponse.model_structure));
+                payload.append('model_structure_identification', "description");
+                
+                const { data: projectResponse } = await api.post('/projects', payload, {
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'  // Set content type to simulate form submission
+                    }
+                });
 
-            const payload = new URLSearchParams();  // Using URLSearchParams to simulate form encoding
-            payload.append('project_name', projectName.value);
-            payload.append('file3d_link', file3dLink);
-            payload.append('file_name', files.value[0].name);
-            payload.append('settings', JSON.stringify(fileUploadResponse.model_structure));
-
-            
-            const { data: projectResponse } = await api.post('/projects', payload, {
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded'  // Set content type to simulate form submission
-                }
-            });
-
-            // Success response
-            toast.add({ severity: 'success', summary: 'Success', detail: 'Project created successfully', life: 3000 });
-            sendWebhookProject_Created(projectResponse.id, projectResponse.project_name);
-            visible.value = false;
-            document.getElementById('refreshProjectsButton').click();
-            
-            console.log('Project created:', projectResponse);
+                // Success response
+                toast.add({ severity: 'success', summary: 'Success', detail: 'Project created successfully', life: 3000 });
+                sendWebhookProject_Created(projectResponse.id, projectResponse.project_name);
+                visible.value = false;
+                document.getElementById('refreshProjectsButton').click();
+                
+                console.log('Project created:', projectResponse);
+            }else if(model_structure_identification == 'ifcelementassembly') {
+                // implement enpoint converting with blender to get the settings
+            }
 
         }else {
 
@@ -316,6 +327,9 @@ const createNewProject = async () => {
             payload.append('file3d_link', file3dLink);
             payload.append('file_name', files.value[0].name);
         
+            payload.append('model_structure', JSON.stringify({"panels" : []}));
+            payload.append('model_structure_identification', "noidentification");
+
             const { data: projectResponse } = await api.post('/projects', payload, {
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded'  // Set content type to simulate form submission
@@ -462,7 +476,7 @@ const onTemplatedUpload = () => {
 
 const formatSize = (bytes) => {
     const k = 1024;
-    const dm = 3;
+    const dm = 2;
     const sizes = $primevue.config.locale.fileSizeTypes;
 
     if (bytes === 0) {
@@ -474,6 +488,29 @@ const formatSize = (bytes) => {
 
     return `${formattedSize} ${sizes[i]}`;
 };
+
+const getWaitingMessage = (bytes) => {
+    const k = 1024;
+    const dm = 2;
+    const sizes = $primevue.config.locale.fileSizeTypes;
+
+    if (bytes === 0) {
+        return `0 ${sizes[0]}`;
+    }
+
+    const i = Math.floor(Math.log(bytes) / Math.log(k));
+    const formattedSize = parseFloat((bytes / Math.pow(k, i)).toFixed(dm));
+
+    // Static reference: 2MB = 4 seconds
+    const referenceBytes = 2 * k * k; // 2MB in bytes
+    const referenceTime = 4; // 4 seconds
+    const timeInSeconds = Math.ceil((bytes / referenceBytes) * referenceTime); // Scaled time
+    const minutes = Math.floor(timeInSeconds / 60);
+    const seconds = timeInSeconds % 60;
+
+    return `Convert, Optimise and Identify Element may take around ${minutes} min and ${seconds} sec. (${formattedSize} ${sizes[i]})`;
+};
+
 </script>
 <style>
 

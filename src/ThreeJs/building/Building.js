@@ -25,15 +25,15 @@ export class Building {
     }
 
     definePanels() {
-        let testMode = false;
+        let identification;
 
         try {
-            testMode = this.settings["pannels"]["B1"] == "ssNXdCCATbrmjzsvnOU65M"
+            identification = this.settings["model_structure_type"] == "ifcelementassembly"
         } catch (error) {
-            console.log("Error: ", error);
+            console.log('Error ( this.settings["model_structure_type"] ) : \n', error);
         }
 
-        if (testMode) {
+        if (identification == "description") {
 
         // itterate trhought a json that have string as key and array of string as value
 
@@ -49,45 +49,10 @@ export class Building {
                 });
             });
             
+            console.log("Panels Defined: \n",this.panels);
 
-        // Traverse the model
-        // this.model.traverse((child) => {
-        //     const name = child.name;
+        }else { //(identification == "ifcelementassembly")
 
-        //     // Check if it's a panel
-        //     if (panelData.panels.includes(name)) {
-        //         currentPanelName = name;
-        //         this.panels[currentPanelName] = new Panel(currentPanelName);
-
-        //     // Check if it's a panel part
-        //     } else if (currentPanelName && panelPieces.includes(name)) {
-        //         this.allowTransprencyOnChild(child);
-        //         this.panels[currentPanelName].addElement(child);
-        //         child.myassemblyPanelName = currentPanelName;
-        //     }
-
-        //     console.log("Panels Defined: \n",this.panels);
-
-
-        // });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        }else{
             let currentPanelName = null
     
             this.model.traverse((child) => {

@@ -437,7 +437,7 @@ const handleControl = (arg) => {
 function setBuilding(model) {
   // B.value = new Building(model);
   threeJsModel.value = model;
-  ModelBuilding.value = new Building(model, true);
+  ModelBuilding.value = new Building(model, true, true);
   buildingPanels.value = ModelBuilding.value.getPanelsByGroupsDict();
 }
 
