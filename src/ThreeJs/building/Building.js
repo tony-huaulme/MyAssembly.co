@@ -28,16 +28,16 @@ export class Building {
         let identification;
 
         try {
-            identification = this.settings["model_structure_type"] == "ifcelementassembly"
+            identification = this.settings["model_structure_identification"] == "ifcelementassembly"
         } catch (error) {
-            console.log('Error ( this.settings["model_structure_type"] ) : \n', error);
+            console.log('Error ( this.settings["model_structure_identification"] ) : \n', error);
         }
 
         if (identification == "description") {
 
         // itterate trhought a json that have string as key and array of string as value
 
-            Object.entries(this.settings["panel_structure"]).forEach(([panelName, elements]) => {
+            Object.entries(this.settings["model_structure"]).forEach(([panelName, elements]) => {
                 this.panels[panelName] = new Panel(panelName);
                 elements.forEach((elementName) => {
                     let element = this.model.getObjectByName(elementName);
