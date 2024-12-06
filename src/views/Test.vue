@@ -1,11 +1,11 @@
 
 <template>
     <div class="card flex justify-center">
-        <Stepper value="1" class="basis-[50rem]">
+        <Stepper value="1" class="basis-[100rem]">
             <StepList>
-                <Step value="1">Header I</Step>
-                <Step value="2">Header II</Step>
-                <Step value="3">Header III</Step>
+                <Step value="1">Identification</Step>
+                <Step value="2">Interaction</Step>
+                <Step value="3">Information</Step>
             </StepList>
             <StepPanels>
                 <StepPanel v-slot="{ activateCallback }" value="1">

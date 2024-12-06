@@ -106,7 +106,14 @@ const routes = [
     path  : '/demo-on-phone',
     name  : 'DemoOnPhone',
     component : () => import('../views/DemoOnPhone.vue')
-  }
+  },
+
+  // test path on 001
+  {
+    path  : '/001',
+    name  : 'Test',
+    component : () => import('../views/Test.vue')
+  },
 //   { path: '/bars', component: Bars, name: 'Bars' },
 //   { path: '/references', component: References, name: 'Références' },
 //   { path: '/stocks', component: Stocks },
