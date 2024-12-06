@@ -9,9 +9,8 @@ export const TG = new Group();
 export function setElementsOpacity(elements, opacity, duration = 300, depthForOpacity = 1) {
 
   elements.forEach(el => {
-    if (el.material && 'depthTest' in el.material) {
-      el.material.depthTest = opacity >= depthForOpacity ? false : true;
-    }
+ 
+    el.material.depthTest = opacity >= depthForOpacity ? false : true;
     let _ = new Tween(el.material)
         .to({ opacity }, duration)
         .easing(Easing.Cubic.InOut)

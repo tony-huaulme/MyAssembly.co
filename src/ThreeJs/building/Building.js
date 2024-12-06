@@ -26,8 +26,6 @@ export class Building {
 
     definePanels() {
 
-        console.log("Model: ", this.settings);
-
         let identification;
 
         try {
@@ -45,7 +43,7 @@ export class Building {
                 this.panels[panelName] = new Panel(panelName);
                 elements.forEach((elementName) => {
                     let element = this.model.getObjectByName(elementName);
-                    if (element) {
+                    if (element && element.isMesh) {
                         this.allowTransprencyOnChild(element);
                         this.panels[panelName].addElement(element);
                         element.myassemblyPanelName = panelName;
@@ -67,7 +65,7 @@ export class Building {
                     currentPanelName = panelName;
                     this.panels[currentPanelName] = new Panel(currentPanelName);
 
-                } else if (currentPanelName && isPanelPart(name)) {
+                } else if (currentPanelName && isPanelPart(name) && child.isMesh) {
                     this.allowTransprencyOnChild(child);
                     this.panels[currentPanelName].addElement(child);
                     child.myassemblyPanelName = currentPanelName;
@@ -80,7 +78,6 @@ export class Building {
     }
 
     async allowTransprencyOnChild(child) {
-        if (child.isMesh) {
 
             // if (this.settings) {
 
@@ -106,8 +103,6 @@ export class Building {
             //     }
 
             // }
-        
-        }
     }
 
     hidePanel(panelName) {
