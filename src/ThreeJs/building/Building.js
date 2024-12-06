@@ -25,6 +25,9 @@ export class Building {
     }
 
     definePanels() {
+
+        console.log("Model: ", this.settings);
+
         let identification;
 
         try {
@@ -36,8 +39,9 @@ export class Building {
         if (identification == "description") {
 
         // itterate trhought a json that have string as key and array of string as value
+            const model_structure = JSON.parse(JSON.parse(this.settings["model_structure"]));
 
-            Object.entries(this.settings["model_structure"]).forEach(([panelName, elements]) => {
+            Object.entries(model_structure).forEach(([panelName, elements]) => {
                 this.panels[panelName] = new Panel(panelName);
                 elements.forEach((elementName) => {
                     let element = this.model.getObjectByName(elementName);
@@ -76,7 +80,6 @@ export class Building {
     }
 
     async allowTransprencyOnChild(child) {
-        
         if (child.isMesh) {
 
             // if (this.settings) {
