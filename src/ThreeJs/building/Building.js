@@ -28,7 +28,7 @@ export class Building {
         let identification;
 
         try {
-            identification = this.settings["model_structure_identification"] == "ifcelementassembly"
+            identification = this.settings["model_structure_identification"]
         } catch (error) {
             console.log('Error ( this.settings["model_structure_identification"] ) : \n', error);
         }
