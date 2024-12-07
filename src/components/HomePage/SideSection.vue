@@ -25,7 +25,7 @@
                 <slot name="description"></slot>
             </p>
         </div>
-        <GetStartedButton :value="'Start building'"/>
+        <GetStartedButton :CTAid="'1st'"/>
         </div>
     </section>
 </template>

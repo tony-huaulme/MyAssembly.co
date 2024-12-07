@@ -185,7 +185,7 @@ import InputText from 'primevue/inputtext';
 import Editor from 'primevue/editor';
 import Tag from 'primevue/tag';
 import Dialog from 'primevue/dialog';
-import ShareDemoModal from '../ShareDemoModal.vue'; 
+import ShareDemoModal from './ShareDemoModal.vue'; 
 import Popover from 'primevue/popover';
 
 import { ref, onMounted, watch } from 'vue';

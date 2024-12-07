@@ -63,7 +63,7 @@ import { ref, computed, onMounted, watch } from 'vue';
 import { useRoute } from 'vue-router';
 import { RouterLink } from 'vue-router'
 
-import FullScreenToggle from '../components/FullScreenToggle.vue';
+import FullScreenToggle from '../components/Icons/FullScreenToggle.vue';
 import ModelViewer from '../components/Model/ModelViewer.vue';
 import ModelControl from '../components/Model/ModelControl.vue';
 import ModelInfos from '../components/Model/ModelInfos.vue';

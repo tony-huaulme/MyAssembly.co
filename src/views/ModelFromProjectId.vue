@@ -77,7 +77,7 @@
 import { ref, computed, onMounted, watch } from 'vue';
 import { useRoute } from 'vue-router';
 
-import FullScreenToggle from '../components/FullScreenToggle.vue';
+import FullScreenToggle from '../components/Icons/FullScreenToggle.vue';
 import ModelViewer from '../components/Model/ModelViewer.vue';
 import ModelControl from '../components/Model/ModelControl.vue';
 import ModelInfos from '../components/Model/ModelInfos.vue';
@@ -314,7 +314,7 @@ onMounted(() => {
 
 <style>
 
-.viewer-background {
+/* .viewer-background { */
     /* Grid pattern layer */
     /* background-image: 
       linear-gradient(rgba(67, 73, 92, 0.379) 1.5px, transparent 1.5px),
@@ -325,7 +325,7 @@ onMounted(() => {
       
     /* Grid size */
     /* background-size: 44px 44px, 44px 44px, cover; */
-}
+/* } */
 
 .canvas-container {
     position: relative;

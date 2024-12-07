@@ -27,7 +27,7 @@
                     </Button>
                         
                 </RouterLink>
-                <GetStartedButton v-else class="header-get-started" ><p class="m-0 ">Start Building</p></GetStartedButton>
+                <GetStartedButton v-else class="header-get-started" :CTAid="'Header Start Building'"><p class="m-0 ">Start Building</p></GetStartedButton>
                 <!-- <Button ><p style="font-weight: bold; margin-right: 1ch; margin: 0;">Get Started</p><p style="margin: 0" class="lg:block hidden"> — it's free</p></Button> -->
             </template>
         </Menubar>

@@ -108,8 +108,7 @@
       </div>
     </div>
   </div>
-
-  <FormDemo :mobile="isPortrait" />
+  <DemoIntroStepper @demoIntroEnded="startTime = Date.now()"></DemoIntroStepper>
 </template>
 
 <script setup>
@@ -220,15 +219,22 @@ function createProject() {
   $router.push(`/authenticate?signup=true`);
 
 }
-
-
+const startTime = ref(0);
+// Function to calculate elapsed time in seconds
+function getElapsedTimeInSeconds() {
+    const elapsedTime = Date.now() - startTime.value;
+    return (elapsedTime / 1000).toFixed(0);
+}
 
 async function ctaStartAproject() {
    const webhookUrl = 'https://discord.com/api/webhooks/1303472816405872670/ppyUbqudY4ClhKmVB2W4DFv31V0myklZJ9xbmb-XZwe71PaZpYINxvV3qAQ6WYwR3kXK';
-   
+   const elapsedTime = getElapsedTimeInSeconds();
    const payload = {
-      content: "CTA Start a Project clicked",
-   };
+    embeds: [{
+        title: `CTA Create Project | ${elapsedTime}s`,
+        color: 51711, // Green color in decimal
+    }]
+    };
 
    try {
       const response = await fetch(webhookUrl, {
@@ -253,17 +259,37 @@ function startAfterDemo() {
   isOpen.value = false;
 }
 
+
+const handleBeforeUnload = async () => {
+    const webhookUrl = 'https://discord.com/api/webhooks/1299083671952691240/0q8stzdn0aowAz5CkIPaRAjl5LCPEEBD-So3ROudKPcy5sNB9Pf0laIzeFd4x_2-nmRb';
+    const elapsedTime = getElapsedTimeInSeconds();
+
+    const payload = { 
+        embeds: [{
+            title: `Left Demo ${elapsedTime}s`,
+            color: 14421739, // Green color in decimal
+        }]
+    };
+
+    fetch(webhookUrl, {method: 'POST', headers: { 'Content-Type': 'application/json'},
+        body: JSON.stringify(payload),
+        keepalive: true
+    });
+ 
+};
+
 // DEMO CODE ENDS HERE
 
 
 
 // MyAssembly.co Components
-import FullScreenToggle from '../components/FullScreenToggle.vue';
+import FullScreenToggle from '../components/Icons/FullScreenToggle.vue';
 import ModelViewer from '../components/Model/ModelViewer.vue';
 import ModelControl from '../components/Model/ModelControl.vue';
 import ModelInfos from '../components/Model/ModelInfos.vue';
 import ProjectInfos from '../components/Model/ProjectInfos.vue';
-import FormDemo from '../components/Demo/FormDemo.vue';
+
+import DemoIntroStepper from '../components/Demo/DemoIntroStepper.vue';
 
 import { Building } from '../ThreeJs/building/Building.js';
 // Get the query params from the current route
@@ -486,6 +512,8 @@ onMounted(() => {
     noAccessToModel.value = props.p_noAccessToModel;
     project_settings.value = props.p_project_settings;
   }
+  startTime.value = Date.now();
+  window.addEventListener('beforeunload', handleBeforeUnload);
 
 
 });

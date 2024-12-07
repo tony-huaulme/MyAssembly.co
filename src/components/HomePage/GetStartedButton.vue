@@ -1,44 +1,63 @@
 <script setup>
     import Button from 'primevue/button';
+    import { ref, onMounted, defineProps } from 'vue';
     import { RouterLink } from 'vue-router'
 
-async function sendWebhookCTA() {
-   const webhookUrl = 'https://discord.com/api/webhooks/1299083671952691240/0q8stzdn0aowAz5CkIPaRAjl5LCPEEBD-So3ROudKPcy5sNB9Pf0laIzeFd4x_2-nmRb';
-   
-   const payload = {
-   embeds: [{
-      title: 'Start Demo',
-      color: 51711, // Green color in decimal
-   }]
-   };
+    const startTime = ref(0);
 
-   try {
-   const response = await fetch(webhookUrl, {
-      method: 'POST',
-      headers: {
-         'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(payload)
-   });
+    // Define props to receive data from the parent component
+    const props = defineProps({
+        CTAid: {
+            type: String,
+            required: false
+        }
+    });
 
-   } catch (error) {
-      console.error('nohk');
-   }
-}
+    // Function to calculate elapsed time in seconds
+    function getElapsedTimeInSeconds() {
+        const elapsedTime = Date.now() - startTime.value;
+        return (elapsedTime / 1000).toFixed(0);
+    }
+
+    async function sendWebhookCTA() {
+        const webhookUrl = 'https://discord.com/api/webhooks/1299083671952691240/0q8stzdn0aowAz5CkIPaRAjl5LCPEEBD-So3ROudKPcy5sNB9Pf0laIzeFd4x_2-nmRb';
+        const elapsedTime = getElapsedTimeInSeconds();
+
+        console.log('CTAid:', props.CTAid);  // Use props.CTAid to access the value
+
+        const payload = {
+            embeds: [{
+                title: `CTA ${props.CTAid ? props.CTAid : ''} | ${elapsedTime}s`,
+                color: 51711, // Green color in decimal
+            }]
+        };
+
+        try {
+            const response = await fetch(webhookUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(payload)
+            });
+        } catch (error) {
+            console.error('Error sending webhook:', error);
+        }
+    }
+
+    onMounted(() => {
+        startTime.value = Date.now();
+    });
 </script>
 
 <template>
-
-<!-- btn btn-primary d-flex flex-row -->
     <RouterLink :to="'/demo'" class="get-started-btn" @click="sendWebhookCTA()" style="z-index: 99999;">       
-        
-            <Button>
-                <slot>
-                    <p class="m-0" style=" margin-right: 1ch">Start Demo</p>
-                    <p class="lg:block hidden m-0"> — It's Easy</p>
-                </slot>
-            </Button>
-            
+        <Button>
+            <slot>
+                <p class="m-0" style=" margin-right: 1ch">Start Demo</p>
+                <p class="lg:block hidden m-0"> — It's Easy</p>
+            </slot>
+        </Button>
     </RouterLink>
 </template>
 

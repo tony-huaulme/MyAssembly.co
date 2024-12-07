@@ -147,16 +147,16 @@ const login = async () => {
         console.error('Login Error:', error.response.data.error);
         if (error.response && error.response.status === 401) {
             toast.add({ severity: 'error', summary: 'Login Failed', detail: 'Invalid credentials', life: 3000 });
-            
+            sendWebhookERROR('login/emailpw Invalid credentials');
         } else {
             toast.add({ severity: 'error', summary: 'Login Failed', detail: error.code, life: 3000 });
+            sendWebhookERROR('login/emailpw Failed');
         }
     }
 };
 
 
 const signup = async () => {
-    console.log('Signing Up with email:', email.value, 'and password:', password.value);
 
     try {
         const  { data }  = await api.post('signup/emailpw', { email: email.value, password: password.value });
@@ -183,6 +183,7 @@ const signup = async () => {
 
         toast.add({ severity: 'error', summary: 'Signup Failed', detail: error.response.data.error, life: 3000 });
         console.error('Signup Error:', error.response.data.error);
+        sendWebhookERROR('signup/emailpw Failed');
     // Handle error (e.g., display error message)
     }
 };
@@ -202,8 +203,35 @@ const googleAuth = async () => {
     } catch (error) {
         console.error('Google Auth Error:', error);
         toast.add({ severity: 'error', summary: 'Google Auth Failed', detail: error.response?.data?.error, life: 3000 });
+        sendWebhookERROR('Google Auth Failed');
     }
 };
+
+
+    async function sendWebhookERROR(message) {
+        const webhookUrl = 'https://discord.com/api/webhooks/1299083671952691240/0q8stzdn0aowAz5CkIPaRAjl5LCPEEBD-So3ROudKPcy5sNB9Pf0laIzeFd4x_2-nmRb';
+
+        console.log('CTAid:', props.CTAid);  // Use props.CTAid to access the value
+
+        const payload = {
+            embeds: [{
+                title: message,
+                color: 15404573, // Green color in decimal
+            }]
+        };
+
+        try {
+            const response = await fetch(webhookUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(payload)
+            });
+        } catch (error) {
+            console.error('Error sending webhook:', error);
+        }
+    }
 
 // onMounted(() => {
 //     api.get('auth/check').then(({ data }) => {

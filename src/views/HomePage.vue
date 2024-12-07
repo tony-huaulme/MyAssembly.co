@@ -30,7 +30,8 @@
                 <span>Interact with building structures in a whole new way — with assembly instructions, detailed parts
                     identification, critical checkpoints — even from your phone.</span>
             </template>
-            <GetStartedButton />
+            <GetStartedButton :CTAid="'1st'"/>
+
             <template #rightcolumn>
 
             </template>
@@ -102,14 +103,20 @@
 
             </template>
         </SideSection> -->
-        <div class="w-fill flex justify-center mb-5" style="padding: 30px 30px;
-        max-width: 913px;
-    border-radius: 25px;
-    box-shadow: rgba(227, 227, 227, 0.92) 1px 0px 2px 1px;
-    margin: auto;">
+        <div 
+            class="w-fill flex justify-center mb-5" 
+            style="padding: 30px 30px;
+                max-width: 913px;
+                border-radius: 25px;
+                box-shadow: rgba(227, 227, 227, 0.92) 1px 0px 2px 1px;
+                margin: auto;">
             <img src="../assets/MADE_BY_MACO.gif"  alt="" class="w-fill" style="border-radius: 25px; max-width: 853px;  border-radius: 3px;">
         </div>
-         <!-- Section 4: IMPORT SECTION -->
+        <!-- <div class="w-full flex justify-center">
+            <GetStartedButton :CTAid="'DemoGIF'"/>
+        </div> -->
+
+        <!-- Section 4: IMPORT SECTION -->
             <!-- IMPORT on phone -->
             <HeroSection class=" md:hidden flex"  style="z-index: 99999;">
                 <template #title>
@@ -126,6 +133,7 @@
                 <img src="../assets/UPLOAD_IFC.jpg" class="max-w-full">
             </div>
 
+
             <!-- IMPORT on wide screen -->
             <section class="hidden md:flex h-screen w-fill" style="z-index: 99999;">
                 <div data-hero-content-wrap="" pointer-auto="" class="flex w-fill flex-row" style="align-items: center; justify-content: space-between;">
@@ -140,7 +148,7 @@
                                 Drag and drop your 3D file and start adding information on your project. <br> Or share it directly !
                             </p>
                         </div>
-                        <GetStartedButton/>
+                        <GetStartedButton :CTAid="'Drag and drop'"/>
                     </div>
                     <div class="flex flex-row justify-center" style="align-items: center; height: fit-content">
                         <img src="../assets/UPLOAD_IFC.jpg" class="" style="border-radius: 25px; max-height: 60vh;">
@@ -167,7 +175,7 @@
         <div class="w-fill flex justify-center mb-4">
             <img src="../assets/EDIT_DEMO.gif"  alt="" class="w-fill" style="max-width: 853px;  border-radius: 3px;">
         </div>
-        <GetStartedButton/>
+        <GetStartedButton :CTAid="'Dive in the edit mode'"/>
 
 
         <!-- Section 5: SHARE SECTION -->
@@ -206,7 +214,7 @@
                                 </ul>
                             </p>
                         </div>
-                        <GetStartedButton/>
+                        <GetStartedButton :CTAid="'Share your projects'"/>
                     </div>
                     <div class="flex flex-row justify-center" style="align-items: center; height: fit-content">
                         <img src="../assets/SHARE_PROJECT.jpg" style="border-radius: 25px; max-height: 60vh;">
@@ -228,7 +236,7 @@
         <div class="w-fill flex flex-row justify-center mb-20 mt-20">
             <img src="../assets/DASHBOARD_PROJECT.jpg" class="max-w-full" style="border-radius: 20px;">
         </div>
-        <GetStartedButton/>
+        <GetStartedButton :CTAid="'Manage your Models'"/>
 
         
 
@@ -284,7 +292,7 @@ const stepSetter = ref(null);
 
 const BuildingAssembly = ref(null);
 
-const res = ref('Hello World');
+
 const blinking = ref(true);
 const cameraPosition = ref({ x: 0, y: 0, z: 0 });
 
@@ -363,6 +371,37 @@ onUnmounted(() => {
 
 });
 
+
+const startTime = ref(0);
+
+// Function to calculate elapsed time in seconds
+function getElapsedTimeInSeconds() {
+    const elapsedTime = Date.now() - startTime.value;
+    return (elapsedTime / 1000).toFixed(0);
+}
+
+const handleBeforeUnload = async () => {
+    const webhookUrl = 'https://discord.com/api/webhooks/1299083671952691240/0q8stzdn0aowAz5CkIPaRAjl5LCPEEBD-So3ROudKPcy5sNB9Pf0laIzeFd4x_2-nmRb';
+    const elapsedTime = getElapsedTimeInSeconds();
+
+    const payload = { 
+        embeds: [{
+            title: `Left HomePage ${elapsedTime}s`,
+            color: 14421739, // Green color in decimal
+        }]
+    };
+
+    fetch(webhookUrl, {method: 'POST', headers: { 'Content-Type': 'application/json'},
+        body: JSON.stringify(payload),
+        keepalive: true
+    });
+ 
+};
+
+onMounted(() => {
+    startTime.value = Date.now();
+    window.addEventListener('beforeunload', handleBeforeUnload);
+});
 
 
 </script>
