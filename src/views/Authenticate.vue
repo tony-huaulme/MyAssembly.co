@@ -124,8 +124,6 @@ function goToNextSignupStep() {
 }
 
 
-
-
 import api from '@/services/api';
 
 const login = async () => {
@@ -210,8 +208,6 @@ const googleAuth = async () => {
 
     async function sendWebhookERROR(message) {
         const webhookUrl = 'https://discord.com/api/webhooks/1299083671952691240/0q8stzdn0aowAz5CkIPaRAjl5LCPEEBD-So3ROudKPcy5sNB9Pf0laIzeFd4x_2-nmRb';
-
-        console.log('CTAid:', props.CTAid);  // Use props.CTAid to access the value
 
         const payload = {
             embeds: [{
