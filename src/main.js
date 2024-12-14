@@ -72,8 +72,15 @@ app.use(ToastService);
 app.directive('ripple', Ripple);
 
 router.beforeEach(to => {
-if (!to.matched.length) window.location = "/404"
+    if (!to.matched.length) window.location = "/404"
 })
+
+router.afterEach((to, from) => {
+    if (window.gtag) {
+        gtag('config', 'G-W3RF7T204Q', { page_path: to.fullPath });
+    }
+});
+
 // Router
 app.use(router);
 
