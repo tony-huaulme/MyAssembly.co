@@ -79,6 +79,13 @@ router.afterEach((to, from) => {
     if (window.gtag) {
         gtag('config', 'G-W3RF7T204Q', { page_path: to.fullPath });
     }
+    if (window.dataLayer) {
+        window.dataLayer.push({
+            event: 'page_view',
+            page_path: to.fullPath,
+            page_title: to.meta.title || document.title,
+        });
+    }
 });
 
 // Router
