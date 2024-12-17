@@ -16,8 +16,8 @@
                         <div class="flex flex-col items-center w-fill" style="height: 100%;">
                             <div class="text-center mt-4 mb-4 text-xl font-semibold">Panel Overview</div>
                             <p>Quickly access panels sorted by groups on the right.</p>
-                            <img v-if="isPortrait" src="@/assets/demo_controle_model_phone.png" alt="Image 1" style="height: 51%;">
-                            <img v-else src="@/assets/demo_controle_model.png" alt="Image 1" class="stepImage">
+                            <img v-if="isPortrait" src="@/assets/demo_controle_model_phone.jpg" alt="Image 1" style="height: 51%;">
+                            <img v-else src="@/assets/demo_controle_model.jpg" alt="Image 1" class="stepImage">
                         </div>
                         <div class="flex pt-1 justify-end" :class="{ 'absolute bottom-5 left-0 right-0  btn-container': !isPortrait, 'fixed bottom-5 right-5 left-5': isPortrait }">
                             <Button label="Next" icon="pi pi-arrow-right" iconPos="right" @click="activateCallback('2')" />
@@ -28,8 +28,8 @@
                             <div class="text-center mt-4 mb-4 text-xl font-semibold">Explore the Model</div>
                             <p>Drag, zoom, and click panels to interact with and explore the model in detail.</p>
                             
-                            <img v-if="isPortrait" src="@/assets/identify_by_clicking_phone.png" alt="Image 1" style="height: 51%;">
-                            <img v-else src="@/assets/identify_by_clicking.png" alt="Image 1" class="stepImage">
+                            <img v-if="isPortrait" src="@/assets/identify_by_clicking_phone.jpg" alt="Image 1" style="height: 51%;">
+                            <img v-else src="@/assets/identify_by_clicking.jpg" alt="Image 1" class="stepImage">
                         </div>
                         <div class="flex pt-1 justify-between" :class="{ 'absolute bottom-5 left-0 right-0 btn-container': !isPortrait, 'fixed bottom-5 right-5 left-5': isPortrait }">
                             <Button label="Back" severity="secondary" icon="pi pi-arrow-left" @click="activateCallback('1')" />
@@ -41,8 +41,8 @@
                             <div class="text-center mt-4 mb-4 text-xl font-semibold">Element Insights</div>
                             <p>Access critical details by clicking blue panel tags.</p>
                             
-                            <img v-if="isPortrait" src="@/assets/pannel_information_phone.png" alt="Image 1" style="height: 51%;">
-                            <img v-else src="@/assets/pannel_information.png" alt="Image 1" class="stepImage">
+                            <img v-if="isPortrait" src="@/assets/pannel_information_phone.jpg" alt="Image 1" style="height: 51%;">
+                            <img v-else src="@/assets/pannel_information.jpg" alt="Image 1" class="stepImage">
 
                         </div>
 
@@ -63,14 +63,13 @@
 import Stepper from 'primevue/stepper';
 import StepList from 'primevue/steplist';
 import StepPanels from 'primevue/steppanels';
-import StepItem from 'primevue/stepitem';
 import Step from 'primevue/step';
 import StepPanel from 'primevue/steppanel';
 
 import {ref,  onMounted } from 'vue';
 
 const displayDemoIntro = ref(true);
-const isPortrait = ref(false);
+const isPortrait = ref(true);
 const startTime = ref(0);
 
 function detectOrientation() {

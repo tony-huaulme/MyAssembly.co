@@ -1,4 +1,6 @@
 <template>
+  <DemoIntroStepper @demoIntroEnded="startTime = Date.now()"></DemoIntroStepper>
+
   <!-- <div class="absolute top-10 right-10">{{ reference }}</div> -->
   <!-- <div 
     v-if="isOpen"
@@ -108,7 +110,6 @@
       </div>
     </div>
   </div>
-  <DemoIntroStepper @demoIntroEnded="startTime = Date.now()"></DemoIntroStepper>
 </template>
 
 <script setup>
