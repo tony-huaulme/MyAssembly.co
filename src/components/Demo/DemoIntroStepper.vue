@@ -20,7 +20,7 @@
                             <img v-else src="@/assets/demo_controle_model.jpg" alt="Image 1" class="stepImage">
                         </div>
                         <div class="flex pt-1 justify-end" :class="{ 'absolute bottom-5 left-0 right-0  btn-container': !isPortrait, 'fixed bottom-5 right-5 left-5': isPortrait }">
-                            <Button label="Next" icon="pi pi-arrow-right" iconPos="right" @click="activateCallback('2')" />
+                            <Button class="stepperBtn" label="Next" icon="pi pi-arrow-right" iconPos="right" @click="activateCallback('2')" />
                         </div>
                     </StepPanel>
                     <StepPanel v-slot="{ activateCallback }" value="2">
@@ -32,8 +32,8 @@
                             <img v-else src="@/assets/identify_by_clicking.jpg" alt="Image 1" class="stepImage">
                         </div>
                         <div class="flex pt-1 justify-between" :class="{ 'absolute bottom-5 left-0 right-0 btn-container': !isPortrait, 'fixed bottom-5 right-5 left-5': isPortrait }">
-                            <Button label="Back" severity="secondary" icon="pi pi-arrow-left" @click="activateCallback('1')" />
-                            <Button label="Next" icon="pi pi-arrow-right" iconPos="right" @click="activateCallback('3')" />
+                            <Button class="stepperBtnLeft" label="Back" severity="secondary" icon="pi pi-arrow-left" @click="activateCallback('1')" />
+                            <Button class="stepperBtn" label="Next" icon="pi pi-arrow-right" iconPos="right" @click="activateCallback('3')" />
                         </div>
                     </StepPanel>
                     <StepPanel v-slot="{ activateCallback }" value="3">
@@ -47,8 +47,8 @@
                         </div>
 
                         <div class="flex pt-1 justify-between" :class="{ 'absolute bottom-5 left-0 right-0 btn-container': !isPortrait, 'fixed bottom-5 right-5 left-5': isPortrait }">
-                            <Button label="Back" severity="secondary" icon="pi pi-arrow-left" @click="activateCallback('2')" />
-                            <Button label="Launch Demo" icon="pi pi-arrow-right" iconPos="right" @click="diveInDemo" />
+                            <Button class="stepperBtnLeft" label="Back" severity="secondary" icon="pi pi-arrow-left" @click="activateCallback('2')" />
+                            <Button class="stepperBtn" label="Launch Demo" icon="pi pi-arrow-right" iconPos="right" @click="diveInDemo" />
                         </div>
                     </StepPanel>
                 </StepPanels>
@@ -156,4 +156,15 @@ onMounted(() => {
     align-items: center;
 }
 
+
+.stepperBtnLeft{
+    position: fixed;
+    left: 0px;
+    bottom: 0px;
+}
+.stepperBtn {
+    position: fixed;
+    right: 0px;
+    bottom: 0px;
+}
 </style>
