@@ -441,7 +441,7 @@
 
         </section>
         <section class="w-fill flex flex-row justify-center items-center md:text-6xl text-4xl font-bold" style="z-index: 99999; height: 20vh; margin-top: 3.5rem;">
-            <GetStartedButton :CTAid="'Share your projects'"/>
+            <GetStartedButton :CTAid="'Last CTA'"/>
         </section>
 
 
