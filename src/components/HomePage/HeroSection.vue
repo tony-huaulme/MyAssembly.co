@@ -4,7 +4,7 @@
         <h1 class="h1 hero-title mb-5">
             <slot name="title"></slot>
         </h1>
-        <p class="text-lg md:text-xl max-w-3xl mx-auto mb-5">
+        <p class="text-lg md:text-xl max-w-3xl mx-auto mb-5" style="max-width: -webkit-fill-available;">
             <slot name="description"></slot>
         </p>
         <!-- <GetStartedButton/> -->

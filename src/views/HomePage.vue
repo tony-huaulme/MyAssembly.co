@@ -238,9 +238,215 @@
         </div>
         <GetStartedButton :CTAid="'Manage your Models'"/>
 
-        
+
+        <section class="w-fill flex flex-row justify-center items-center mb-5 md:text-6xl text-4xl font-bold" style="z-index: 99999; height: 20vh; background-color: white; color:#18181b; margin-top: 6.5rem;">
+            <p>Main Features</p>
+        </section>
+
+        <!-- 3 MAIN FEATURES -->
+        <!-- Identify Panels -->
+        <HeroSection class=" md:hidden flex"  style="z-index: 99999;">
+            <template #title>
+                <span class="md:mt-20">Explore the Model</span>
+            </template>
+            <template #description>
+                <!-- description of the dashboard -->
+                <span>
+                    Quickly access panels sorted by groups on the right.
+                </span>
+            </template>
+        </HeroSection>
+        <div class="md:hidden flex" style="background-color: #18181b !important;">
+            <img src="../assets/A0.jpg" class="max-w-full">
+        </div>
+
+        <!-- Share on wide screen -->
+        <section class="hidden md:flex h-screen w-fill" style="z-index: 99999;">
+            <div data-hero-content-wrap="" pointer-auto="" class="flex w-fill flex-row" style="align-items: center; justify-content: space-between;">
+                <div class="w-1/2 mt-20 flex flex-column justify-center">
+                    <div class="hl_headline-w">
+                        <h1 class="h1 hero-title">
+                            Panel Overview
+                        </h1>
+                    </div>
+                    <div class="hl_subheadline-w is--hero">
+                        <p class="paragraph-l text-secondary">
+                            Quickly access panels sorted by groups on the right.
+                        </p>
+                    </div>
+                    <GetStartedButton :CTAid="'Share your projects'"/>
+                </div>
+                <div class="flex flex-row justify-center" style="align-items: center; height: fit-content">
+                    <img src="../assets/A0.jpg" style="border-radius: 25px; max-height: 60vh;">
+                </div>
+            </div>
+
+        </section>
+
+        <!-- Explore the Model -->
+        <HeroSection class=" md:hidden flex"  style="z-index: 99999;">
+            <template #title>
+                <span class="md:mt-20">Explore the Model</span>
+            </template>
+            <template #description>
+                <!-- description of the dashboard -->
+                <span>
+                    Drag, zoom, and click panels to interact with and explore the model in detail.
+                </span>
+            </template>
+        </HeroSection>
+        <div class="md:hidden flex" style="background-color: #18181b !important;">
+            <img src="../assets/A2.jpg" class="max-w-full">
+        </div>
+
+        <!-- Share on wide screen -->
+        <section class="hidden md:flex h-screen w-fill" style="z-index: 99999;">
+            <div data-hero-content-wrap="" pointer-auto="" class="flex w-fill flex-row" style="align-items: center; justify-content: space-between;">
+                <div class="w-1/2 mt-20 flex flex-column justify-center">
+                    <div class="hl_headline-w">
+                        <h1 class="h1 hero-title">
+                            Explore the Model
+                        </h1>
+                    </div>
+                    <div class="hl_subheadline-w is--hero">
+                        <p class="paragraph-l text-secondary">
+                            Drag, zoom, and click panels to interact with and explore the model in detail.
+                        </p>
+                    </div>
+                    <GetStartedButton :CTAid="'Share your projects'"/>
+                </div>
+                <div class="flex flex-row justify-center" style="align-items: center; height: fit-content">
+                    <img src="../assets/A2.jpg" style="border-radius: 25px; max-height: 60vh;">
+                </div>
+            </div>
+
+        </section>
+                <!-- Explore the Model -->
+                <HeroSection class=" md:hidden flex"  style="z-index: 99999;">
+            <template #title>
+                <span class="md:mt-20">Element Insights</span>
+            </template>
+            <template #description>
+                <!-- description of the dashboard -->
+                <span>
+                    Access critical details by clicking blue panel tags.
+                </span>
+            </template>
+        </HeroSection>
+        <div class="md:hidden flex" style="background-color: #18181b !important;">
+            <img src="../assets/A1.jpg" class="max-w-full">
+        </div>
+
+        <!-- Share on wide screen -->
+        <section class="hidden md:flex h-screen w-fill" style="z-index: 99999;">
+            <div data-hero-content-wrap="" pointer-auto="" class="flex w-fill flex-row" style="align-items: center; justify-content: space-between;">
+                <div class="w-1/2 mt-20 flex flex-column justify-center">
+                    <div class="hl_headline-w">
+                        <h1 class="h1 hero-title">
+                            Element Insights
+                        </h1>
+                    </div>
+                    <div class="hl_subheadline-w is--hero">
+                        <p class="paragraph-l text-secondary">
+                            Access critical details by clicking blue panel tags.
+                        </p>
+                    </div>
+                    <GetStartedButton :CTAid="'Share your projects'"/>
+                </div>
+                <div class="flex flex-row justify-center" style="align-items: center; height: fit-content">
+                    <img src="../assets/A1.jpg" style="border-radius: 25px; max-height: 60vh;">
+                </div>
+            </div>
+
+        </section>
+
+        <section class="w-fill flex flex-row justify-center items-center mb-5 md:text-6xl text-4xl font-bold" style="z-index: 99999; height: 20vh; background-color: white; color:#18181b; margin-top: 6.5rem;">
+            <p>How to Build</p>
+        </section>
+
+        <!-- 1111111111111111 -->
+      <!-- Explore the Model -->
+      <HeroSection class=" md:hidden flex"  style="z-index: 99999;">
+            <template #title>
+                <span class="md:mt-20">Edit mode options</span>
+            </template>
+            <template #description>
+                <!-- description of the dashboard -->
+                <span>
+                </span>
+            </template>
+        </HeroSection>
+        <div class="md:hidden flex" style="background-color: #18181b !important;">
+            <img src="../assets/A4.jpg" class="max-w-full">
+        </div>
+
+        <!-- Share on wide screen -->
+        <section class="hidden md:flex h-screen w-fill" style="z-index: 99999;">
+            <div data-hero-content-wrap="" pointer-auto="" class="flex w-fill flex-row" style="align-items: center; justify-content: space-between;">
+                <div class="w-1/2 mt-20 flex flex-column justify-center">
+                    <div class="hl_headline-w">
+                        <h1 class="h1 hero-title">
+                            Edit mode options
+                        </h1>
+                    </div>
+                    <div class="hl_subheadline-w is--hero">
+                        <p class="paragraph-l text-secondary">
+                        </p>
+                    </div>
+                    <GetStartedButton :CTAid="'Share your projects'"/>
+                </div>
+                <div class="flex flex-row justify-center" style="align-items: center; height: fit-content">
+                    <img src="../assets/A4.jpg" style="border-radius: 25px; max-height: 60vh;">
+                </div>
+            </div>
+
+        </section>
+<!-- 2222222222222222222 -->
+       <!-- Explore the Model -->
+       <HeroSection class=" md:hidden flex"  style="z-index: 99999;">
+            <template #title>
+                <span class="md:mt-20">Provide Information and Guidance</span>
+            </template>
+            <template #description>
+                <!-- description of the dashboard -->
+                <span>
+                    Define the element description and include instructions along with media such as GIFs, images, or videos. Ensure clarity!
+                </span>
+            </template>
+        </HeroSection>
+        <div class="md:hidden flex" style="background-color: #18181b !important;">
+            <img src="../assets/A5.jpg" class="max-w-full">
+        </div>
+
+        <!-- Share on wide screen -->
+        <section class="hidden md:flex h-screen w-fill" style="z-index: 99999;">
+            <div data-hero-content-wrap="" pointer-auto="" class="flex w-fill flex-row" style="align-items: center; justify-content: space-between;">
+                <div class="w-1/2 mt-20 flex flex-column justify-center">
+                    <div class="hl_headline-w">
+                        <h1 class="h1 hero-title">
+                            Provide Information and Guidance
+                        </h1>
+                    </div>
+                    <div class="hl_subheadline-w is--hero">
+                        <p class="paragraph-l text-secondary">
+                            Define the element description and include instructions along with media such as GIFs, images, or videos. Ensure clarity!
+                        </p>
+                    </div>
+                    <GetStartedButton :CTAid="'Share your projects'"/>
+                </div>
+                <div class="flex flex-row justify-center" style="align-items: center; height: fit-content">
+                    <img src="../assets/A5.jpg" style="border-radius: 25px; max-height: 60vh;">
+                </div>
+            </div>
+
+        </section>
+        <section class="w-fill flex flex-row justify-center items-center md:text-6xl text-4xl font-bold" style="z-index: 99999; height: 20vh; margin-top: 3.5rem;">
+            <GetStartedButton :CTAid="'Share your projects'"/>
+        </section>
+
 
     </div>
+
     <!-- <HeroSection>
             <template #title>
                 <span>Made with MyAssembly.co</span>
@@ -268,7 +474,7 @@ import ScrollTop from "primevue/scrolltop";
 import ModelViewer from "../components/Model/ModelViewer.vue";
 import Footer from "../components/HomePage/Footer.vue";
 import GetStartedButton from "../components/HomePage/GetStartedButton.vue";
-
+import DemoIntroHomePage from "../components/HomePage/DemoIntroHomePage.vue";
 
 import Panel from "primevue/panel";
 
