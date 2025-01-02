@@ -1,5 +1,5 @@
 <template>
-  <DemoIntroStepper @demoIntroEnded="startTime = Date.now()"></DemoIntroStepper>
+  <!-- <DemoIntroStepper @demoIntroEnded="startTime = Date.now()"></DemoIntroStepper> -->
 
   <!-- <div class="absolute top-10 right-10">{{ reference }}</div> -->
   <!-- <div 
@@ -84,8 +84,12 @@
 
     <div class="h-screen w-screen flex" :class="{ 'flex-col-reverse': isPortrait, 'flex-row': !isPortrait }">
       <ModelControl class="overflow-auto p-3" :class="{ 'h-1/3  w-screen': isPortrait, 'w-1/3 h-screen': !isPortrait }"
-        @control-model="handleControl" @show-panel-info="modelInfosVisible = true"
-        @show-project-info="projectInfosVisible = true" @nextStepDemo="nextStepDemo($event)" @startDemo="togglePopup"
+        @control-model="handleControl" 
+        @show-panel-info="modelInfosVisible = true"
+        @show-project-info="projectInfosVisible = true" 
+        @nextStepDemo="nextStepDemo($event)" 
+        @startDemo="togglePopup"
+        @playBuild="togglePlayBuild"
         v-model:selectedPanelName="selectedPanelName" :buildingPanels="buildingPanels" :panelBtnOnly="true"
         :projectName="projectName" />
 
@@ -213,6 +217,10 @@ function togglePopup() {
     isOpen.value = !isOpen.value;
 
 
+}
+
+function togglePlayBuild(){
+  ModelBuilding.value.togglePlayMode()
 }
 
 function createProject() {
@@ -411,7 +419,7 @@ async function getProject() {
 // Data transfer between ModelControl and ModelViewer
 
 // define emit to pass data to parent
-const emit = defineEmits(['model-loaded', 'newActivePanel', 'contextMenuTrigger', 'project-settings']);
+const emit = defineEmits(['model-loaded', 'newActivePanel', 'contextMenuTrigger', 'project-settings', 'playBuild']);
 
 watch(() => panelClicked.value, (newVal) => {
   if (newVal) {

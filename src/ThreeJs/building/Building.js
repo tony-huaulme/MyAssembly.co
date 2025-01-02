@@ -10,6 +10,11 @@ export class Building {
         this.model = model;
         this.panels = {};
         this.settings = settings;
+        this.panelGrouped = null;
+        this.playing = false
+        this.stopped = false;
+        this.paused = true;
+
         this.init();
 
         console.log("Builing Initialized with SETTINGS: ", this.settings);
@@ -137,10 +142,8 @@ export class Building {
                 allPanlesNames[index] = item.replace('*', ''); // Replace '*' with an empty string
             }
           });
-        console.log("All Panels Names: ", allPanlesNames);  
         const groups = groupAndSort(allPanlesNames);
-        console.log("Groups: ", groups);
-
+        this.panelGrouped = groups
         return groups
     }
 
@@ -187,7 +190,57 @@ export class Building {
         });
     }
 
+    async togglePlayMode() {
+        return //disabled
+        this.paused = this.playing;
+        this.playing = !this.playing;
+        this.stopped = false;
+
+        this.hideAllPanels()
+
+        for (const groupName of Object.keys({"G-W" : this.panelGrouped["G-W"],"1F-W" : this.panelGrouped["1F-W"],"R" : this.panelGrouped["R"] })) {//"G-W" : this.panelGrouped["G-W"], "1F-W" : this.panelGrouped["1F-W"], 
+            if (this.stopped) break;  // Exit if stopped
+  
+            const panelNames = this.panelGrouped[groupName]
+            for (const panelName of panelNames) {
+                if (this.stopped) break;  // Exit if stopped
+  
+                // Wait for the pause to be released
+                while (this.paused) {
+                  //   console.log("Paused");
+                    if (this.stopped) break;  // Exit if stopped
+                    await new Promise(resolve => setTimeout(resolve, 100)); // Check every 100ms
+                }
+  
+                if (this.stopped) break;  // Exit if stopped
+  
+                await new Promise(resolve => setTimeout(resolve, 333)); // Wait for 333ms
+              //   console.log("group :  ", group);
+              //   console.log("panelNames :  ", panelName);
+                this.panels[panelName].show();
+            }
+        }
+  
+        this.playing = false;
+  
+    }
+  
+
+
     
+    // Method to pause the process
+    pause() {
+        this.paused = true;
+    }
     
+    // Method to resume the process
+    resume() {
+        this.paused = false;
+    }
+    
+    // Method to stop the process
+    stop() {
+        this.stopped = true;
+    }
     
 }

@@ -16,7 +16,7 @@
     <div :style="isPortraitStyle" style="overflow: auto;" id="control-panel-container">
         <div class="control-panel-content-container">
             <div class="flex flex-row p-3">
-                <h1 class="project-name ps-3" :class="{'portraitPorjectName':isPortrait, 'notPortraitProjectName' : !isPortrait}">{{ props.projectName }}</h1>
+                <h1 class="project-name ps-3" :class="{'portraitPorjectName':isPortrait, 'notPortraitProjectName' : !isPortrait}"  @click="$emit('playBuild')">{{ props.projectName }}</h1>
                 <Button 
                     @click="$emit('show-project-info', true)"
                     class="pi pi-info-circle h-fill info-button" 

@@ -15,7 +15,7 @@
                     <StepPanel v-slot="{ activateCallback }" value="1" style="flex: 1;">
                         <div class="flex flex-col items-center w-fill" style="height: 100%;">
                             <div class="text-center mt-4 mb-4 text-xl font-semibold">Panel Overview</div>
-                            <p>Quickly access panels sorted by groups on the right.</p>
+                            <p>Quickly access panels sorted by groups on the left.</p>
                             <img v-if="isPortrait" src="@/assets/demo_controle_model_phone.jpg" alt="Image 1" style="height: 51%;">
                             <img v-else src="@/assets/demo_controle_model.jpg" alt="Image 1" class="stepImage">
                         </div>

@@ -318,6 +318,11 @@ const showContextMenu = (event) => {
   if (activePanel.value) menu.value.show(event);
 };
 
+
+function isEmptyObject(obj) {
+  return Object.keys(obj).length === 0 && obj.constructor === Object;
+}
+
 import api from '@/services/api';
 async function getProject() {
   try {
@@ -325,6 +330,34 @@ async function getProject() {
     projectName.value = data.project_name;
  
     projectSettings.value = JSON.parse(data.settings);
+
+    // if settings empty, generate it
+
+    if (isEmptyObject(projectSettings.value.pannels)) {
+
+      const ms = projectSettings.value.model_structure
+
+      const output = {};
+
+      if(ms){
+        const Jms = JSON.parse(JSON.parse(ms))
+        for (const key in Jms) {
+          output[key] = {
+              description: "",
+              accordions: [] 
+          };
+        }
+
+        console.log("output")
+
+        console.log(output)
+        projectSettings.value.pannels = output
+
+        console.log("generated Settings")
+
+
+      }
+    }
 
 
     const fileKey = data.file3d_link.split('amazonaws.com/')[1]
