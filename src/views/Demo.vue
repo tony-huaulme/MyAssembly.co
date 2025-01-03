@@ -1,5 +1,5 @@
 <template>
-  <!-- <DemoIntroStepper @demoIntroEnded="startTime = Date.now()"></DemoIntroStepper> -->
+  <DemoIntroStepper @demoIntroEnded="startTime = Date.now()"></DemoIntroStepper>
 
   <!-- <div class="absolute top-10 right-10">{{ reference }}</div> -->
   <!-- <div 
